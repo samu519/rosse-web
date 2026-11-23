@@ -41,3 +41,13 @@ if (document.readyState !== 'complete') {
   window.addEventListener('load', finishLoading, {once: true});
   window.addEventListener('pagehide', finishLoading, {once: true});
 }
+
+const productGrid = document.querySelector('.shop-category .catalog > .grid:not(.floral-sheets)');
+if (productGrid) {
+  const cards = Array.from(productGrid.children);
+  for (let index = cards.length - 1; index > 0; index--) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [cards[index], cards[randomIndex]] = [cards[randomIndex], cards[index]];
+  }
+  productGrid.append(...cards);
+}
