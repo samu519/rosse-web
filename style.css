@@ -611,3 +611,29 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
 @media (max-width: 420px) {
   .category-banner img {aspect-ratio: 4 / 5}
 }
+
+.order-link[hidden] {display: none}
+.product .order-form {
+  margin-top: 1rem;
+  padding: .9rem 1rem;
+  border: 1px solid var(--petal);
+  border-radius: 18px;
+  background: #fffafb;
+}
+.order-form summary {color: var(--berry); font-weight: 700}
+.order-form form {display: grid; gap: .5rem; margin-top: .75rem}
+.product .order-form p {margin: 0 0 .3rem}
+.order-form label {font-weight: 600}
+.order-form :is(input, textarea) {
+  min-width: 0;
+  width: 100%;
+  padding: .65rem .8rem;
+  margin-bottom: .3rem;
+  border: 1px solid var(--pink);
+  border-radius: 10px;
+  background: white;
+  color: inherit;
+  font: inherit;
+}
+.order-form textarea {resize: vertical}
+.order-form button {justify-self: start; font: inherit; cursor: pointer}
