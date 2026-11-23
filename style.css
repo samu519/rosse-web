@@ -690,3 +690,120 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
   .story-hero img {height: clamp(190px, 54vw, 320px)}
   .story-feature {padding-inline: 2%}
 }
+
+.home-editorial {
+  --ink: #642039;
+  --paper: #fff5ef;
+  width: min(92%, 1160px);
+  margin: clamp(18px, 3vw, 36px) auto clamp(32px, 7vw, 86px);
+}
+.home-editorial h2 {
+  color: var(--ink);
+  font: normal clamp(2.45rem, 6vw, 5.2rem)/1 Georgia, serif;
+  letter-spacing: -.045em;
+}
+.home-editorial em {color: #a52f5a}
+.home-opening {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: stretch;
+  background: var(--paper);
+  border-radius: clamp(24px, 4vw, 52px);
+  overflow: hidden;
+}
+.home-opening-copy {
+  align-self: center;
+  padding: clamp(24px, 5vw, 72px);
+}
+.home-place {color: var(--berry); font-size: .8rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase}
+.home-opening h1 {
+  color: var(--ink);
+  font: normal clamp(2.8rem, 6.7vw, 6.4rem)/.96 Georgia, serif;
+  letter-spacing: -.055em;
+  margin: 20px 0;
+}
+.home-opening h1 em {display: block}
+.home-opening-copy p:not(.home-place), .home-order p, .home-story p {max-width: 35ch}
+.home-cover, .home-collection {position: relative; display: block; overflow: hidden; isolation: isolate}
+.home-cover img, .home-collection img {display: block; width: 100%; height: 100%; object-fit: cover}
+.home-cover {min-height: clamp(390px, 52vw, 650px)}
+.home-cover img {position: absolute; inset: 0; object-position: center 72%}
+.home-cover > span, .home-collection > span {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: .6rem .9rem;
+  border-radius: 999px;
+  background: #fff6f5ec;
+  color: var(--ink);
+  font-weight: 700;
+}
+.home-editorial #colecciones, .home-editorial #galeria {padding: 0; background: transparent}
+.home-collections {margin-top: clamp(52px, 9vw, 112px)}
+.home-spread {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  grid-template-rows: repeat(2, clamp(142px, 21vw, 240px));
+  gap: clamp(9px, 2vw, 22px);
+}
+.home-collection {border-radius: clamp(17px, 3vw, 38px); background: var(--blush)}
+.home-collection-featured {grid-row: span 2}
+.home-collection-featured img {object-position: center 75%}
+.home-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 7vw, 88px);
+  align-items: center;
+  margin: clamp(52px, 8vw, 112px) 0;
+}
+.home-prints {display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 12px}
+.home-prints a {
+  display: block;
+  border: 7px solid white;
+  border-bottom-width: 18px;
+  border-radius: 2px;
+  box-shadow: 0 9px 24px #64203930;
+  transform: rotate(-7deg);
+}
+.home-prints a + a {transform: translate(-7%, 9%) rotate(7deg)}
+.home-prints img {width: 100%; aspect-ratio: 4 / 5; display: block; object-fit: cover; border-radius: 0}
+.home-story-links {display: flex; flex-wrap: wrap; gap: 12px 24px; color: var(--berry); font-weight: 700}
+.home-order {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 30px;
+  padding: clamp(24px, 6vw, 64px);
+  background: var(--blush);
+  border-radius: clamp(24px, 4vw, 48px);
+  scroll-margin-top: 90px;
+}
+.home-order h2 {margin: 0}
+.home-order p {max-width: 52ch; margin-bottom: 0}
+@media (max-width: 680px) {
+  .home-opening, .home-story {grid-template-columns: 1fr}
+  .home-cover {min-height: clamp(340px, 110vw, 540px)}
+  .home-spread {grid-template-columns: 1fr 1fr; grid-template-rows: clamp(240px, 72vw, 410px) clamp(140px, 46vw, 250px)}
+  .home-collection-featured {grid-column: span 2; grid-row: auto}
+  .home-story {gap: 32px}
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-opening-copy {animation: arrive .65s ease-out both}
+  .home-cover img, .home-collection img {transition: transform .55s ease}
+  @media (hover: hover) {
+    .home-cover:hover img, .home-collection:hover img {transform: scale(1.055)}
+  }
+  @supports (animation-timeline: view()) {
+    .home-collections, .home-story, .home-order {
+      animation: arrive linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
