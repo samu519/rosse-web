@@ -16,4 +16,56 @@
     .choices strong { color: #8a1f4b; font-size: 1.2rem }
   </style>
 </head>
-<body><main><a href="/">← Rossé Admin</a><h1>Celebraciones</h1><p>Vista de demostración · Datos ficticios</p><p>128 clientes · 246 celebraciones · 18 esta semana</p><table><caption>Próximas celebraciones</caption><tr><th>Cliente</th><th>Ocasión</th><th>Estado</th></tr><tr><td>Laura</td><td>Cumpleaños</td><td>Enviado</td></tr><tr><td>Daniel</td><td>Aniversario</td><td>Programado</td></tr><tr><td>María</td><td>Cumpleaños</td><td>Pedido</td></tr><tr><td>Andrea</td><td>Graduación</td><td>Programado</td></tr></table></main></body></html>
+<body><main><a href="/">← Rossé Admin</a><h1>Celebraciones</h1><p>Vista de demostración · Datos ficticios</p><p>128 clientes · 246 celebraciones · 18 esta semana</p><table><caption>Próximas celebraciones</caption><tr><th>Cliente</th><th>Ocasión</th><th>Estado</th></tr><tr><td>Laura</td><td>Cumpleaños</td><td>Enviado</td></tr><tr><td>Daniel</td><td>Aniversario</td><td>Programado</td></tr><tr><td>María</td><td>Cumpleaños</td><td>Pedido</td></tr><tr><td>Andrea</td><td>Graduación</td><td>Programado</td></tr></table><section>
+  <h2>Registro de clientes</h2>
+  <p>Usa datos ficticios para probar el registro.</p>
+  <form id="registry">
+    <label>Nombre <input name="name" required maxlength="80"></label>
+    <label>Correo <input name="email" type="email" required maxlength="254"></label>
+    <button>Registrar cliente</button>
+  </form>
+  <p id="registry-status" role="status"></p>
+  <h3>Registros recientes</h3>
+  <ul id="registry-list"></ul>
+</section>
+<script>
+const form = document.querySelector("#registry");
+const status = document.querySelector("#registry-status");
+const list = document.querySelector("#registry-list");
+const endpoint = "/celebraciones/clientes";
+
+async function loadCustomers() {
+  const response = await fetch(endpoint);
+  if (!response.ok) throw new Error("Registry unavailable");
+  const rows = await response.json();
+  list.replaceChildren(...rows.map(({name, email}) => {
+    const item = document.createElement("li");
+    item.textContent = name + " · " + email;
+    return item;
+  }));
+}
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const button = form.querySelector("button");
+  button.disabled = true;
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(Object.fromEntries(new FormData(form)))
+    });
+    status.textContent = await response.json();
+    if (response.ok) {
+      form.reset();
+      await loadCustomers();
+    }
+  } catch {
+    status.textContent = "No se pudo conectar al registro.";
+  } finally {
+    button.disabled = false;
+  }
+});
+loadCustomers().catch(() => { status.textContent = "No se pudo cargar el registro."; });
+</script>
+</main></body></html>
