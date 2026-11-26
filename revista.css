@@ -1,0 +1,60 @@
+.revista {
+  --ink: #422331;
+  --wine: #8a1f4b;
+  --paper: #fffaf7;
+  --line: #e8cdd5;
+  width: min(92%, 1120px);
+  margin: 28px auto 72px;
+  color: var(--ink);
+}
+.editorial-masthead {padding: clamp(24px, 6vw, 72px) 0 28px; text-align: center; border-bottom: 1px solid var(--line)}
+.editorial-masthead h1, .editorial-article h1 {
+  font: normal clamp(3.1rem, 9vw, 8rem)/.93 Georgia, serif;
+  letter-spacing: -.055em;
+  margin: 12px 0 20px;
+}
+.editorial-masthead p {max-width: 45ch; margin: auto}
+.editorial-label {color: var(--wine); font-size: .81rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase}
+.editorial-categories {display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 19px 0}
+.editorial-categories a {padding: 7px 13px; border: 1px solid var(--line); border-radius: 999px}
+.editorial-categories a:hover, .editorial-categories a:focus-visible {background: #fde9ef}
+.editorial-feature {
+  display: grid; grid-template-columns: 1fr 1fr; overflow: hidden;
+  border-radius: 28px; background: #fde9ef;
+}
+.editorial-feature-copy {padding: clamp(23px, 5vw, 68px); align-self: center}
+.revista h2, .revista h3 {font-family: Georgia, serif; line-height: 1.08}
+.editorial-feature h2 {font-size: clamp(2.25rem, 4.8vw, 4.5rem); letter-spacing: -.05em; margin: 12px 0 20px}
+.editorial-feature-media {min-height: 380px; position: relative}
+.editorial-feature-media img {position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 68%}
+.editorial-picks {margin: 52px 0}
+.editorial-cards, .editorial-departments {display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 3vw, 30px)}
+.editorial-card {border-bottom: 1px solid var(--line); padding-bottom: 20px}
+.editorial-card img {display: block; width: 100%; height: auto; aspect-ratio: 6 / 5; object-fit: cover; object-position: center 72%; border-radius: 18px}
+.editorial-card h3 {margin: 8px 0; font-size: clamp(1.3rem, 2.3vw, 1.8rem)}
+.editorial-card .editorial-label {display: block; margin-top: 14px}
+.editorial-card p {margin-bottom: 0}
+.editorial-department {border-top: 2px solid var(--line); padding: 14px 0 8px; scroll-margin-top: 115px}
+.editorial-department h3 {margin-bottom: 10px}
+.editorial-department p {margin: 0 0 9px}
+.editorial-department a, .editorial-prose a, .editorial-trail a {color: var(--wine); font-weight: 700}
+.editorial-trail {display: flex; flex-wrap: wrap; gap: 8px; margin: 0 auto 24px; font-size: .9rem}
+.editorial-article {width: min(100%, 780px); margin: auto}
+.editorial-article h1 {font-size: clamp(2.75rem, 7vw, 5.7rem)}
+.editorial-standfirst {max-width: 58ch; font-size: clamp(1.12rem, 2vw, 1.42rem)}
+.editorial-article figure {margin: 28px 0 36px}
+.editorial-article figure img {display: block; width: 100%; height: auto; max-height: 580px; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 66%; border-radius: 22px}
+.editorial-prose {max-width: 65ch; margin: auto}
+.editorial-prose h2 {font-size: clamp(1.5rem, 3vw, 2.1rem); margin: 30px 0 10px}
+.editorial-prose p {margin: 0 0 20px}
+.editorial-note {padding: 22px; background: #fde9ef; border-radius: 16px}
+.editorial-actions {display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 20px 0 36px}
+.editorial-footer {flex-direction: row; align-items: center; gap: 12px; color: var(--wine)}
+@media (max-width: 680px) {
+  .editorial-feature, .editorial-departments {grid-template-columns: 1fr}
+  .editorial-feature-media {min-height: 320px}
+  .editorial-cards {grid-template-columns: repeat(2, minmax(0, 1fr))}
+}
+@media (max-width: 370px) {
+  .editorial-cards {grid-template-columns: 1fr}
+}

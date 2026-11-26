@@ -2,6 +2,13 @@
   const header = document.querySelector('.site-header');
   const button = header.querySelector('.menu-toggle');
   const nav = header.querySelector('nav');
+  const galleryLink = nav.querySelector('a[href="galeria.html"]');
+  if (galleryLink && !nav.querySelector('a[href="el-arte-de-regalar.html"]')) {
+    const magazineLink = document.createElement('a');
+    magazineLink.href = 'el-arte-de-regalar.html';
+    magazineLink.textContent = 'Revista';
+    galleryLink.before(magazineLink);
+  }
   const mobile = matchMedia('(max-width:680px)');
   const productsLink = nav.querySelector('a[href="productos.html"]');
   const productsMenu = document.createElement('details');
