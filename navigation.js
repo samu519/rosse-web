@@ -9,6 +9,10 @@
     magazineLink.textContent = 'Revista';
     galleryLink.before(magazineLink);
   }
+  const momentsLink = document.createElement('a');
+  momentsLink.href = '/mis-momentos';
+  momentsLink.textContent = 'Mis momentos';
+  nav.append(momentsLink);
   const compactNavigation = matchMedia('(width < 1024px)');
   const productsLink = nav.querySelector('a[href="productos.html"]');
   const productsMenu = document.createElement('details');
