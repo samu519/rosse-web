@@ -5,32 +5,61 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 </script>
-<meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><title>Contacto y pedidos a domicilio | Rossé Florida</title><meta name="description" content="Contáctanos por WhatsApp para pedir desayunos sorpresa, flores y anchetas con entrega en Florida, Valle del Cauca. Consulta nuestra ubicación y horario."><header class="site-header home-header"><a class="brand" href="index.html" aria-label="Rossé, inicio"><span class="official-mark" aria-hidden="true"></span></a><a class="nav-search" href="productos.html#buscar" aria-label="Buscar productos"><span aria-hidden="true"></span></a><button type="button" class="menu-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menú"><i></i><i></i><i></i></button><nav id="primary-nav" aria-label="Principal"><a href="index.html">Inicio</a><a href="productos.html">Productos</a><a href="galeria.html">Galería</a><a href="sobre-rosse.html">Sobre Rossé</a><a href="contacto.html" aria-current="page">Contacto</a><a class="mobile-contact" href="https://wa.me/573009798063">Hablemos</a></nav><a class="pill" href="https://wa.me/573009798063">Hablemos</a></header><script src="navigation.js" defer></script>
-<main class="catalog">
-  <section class="home-order" aria-labelledby="contact-title">
-    <div>
-      <h1 id="contact-title">Contacto y pedidos</h1>
-      <p>Escríbenos para armar tu regalo. Cuéntanos qué detalle quieres, la fecha de entrega y cómo te gustaría personalizarlo.</p>
+<meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="contacto.css"><title>Contacto y pedidos a domicilio | Rossé Florida</title><meta name="description" content="Contáctanos por WhatsApp para pedir desayunos sorpresa, flores y anchetas con entrega en Florida, Valle del Cauca. Consulta nuestra ubicación y horario."><header class="site-header home-header"><a class="brand" href="index.html" aria-label="Rossé, inicio"><span class="official-mark" aria-hidden="true"></span></a><a class="nav-search" href="productos.html#buscar" aria-label="Buscar productos"><span aria-hidden="true"></span></a><button type="button" class="menu-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Abrir menú"><i></i><i></i><i></i></button><nav id="primary-nav" aria-label="Principal"><a href="index.html">Inicio</a><a href="productos.html">Productos</a><a href="galeria.html">Galería</a><a href="sobre-rosse.html">Sobre Rossé</a><a href="contacto.html" aria-current="page">Contacto</a><a class="mobile-contact" href="https://wa.me/573009798063">Hablemos</a></nav><a class="pill" href="https://wa.me/573009798063">Hablemos</a></header><script src="navigation.js" defer></script>
+<main class="contact-page">
+  <section class="contact-hero" aria-labelledby="contact-title">
+    <figure class="contact-photo">
+      <img src="img/detras-de-rosse.webp" alt="La dueña de Rossé personaliza a mano un globo para un regalo" width="900" height="1200" fetchpriority="high">
+      <figcaption>Detrás de Rossé</figcaption>
+    </figure>
+    <div class="contact-copy">
+      <h1 id="contact-title">Hablemos de <em>tu regalo.</em></h1>
+      <p>Cuéntanos qué detalle tienes en mente y para cuándo lo necesitas.</p>
+      <form class="contact-form" hidden>
+        <div class="contact-fields">
+          <label for="contact-name">Tu nombre
+            <input id="contact-name" name="nombre" autocomplete="given-name" maxlength="80" required>
+          </label>
+          <label for="contact-date">Fecha de entrega <small>(opcional)</small>
+            <input id="contact-date" name="fecha" type="date">
+          </label>
+        </div>
+        <label for="contact-message">¿Qué quieres regalar?
+          <textarea id="contact-message" name="mensaje" rows="4" maxlength="500" required placeholder="Ej. Un desayuno sorpresa con una tarjeta de cumpleaños"></textarea>
+        </label>
+        <button type="submit" class="btn">Continuar en WhatsApp <span aria-hidden="true">↗</span></button>
+      </form>
+      <noscript><p><a class="btn" href="https://wa.me/573009798063">Escribir por WhatsApp</a></p></noscript>
     </div>
-    <a class="btn" href="https://wa.me/573009798063">Escribir por WhatsApp <span aria-hidden="true">↗</span></a>
   </section>
-  <div class="grid" style="margin-block:2rem">
-    <section>
+
+  <section class="contact-cards" aria-label="Datos de contacto">
+    <div>
+      <h2>WhatsApp</h2>
+      <a href="https://wa.me/573009798063">+57 300 979 8063 <span aria-hidden="true">↗</span></a>
+    </div>
+    <div>
       <h2>Horario de atención</h2>
       <p><time datetime="06:00">6:00 a. m.</time> a <time datetime="19:00">7:00 p. m.</time></p>
-      <p><a href="https://wa.me/573009798063">WhatsApp · +57 300 979 8063</a></p>
-    </section>
-    <section>
-      <h2>Ubicación y entregas</h2>
-      <p>Calle 10A #22-14, Florida, Valle del Cauca.</p>
-      <p>Hacemos entregas únicamente en Florida, Valle del Cauca.</p>
-      <a href="https://maps.app.goo.gl/y7vUyewhV3tZuBfD6">Abrir en Google Maps <span aria-hidden="true">↗</span></a>
-    </section>
-  </div>
+    </div>
+    <div>
+      <h2>Ubicación</h2>
+      <a href="https://maps.app.goo.gl/y7vUyewhV3tZuBfD6">Calle 10A #22-14, Florida <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
+
+  <section class="contact-map" aria-labelledby="contact-map-title">
+    <div>
+      <h2 id="contact-map-title">Encuéntranos en Florida</h2>
+      <p>Entregamos únicamente en Florida, Valle del Cauca.</p>
+    </div>
+    <iframe loading="lazy" title="Mapa de Rossé en Calle 10A #22-14, Florida" src="https://www.google.com/maps?cid=6230923405157847844&amp;output=embed"></iframe>
+  </section>
 </main>
+<script src="contacto.js" defer></script>
+
 <footer class="shop-footer">
   <div class="footer-map">
-    <iframe loading="lazy" title="Ubicación de Rossé en Calle 10A #22-14, Florida" src="https://www.google.com/maps?cid=6230923405157847844&amp;output=embed"></iframe>
     <a href="https://maps.app.goo.gl/y7vUyewhV3tZuBfD6">Calle 10A #22-14, Florida, Valle del Cauca</a>
     <p class="footer-hours" style="margin:.4rem 0 0;font-size:.8rem">Horario de atenci&#243;n: 6:00 a. m. a 7:00 p. m.</p>
   </div>

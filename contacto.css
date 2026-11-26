@@ -1,0 +1,59 @@
+.contact-page {
+  width: min(1140px, calc(100% - 2rem));
+  margin: clamp(100px, 13vw, 145px) auto 64px;
+}
+.contact-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  border-radius: 32px;
+  overflow: hidden;
+  background: var(--blush);
+}
+.contact-photo {position: relative; margin: 0; min-height: 540px}
+.contact-photo img {position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center 42%}
+.contact-photo figcaption {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  padding: .45rem .8rem;
+  border-radius: 999px;
+  background: #fff8fa;
+  color: var(--berry);
+}
+.contact-copy {align-self: center; padding: clamp(24px, 5vw, 66px)}
+.contact-copy h1 {margin: 0; color: var(--berry); font-size: clamp(2.5rem, 5vw, 4.8rem); line-height: .98}
+.contact-copy > p {margin: 1.15rem 0 1.45rem}
+.contact-form:not([hidden]), .contact-fields {display: grid; gap: 1rem}
+.contact-fields {grid-template-columns: repeat(2, minmax(0, 1fr))}
+.contact-form label {display: grid; align-content: start; gap: .4rem; min-width: 0; font-weight: 700}
+.contact-form small {display: inline; font-weight: 400}
+.contact-form input, .contact-form textarea {
+  box-sizing: border-box;
+  border: 1px solid #d69eb5;
+  border-radius: 18px;
+  background: #fffcfa;
+  color: inherit;
+  font: inherit;
+  min-width: 0;
+  width: 100%;
+  padding: .7rem .85rem;
+}
+.contact-form textarea {resize: vertical}
+.contact-form .btn {width: 100%; cursor: pointer; font: inherit; font-weight: 700}
+.contact-cards {display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 24px 0 44px}
+.contact-cards > div {padding: clamp(16px, 3vw, 26px); border-radius: 22px; background: var(--blush)}
+.contact-cards > div:first-child {background: var(--berry); color: white}
+.contact-cards > div:last-child {background: #fff8fa; border: 1px solid var(--petal)}
+.contact-cards h2 {font-size: 1.45rem; color: inherit; margin: 0 0 .4rem}
+.contact-cards p {margin: 0}
+.contact-cards a {text-decoration: underline; text-underline-offset: .18em}
+.contact-map h2 {margin-bottom: .25rem}
+.contact-map p {margin: 0 0 1rem}
+.contact-map iframe {display: block; width: 100%; height: clamp(245px, 35vw, 370px); border: 0; border-radius: 24px}
+@media (max-width: 740px) {
+  .contact-hero, .contact-cards {grid-template-columns: 1fr}
+  .contact-photo {min-height: clamp(300px, 82vw, 420px)}
+}
+@media (max-width: 420px) {
+  .contact-fields {grid-template-columns: 1fr}
+}
