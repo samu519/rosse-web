@@ -372,8 +372,20 @@ footer .brand {color:white}
 }
 .catalog-search button {font: inherit; cursor: pointer}
 @media (max-width:680px) {
+  .site-header.home-header {
+    width: 80%;
+    justify-content: space-between;
+    padding: 2px 5px 2px 18px;
+  }
   .home-header .nav-search {margin-left: auto; order: 0}
-  .home-header.menu-ready .menu-toggle {color: white}
+  .home-header .menu-toggle {
+    display: grid;
+    width: 44px;
+    height: 44px;
+    visibility: hidden;
+  }
+  .home-header nav {display: none}
+  .home-header.menu-ready .menu-toggle {color: white; visibility: visible}
   .site-header.home-header.menu-ready nav {color: var(--berry)}
 }
 
@@ -794,7 +806,9 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
   .home-story {gap: 32px}
 }
 @media (prefers-reduced-motion: no-preference) {
-  .home-opening-copy {animation: arrive .65s ease-out both}
+  @media (min-width: 681px) {
+    .home-opening-copy {animation: arrive .65s ease-out both}
+  }
   .home-cover img, .home-collection img {transition: transform .55s ease}
   @media (hover: hover) {
     .home-cover:hover img, .home-collection:hover img {transform: scale(1.055)}

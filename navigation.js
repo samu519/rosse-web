@@ -61,7 +61,8 @@
   window.addEventListener('pageshow', () => setOpen(false));
 })();
 
-if (document.readyState !== 'complete') {
+const mobileHome = document.querySelector('.home-opening') && matchMedia('(max-width:680px)').matches;
+if (document.readyState !== 'complete' && !mobileHome) {
   const veil = document.createElement('dialog');
   veil.className = 'page-loader';
   veil.setAttribute('aria-label', 'Cargando página');
