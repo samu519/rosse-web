@@ -1,4 +1,12 @@
 <!doctype html><html lang="es"><meta charset="utf-8">
+<script>
+  // This file also supplies the HTML for products created in the store panel.
+  const productPath = location.pathname.match(/^\/(regalo-[a-f0-9-]{36})(?:\.html)?\/?$/);
+  const canonicalLink = document.createElement('link');
+  canonicalLink.rel = 'canonical';
+  canonicalLink.href = 'https://rossetienda.online/' + (productPath ? productPath[1] : 'ds01');
+  document.head.append(canonicalLink);
+</script>
 <meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="style.css"><title>Desayuno Mini · Rosse</title><body class="shop-product" data-category="desayunos">
 <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-T5Z5DGN7"></script>
 <script>
