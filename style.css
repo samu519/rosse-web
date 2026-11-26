@@ -807,3 +807,54 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
     }
   }
 }
+
+.products-menu {position: relative}
+.products-menu > summary {
+  display: flex;
+  align-items: center;
+  gap: .4em;
+  padding: 7px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  list-style: none;
+}
+.products-menu > summary::-webkit-details-marker {display: none}
+.products-menu > summary::after {
+  content: "";
+  width: .45em;
+  height: .45em;
+  border: solid currentColor;
+  border-width: 0 1px 1px 0;
+  transform: translateY(-.12em) rotate(45deg);
+}
+.products-menu[open] > summary::after {transform: translateY(.1em) rotate(225deg)}
+.products-menu > summary:hover,
+.products-menu[open] > summary,
+.products-menu-active > summary {background: var(--blush); color: var(--berry)}
+.products-menu-links {
+  position: absolute;
+  z-index: 1;
+  top: calc(100% + 8px);
+  left: 0;
+  min-width: max-content;
+  padding: 6px;
+  color: var(--berry);
+  background: #fff8fa;
+  border: 1px solid #ead4dc;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px #49243824;
+}
+.products-menu-links a {display: block}
+@media (max-width: 850px) {
+  .products-menu > summary {padding: 7px 8px; font-size: .88rem}
+}
+@media (max-width: 680px) {
+  .site-header.menu-ready nav {max-height: calc(100dvh - 90px); overflow-y: auto}
+  .products-menu > summary {padding: 11px 16px}
+  .products-menu-links {
+    position: static;
+    min-width: 0;
+    margin-top: 3px;
+    box-shadow: none;
+  }
+}

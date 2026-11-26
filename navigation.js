@@ -3,19 +3,53 @@
   const button = header.querySelector('.menu-toggle');
   const nav = header.querySelector('nav');
   const mobile = matchMedia('(max-width:680px)');
+  const productsLink = nav.querySelector('a[href="productos.html"]');
+  const productsMenu = document.createElement('details');
+  productsMenu.className = 'products-menu';
+  const productsSummary = document.createElement('summary');
+  productsSummary.textContent = 'Productos';
+  const categoryLinks = document.createElement('div');
+  categoryLinks.className = 'products-menu-links';
+
+  const categories = [
+    ['productos', 'Todos los productos'],
+    ['desayunos', 'Desayunos sorpresa'],
+    ['anchetas', 'Anchetas'],
+    ['flores', 'Flores']
+  ];
+  const currentPage = location.pathname.split('/').pop().replace(/\.html$/, '');
+  for (const [page, label] of categories) {
+    const link = document.createElement('a');
+    link.href = page + '.html';
+    link.textContent = label;
+    if (page === currentPage) link.setAttribute('aria-current', 'page');
+    categoryLinks.append(link);
+  }
+  productsMenu.append(productsSummary, categoryLinks);
+  if (productsLink.hasAttribute('aria-current') || categoryLinks.querySelector('[aria-current]')) {
+    productsMenu.classList.add('products-menu-active');
+  }
+  productsLink.replaceWith(productsMenu);
+
   function setOpen(open) {
     button.setAttribute('aria-expanded', String(open));
     button.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
     nav.inert = mobile.matches && !open;
+    if (!open) productsMenu.open = false;
   }
   header.classList.add('menu-ready');
   setOpen(false);
   button.addEventListener('click', () => setOpen(button.getAttribute('aria-expanded') !== 'true'));
   document.addEventListener('click', event => {
-    if (!header.contains(event.target) || nav.contains(event.target)) setOpen(false);
+    if (!productsMenu.contains(event.target)) productsMenu.open = false;
+    if (!header.contains(event.target) || event.target.closest('nav a')) setOpen(false);
   });
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+    if (event.key !== 'Escape') return;
+    if (productsMenu.open) {
+      productsMenu.open = false;
+      productsSummary.focus();
+    } else if (button.getAttribute('aria-expanded') === 'true') {
       setOpen(false);
       button.focus();
     }
