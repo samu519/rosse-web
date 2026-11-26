@@ -1,72 +1,144 @@
+/* Rossé — El arte de regalar | Editorial redesign */
+/* Scoped to the magazine; shared navigation remains untouched. */
 .revista {
-  --ink: #422331;
-  --wine: #8a1f4b;
-  --paper: #fffaf7;
-  --line: #e8cdd5;
-  width: min(92%, 1120px);
-  margin: 28px auto 72px;
+  --blush: #FDE9EF;
+  --petal: #F2B8C6;
+  --rose: #E88CA4;
+  --raspberry: #C23D6B;
+  --wine: #8A1F4B;
+  --ink: #482534;
+  --muted: #795564;
+  --paper: #FFFAFC;
+  --surface: #FFFFFF;
+  --line: #EACBD5;
+  --display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, serif;
+  width: min(92%, 1200px);
+  margin: clamp(20px, 4vw, 48px) auto 80px;
   color: var(--ink);
+  line-height: 1.65;
 }
-.editorial-masthead {padding: clamp(24px, 6vw, 72px) 0 28px; text-align: center; border-bottom: 1px solid var(--line)}
-.editorial-masthead h1, .editorial-article h1 {
-  font: normal clamp(3.1rem, 9vw, 8rem)/.93 Georgia, serif;
-  letter-spacing: -.055em;
-  margin: 12px 0 20px;
+.revista *, .revista *::before, .revista *::after { box-sizing: border-box; }
+.revista a { color: inherit; text-decoration: none; }
+.revista a:focus-visible { outline: 2px solid var(--raspberry); outline-offset: 5px; border-radius: 3px; }
+.revista h1, .revista h2, .revista h3 { font-family: var(--display); font-weight: 400; line-height: 1.12; letter-spacing: -.035em; color: var(--wine); }
+.revista p { color: var(--muted); }
+.revista .editorial-label { color: var(--wine); font-size: .72rem; font-weight: 700; letter-spacing: .15em; line-height: 1.5; text-transform: uppercase; }
+/* Magazine masthead */
+.editorial-masthead {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  text-align: center;
+  padding: clamp(42px, 7vw, 88px) 20px clamp(32px, 5vw, 56px);
+  background: radial-gradient(ellipse at 100% 0%, var(--petal), transparent 55%), radial-gradient(ellipse at 0% 100%, var(--blush), transparent 65%), var(--paper);
+  border-radius: 32px 32px 8px 8px;
+  border-bottom: 1px solid var(--line);
 }
-.editorial-masthead p {max-width: 45ch; margin: auto}
-.editorial-label {color: var(--wine); font-size: .81rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase}
-.editorial-categories {display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 19px 0}
-.editorial-categories a {padding: 7px 13px; border: 1px solid var(--line); border-radius: 999px}
-.editorial-categories a:hover, .editorial-categories a:focus-visible {background: #fde9ef}
-.editorial-feature {
-  display: grid; grid-template-columns: 1fr 1fr; overflow: hidden;
-  border-radius: 28px; background: #fde9ef;
+.editorial-masthead::before, .editorial-masthead::after {
+  content: ''; position: absolute; z-index: -1; pointer-events: none;
+  width: 210px; height: 210px; border: 1px solid var(--rose); border-radius: 48% 52% 52% 48%; opacity: .25;
 }
-.editorial-feature-copy {padding: clamp(23px, 5vw, 68px); align-self: center}
-.revista h2, .revista h3 {font-family: Georgia, serif; line-height: 1.08}
-.editorial-feature h2 {font-size: clamp(2.25rem, 4.8vw, 4.5rem); letter-spacing: -.05em; margin: 12px 0 20px}
-.editorial-feature-media {min-height: 380px; position: relative}
-.editorial-feature-media img {position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 68%}
-.editorial-picks {margin: 52px 0}
-.editorial-cards, .editorial-departments {display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(12px, 3vw, 30px)}
-.editorial-card {border-bottom: 1px solid var(--line); padding-bottom: 20px}
-.editorial-card img {display: block; width: 100%; height: auto; aspect-ratio: 6 / 5; object-fit: cover; object-position: center 72%; border-radius: 18px}
-.editorial-card h3 {margin: 8px 0; font-size: clamp(1.3rem, 2.3vw, 1.8rem)}
-.editorial-card .editorial-label {display: block; margin-top: 14px}
-.editorial-card p {margin-bottom: 0}
-.editorial-department {border-top: 2px solid var(--line); padding: 14px 0 8px; scroll-margin-top: 115px}
-.editorial-department h3 {margin-bottom: 10px}
-.editorial-department p {margin: 0 0 9px}
-.editorial-department a, .editorial-prose a, .editorial-trail a {color: var(--wine); font-weight: 700}
-.editorial-trail {display: flex; flex-wrap: wrap; gap: 8px; margin: 0 auto 24px; font-size: .9rem}
-.editorial-article {width: min(100%, 780px); margin: auto}
-.editorial-article h1 {font-size: clamp(2.75rem, 7vw, 5.7rem)}
-.editorial-standfirst {max-width: 58ch; font-size: clamp(1.12rem, 2vw, 1.42rem)}
-.editorial-article figure {margin: 28px 0 36px}
-.editorial-article figure img {display: block; width: 100%; height: auto; max-height: 580px; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 66%; border-radius: 22px}
-.editorial-prose {max-width: 65ch; margin: auto}
-.editorial-prose h2 {font-size: clamp(1.5rem, 3vw, 2.1rem); margin: 30px 0 10px}
-.editorial-prose p {margin: 0 0 20px}
-.editorial-note {padding: 22px; background: #fde9ef; border-radius: 16px}
-.editorial-actions {display: flex; flex-wrap: wrap; gap: 8px 14px; margin: 20px 0 36px}
-.editorial-footer {flex-direction: row; align-items: center; gap: 12px; color: var(--wine)}
+.editorial-masthead::before { top: -135px; left: -55px; transform: rotate(35deg); }
+.editorial-masthead::after { bottom: -150px; right: -40px; transform: rotate(-35deg); }
+.editorial-masthead h1 { font-size: clamp(2.8rem, 7.2vw, 6.5rem); margin: 12px 0 18px; text-wrap: balance; }
+.editorial-masthead h1 em { color: var(--raspberry); font-weight: 400; }
+.editorial-masthead p { max-width: 52ch; margin: 0 auto; }
+.editorial-masthead > p:last-child { font-size: clamp(.92rem, 1.5vw, 1.08rem); }
+/* Editorial navigation */
+.editorial-categories { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px clamp(12px, 3vw, 34px); padding: 18px 4px; margin: 0 0 28px; border-bottom: 1px solid var(--line); }
+.editorial-categories a { position: relative; white-space: nowrap; padding: 8px 0; color: var(--wine); font-size: .87rem; font-weight: 600; }
+.editorial-categories a::after { content: ''; position: absolute; bottom: 4px; left: 0; right: 0; height: 1px; background: var(--raspberry); transform: scaleX(0); transition: transform .2s ease; }
+.editorial-categories a:hover::after, .editorial-categories a:focus-visible::after { transform: scaleX(1); }
+/* Cover story */
+.editorial-feature { display: grid; grid-template-columns: .95fr 1.05fr; background: var(--blush); border: 1px solid var(--line); border-radius: 28px; overflow: hidden; }
+.editorial-feature-copy { padding: clamp(26px, 4.7vw, 64px); align-self: center; }
+.editorial-feature h2 { font-size: clamp(2rem, 4.3vw, 3.85rem); margin: 12px 0 18px; text-wrap: balance; }
+.editorial-feature-copy > p:not(.editorial-label) { font-size: 1rem; margin: 0 0 25px; }
+.editorial-feature-media { display: block; position: relative; min-height: 420px; overflow: hidden; }
+.editorial-feature-media img { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; transition: transform .45s ease; }
+.editorial-feature-media:hover img { transform: scale(1.035); }
+.revista .btn { display: inline-flex; justify-content: center; align-items: center; gap: 8px; width: auto; min-height: 44px; padding: 12px 23px; border: 1px solid transparent; border-radius: 999px; background: var(--wine); color: #fff; font-size: .9rem; font-weight: 650; line-height: 1.3; box-shadow: none; transition: background .2s ease, transform .2s ease; }
+.revista .btn:hover { background: var(--raspberry); color: #fff; transform: translateY(-2px); text-decoration: none; }
+/* Latest stories */
+.editorial-picks { margin: clamp(42px, 7vw, 80px) 0; }
+.editorial-picks > h2, .revista > section[aria-labelledby='temas'] > h2 { display: flex; align-items: center; gap: 20px; font-size: clamp(1.9rem, 3.5vw, 2.8rem); margin: 0 0 26px; }
+.editorial-picks > h2::after, .revista > section[aria-labelledby='temas'] > h2::after { content: ''; height: 1px; background: var(--line); flex: 1; }
+.editorial-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(16px, 2.3vw, 28px); }
+.editorial-card { min-width: 0; border-bottom: 1px solid var(--line); padding: 0 0 22px; }
+.editorial-card > a { display: block; }
+.editorial-card img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 60%; border-radius: 18px 18px 6px 6px; transition: filter .25s ease; }
+.editorial-card a:hover img { filter: brightness(1.04); }
+.editorial-card .editorial-label { display: block; margin: 17px 0 7px; font-size: .69rem; }
+.editorial-card h3 { font-size: clamp(1.35rem, 2.1vw, 1.75rem); margin: 0 0 10px; }
+.editorial-card a:hover h3, .editorial-feature h2 a:hover { color: var(--raspberry); }
+.editorial-card p { font-size: .91rem; margin: 0; line-height: 1.6; }
+/* Topic directory */
+.editorial-departments { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.editorial-department { background: var(--paper); border: 1px solid var(--line); border-top: 3px solid var(--rose); border-radius: 6px 6px 18px 18px; padding: clamp(18px, 2.5vw, 28px); scroll-margin-top: 120px; min-width: 0; }
+.editorial-department h3 { font-size: 1.65rem; margin: 0 0 10px; }
+.editorial-department p { font-size: .9rem; margin: 0 0 10px; }
+.editorial-department p:last-child { margin-bottom: 0; }
+.editorial-department a, .editorial-prose a, .editorial-trail a { color: var(--wine); font-weight: 650; text-decoration: underline; text-decoration-color: var(--rose); text-underline-offset: 4px; }
+.editorial-department a:hover, .editorial-prose a:hover, .editorial-trail a:hover { color: var(--raspberry); }
+/* Individual article pages */
+.editorial-trail { display: flex; flex-wrap: wrap; align-items: center; gap: 9px; margin: 0 auto 28px; font-size: .82rem; color: var(--muted); }
+.editorial-article { width: min(100%, 920px); margin: auto; }
+.editorial-article > .editorial-label, .editorial-article > h1, .editorial-article > .editorial-standfirst { text-align: center; }
+.editorial-article h1 { font-size: clamp(2.35rem, 5.8vw, 4.8rem); margin: 15px auto 22px; max-width: 19ch; text-wrap: balance; }
+.editorial-standfirst { max-width: 62ch; margin: 0 auto; font-size: clamp(1.03rem, 1.9vw, 1.25rem); line-height: 1.7; }
+.editorial-article figure { margin: 32px 0 44px; }
+.editorial-article figure img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; max-height: 560px; object-fit: cover; object-position: center 55%; border-radius: 24px; }
+.editorial-article figcaption { margin-top: 10px; color: var(--muted); text-align: center; font-size: .82rem; }
+.editorial-prose { max-width: 66ch; margin: auto; font-size: clamp(1rem, 1.6vw, 1.12rem); line-height: 1.85; }
+.editorial-prose h2 { font-size: clamp(1.65rem, 3vw, 2.35rem); margin: 36px 0 13px; text-wrap: pretty; }
+.editorial-prose h3 { font-size: 1.4rem; margin: 25px 0 12px; }
+.editorial-prose p { margin: 0 0 22px; color: var(--ink); }
+.editorial-note { background: var(--blush); border-left: 4px solid var(--raspberry); border-radius: 0 16px 16px 0; padding: 22px 25px; margin: 35px 0; color: var(--ink); }
+.editorial-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 40px; }
+.editorial-actions .btn { text-decoration: none; }
+.editorial-footer { display: flex; flex-direction: row; justify-content: center; flex-wrap: wrap; align-items: center; gap: 16px 28px; padding: 28px 5%; border-top: 1px solid #F2B8C6; color: #8A1F4B; }
+.editorial-footer a { color: inherit; text-decoration: none; }
+.editorial-footer a:hover { text-decoration: underline; }
+/* Tablet */
+@media (max-width: 1024px) {
+  .editorial-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 20px; }
+  .editorial-card img { aspect-ratio: 4 / 3; }
+  .editorial-feature-media { min-height: 350px; }
+}
+/* Mobile */
 @media (max-width: 680px) {
-  .editorial-feature, .editorial-departments {grid-template-columns: 1fr}
-  .editorial-feature-media {min-height: 320px}
-  .editorial-cards {grid-template-columns: repeat(2, minmax(0, 1fr))}
+  .revista { width: 92%; margin-top: 16px; margin-bottom: 48px; }
+  .editorial-masthead { border-radius: 22px 22px 6px 6px; padding: 36px 16px 28px; }
+  .editorial-masthead h1 { font-size: clamp(2.65rem, 10vw, 3.8rem); }
+  .editorial-categories { justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; padding: 12px 2px; gap: 21px; margin-bottom: 20px; scrollbar-width: thin; scrollbar-color: var(--petal) transparent; }
+  .editorial-feature { grid-template-columns: 1fr; border-radius: 22px; }
+  .editorial-feature-media { grid-row: 1; min-height: 0; aspect-ratio: 5 / 4; }
+  .editorial-feature-copy { padding: 24px; }
+  .editorial-feature h2 { font-size: clamp(1.9rem, 7vw, 2.7rem); }
+  .editorial-cards { gap: 24px 14px; }
+  .editorial-card img { aspect-ratio: 4 / 5; border-radius: 12px 12px 5px 5px; }
+  .editorial-card h3 { font-size: clamp(1.18rem, 4.6vw, 1.5rem); }
+  .editorial-card p { font-size: .84rem; }
+  .editorial-departments { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .editorial-department { padding: 15px; }
+  .editorial-department h3 { font-size: 1.35rem; }
+  .editorial-article figure { margin: 24px 0 30px; }
+  .editorial-article figure img { border-radius: 16px; }
+  .editorial-prose { line-height: 1.8; }
+  .editorial-actions .btn { width: 100%; }
 }
-@media (max-width: 370px) {
-  .editorial-cards {grid-template-columns: 1fr}
+@media (max-width: 380px) {
+  .editorial-cards, .editorial-departments { grid-template-columns: 1fr; }
+  .editorial-card img { aspect-ratio: 5 / 4; }
 }
-
+/* Dark mode — retains Rossé's pink identity without pale panels. */
 @media (prefers-color-scheme: dark) {
-  .revista {
-    --ink: var(--night-ink);
-    --wine: var(--berry);
-    --paper: var(--night-surface);
-    --line: var(--petal);
-  }
-  .editorial-categories a:hover, .editorial-categories a:focus-visible,
-  .editorial-feature, .editorial-note {background: var(--blush)}
-  footer.editorial-footer {color: var(--berry)}
+  .revista { --blush: #3B202E; --petal: #593044; --rose: #AA5977; --raspberry: #F09BB5; --wine: #F2B8C6; --ink: #F9E9EF; --muted: #D5B6C3; --paper: #281922; --surface: #30202A; --line: #60394D; }
+  .revista .btn { background: #8A1F4B; color: #fff; }
+  .revista .btn:hover { background: #A52E59; color: #fff; }
+  .editorial-footer { color: #F2B8C6; border-color: #60394D; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .revista *, .revista *::before, .revista *::after { transition: none !important; animation: none !important; }
+  .revista .btn:hover, .editorial-feature-media:hover img { transform: none; }
 }
