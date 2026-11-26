@@ -1,3 +1,4 @@
+import {customerRegistry} from "./customers.js";
 import celebrations from "./celebraciones.html";
 import products from "./catalog.json";
 import panel from "./panel.html";
@@ -31,6 +32,10 @@ async function administration(req,env,path){
  }
  const page = new Map([["/",adminHome],["/catalogo",panel],["/blog",blogPanel],["/celebraciones",celebrations]]).get(path);
  if(req.method==="GET" && page) return new Response(page,{headers:{"Content-Type":"text/html;charset=utf-8","Cache-Control":"no-store","X-Frame-Options":"DENY","Referrer-Policy":"no-referrer","X-Robots-Tag":"noindex"}});
+ if(path==="/celebraciones/clientes"){
+  try{return await customerRegistry(req,env.DB)}
+  catch(error){console.error("Customer registry unavailable",error.name);return reply("Registro temporalmente no disponible",503)}
+ }
  if(path==="/blog/posts" || path.startsWith("/blog/posts/")){
   try{return await blogAdministration(req,env,path)}
   catch(error){console.error("Blog administration failed",error.message);return reply("La revista no está disponible en este momento",503)}
