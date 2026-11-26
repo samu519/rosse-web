@@ -85,3 +85,77 @@ if (productGrid) {
   }
   productGrid.append(...cards);
 }
+
+// Read the rendered catalog so admin edits and discounts also update search metadata.
+(() => {
+  const isProduct = document.body.classList.contains('shop-product');
+  const isCategory = document.body.classList.contains('shop-category');
+  if (!isProduct && !isCategory) return;
+
+  const store = 'https://rossetienda.online';
+  const catalog = document.querySelector('main.catalog');
+  const product = catalog?.querySelector('.product');
+  const name = (isProduct ? product : catalog)?.querySelector('h1')?.textContent.trim();
+  if (!name) return;
+
+  const page = location.pathname.split('/').filter(Boolean).pop()?.replace(/\.html$/, '');
+  if (!page) return;
+
+  const url = store + '/' + page;
+  const trail = [['Inicio', store + '/']];
+  if (page !== 'productos') trail.push(['Productos', store + '/productos']);
+
+  const parent = catalog.querySelector(':scope > a');
+  if ((isProduct || page === 'catalogo-floral') && parent) {
+    const label = parent.textContent.trim().replace(/^‹\s*/, '');
+    const section = parent.getAttribute('href')?.match(/^([a-z-]+)\.html$/)?.[1];
+    if (label && section) trail.push([label, store + '/' + section]);
+  }
+  trail.push([name, url]);
+
+  const graph = [{
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map(([label, item], index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: label,
+      item
+    }))
+  }];
+
+  if (product) {
+    const images = [...product.querySelectorAll('.portrait, .thumbs button:not([data-catalog]) img')]
+      .map(image => image.getAttribute('src'))
+      .filter(Boolean)
+      .map(src => new URL(src, store + '/').href);
+    const entry = {
+      '@type': 'Product',
+      '@id': url + '#product',
+      name,
+      url,
+      image: [...new Set(images)]
+    };
+    const priceElement = product.querySelector('.product-price');
+    const displayedPrice = priceElement?.querySelector('[data-current-price]') ?? priceElement;
+    const prices = Array.from((displayedPrice?.textContent ?? '').matchAll(/\$\s*(\d+(?:\.\d{3})*)/g),
+      ([, amount]) => Number(amount.replaceAll('.', '')));
+    const offerFields = { priceCurrency: 'COP', url, seller: { '@id': store + '/#business' } };
+    if (prices.length === 1) {
+      entry.offers = { '@type': 'Offer', price: prices[0], ...offerFields };
+    } else if (prices.length > 1) {
+      entry.offers = {
+        '@type': 'AggregateOffer',
+        lowPrice: Math.min(...prices),
+        highPrice: Math.max(...prices),
+        offerCount: prices.length,
+        ...offerFields
+      };
+    }
+    graph.push(entry);
+  }
+
+  const metadata = document.createElement('script');
+  metadata.type = 'application/ld+json';
+  metadata.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+  document.head.append(metadata);
+})();
