@@ -11,7 +11,13 @@
     "gallery": [
       "img/af01.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Canasta decorada",
+      "Productos seleccionados",
+      "Tarjeta personalizada",
+      "Decoración especial"
+    ]
   },
   {
     "id": "cj01",
@@ -25,7 +31,13 @@
     "gallery": [
       "img/cj01.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Caja decorada",
+      "Dulces y snacks",
+      "Tarjeta personalizada",
+      "Decoración especial"
+    ]
   },
   {
     "id": "cj02",
@@ -39,7 +51,13 @@
     "gallery": [
       "img/cj02.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Caja decorada",
+      "Dulces y snacks",
+      "Tarjeta personalizada",
+      "Decoración especial"
+    ]
   },
   {
     "id": "ds01",
@@ -57,7 +75,17 @@
     "gallery": [
       "img/ds01.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Milo o jugo de naranja",
+      "Yogur",
+      "Fruta picada",
+      "Chocolatina o gomitas",
+      "Tarjeta personalizada",
+      "Globos",
+      "Caja de madera decorada"
+    ]
   },
   {
     "id": "ds02",
@@ -71,7 +99,20 @@
     "gallery": [
       "img/ds02.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Milo o jugo de naranja",
+      "Torta personal",
+      "Huevos rancheros",
+      "Yogur",
+      "Fruta picada",
+      "Chocolatina o gomitas",
+      "3 globos con helio",
+      "Globo metalizado",
+      "Tarjeta personalizada",
+      "Caja de madera decorada"
+    ]
   },
   {
     "id": "ds03",
@@ -85,7 +126,19 @@
     "gallery": [
       "img/ds03.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Torta personal",
+      "Milo o jugo de naranja",
+      "Fruta picada",
+      "3 chocolates",
+      "Mix de frutos secos",
+      "Galletas o gomitas",
+      "Globo personalizado",
+      "Tarjeta personalizada",
+      "Caja de madera decorada"
+    ]
   },
   {
     "id": "ds04",
@@ -100,7 +153,20 @@
     "gallery": [
       "img/ds04.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Torta personal",
+      "Milo o jugo de naranja",
+      "Fruta picada",
+      "Yogur y cereal",
+      "Chocolatina",
+      "3 globos con helio",
+      "Mini arco con globos",
+      "Círculo con mensaje personalizado",
+      "Tarjeta personalizada",
+      "Caja de madera decorada"
+    ]
   },
   {
     "id": "ds05",
@@ -117,7 +183,19 @@
     "gallery": [
       "img/ds05.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Mix de frutos secos",
+      "Brownie",
+      "Milo o jugo de naranja",
+      "Torta personal",
+      "Papas o gomitas",
+      "8 globos con helio",
+      "Globo personalizado",
+      "Caja hexagonal de madera decorada",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "ds06",
@@ -131,7 +209,22 @@
     "gallery": [
       "img/ds06.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Yogur y cereal",
+      "Arreglo con flores",
+      "Jugo de naranja o Milo",
+      "Fruta picada",
+      "Mix de frutos secos",
+      "Huevos rancheros",
+      "Torta personal",
+      "Chocolates M&M",
+      "6 globos con helio",
+      "Globo personalizado",
+      "Bandeja de madera con patas, decorada",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "ds08",
@@ -145,7 +238,18 @@
     "gallery": [
       "img/ds08.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Jugo de naranja o Milo",
+      "Torta personal",
+      "Fruta picada",
+      "Chocolatina",
+      "Yogurt",
+      "Globos",
+      "Decoración",
+      "Tarjeta"
+    ]
   },
   {
     "id": "ds09",
@@ -159,7 +263,18 @@
     "gallery": [
       "img/ds09.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Jugo de naranja o Milo",
+      "Torta personal",
+      "Fruta picada",
+      "Chocolates",
+      "Yogurt y cereal",
+      "Globos",
+      "Decoración",
+      "Tarjeta"
+    ]
   },
   {
     "id": "ds10",
@@ -173,7 +288,25 @@
     "gallery": [
       "img/ds10.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Torta personal o brownie",
+      "Bon Yurt o yogur con cereal",
+      "Milo o jugo de naranja",
+      "Chocolates M&M",
+      "Fruta picada",
+      "Gomitas",
+      "Papas o D’Todito",
+      "4 globos con helio",
+      "Globo personalizado",
+      "Globo metalizado",
+      "Huevos rancheros",
+      "Mix de frutos secos",
+      "Arreglo floral",
+      "Tarjeta personalizada",
+      "Caja o bandeja de madera decorada"
+    ]
   },
   {
     "id": "ds11",
@@ -189,7 +322,21 @@
     "gallery": [
       "img/ds11.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Crepes de jamón y queso",
+      "Fruta picada",
+      "Yogur griego",
+      "Torta personal",
+      "Milo o jugo de naranja",
+      "Barra de cereal o chocolatina",
+      "3 globos con helio",
+      "Globo personalizado",
+      "Globo metalizado o número",
+      "Caja de madera pintada",
+      "Tarjeta personalizada",
+      "Arreglo pequeño de margaritas (opcional)"
+    ]
   },
   {
     "id": "fl01",
@@ -203,7 +350,11 @@
     "gallery": [
       "img/fl01.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "20 rosas frescas",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "fl02",
@@ -217,7 +368,13 @@
     "gallery": [
       "img/fl02.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "1 girasol fresco",
+      "Paquete de gomitas",
+      "Ferrero Rocher x4",
+      "2 globos con helio"
+    ]
   },
   {
     "id": "fl03",
@@ -231,7 +388,11 @@
     "gallery": [
       "img/fl03.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "10 flores frescas",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "fl06",
@@ -245,7 +406,12 @@
     "gallery": [
       "img/fl06.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "3 carritos Hot Wheels",
+      "3 rosas eternas de tela",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "fl07",
@@ -259,7 +425,12 @@
     "gallery": [
       "img/fl07.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "1 carro Hot Wheels",
+      "1 rosa eterna",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "fl08",
@@ -273,7 +444,12 @@
     "gallery": [
       "img/fl08.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "3 girasoles frescos",
+      "Ferrero Rocher x4",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "fl09",
@@ -288,7 +464,8 @@
     "gallery": [
       "img/fl09.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "fl10",
@@ -303,7 +480,12 @@
     "gallery": [
       "img/fl10.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "10 rosas frescas",
+      "Ferrero Rocher x4",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "fl11",
@@ -317,7 +499,13 @@
     "gallery": [
       "img/fl11.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "4 rosas frescas",
+      "1 globo metalizado",
+      "5 Ferrero Rocher",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "fl12",
@@ -331,7 +519,13 @@
     "gallery": [
       "img/fl12.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Caja de madera",
+      "7 rosas frescas",
+      "1 girasol fresco",
+      "Mensaje personalizado"
+    ]
   },
   {
     "id": "fl13",
@@ -345,7 +539,11 @@
     "gallery": [
       "img/fl13.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "6 rosas eternas",
+      "Mensaje personalizado"
+    ]
   },
   {
     "id": "fl14",
@@ -359,7 +557,12 @@
     "gallery": [
       "img/fl14.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "1 girasol fresco",
+      "Ferrero Rocher x4",
+      "Tarjeta personalizada"
+    ]
   },
   {
     "id": "floral-02",
@@ -371,7 +574,8 @@
     ],
     "sheet": "img/floral-02.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-03",
@@ -383,7 +587,8 @@
     ],
     "sheet": "img/floral-03.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-04",
@@ -395,7 +600,8 @@
     ],
     "sheet": "img/floral-04.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-05",
@@ -407,7 +613,8 @@
     ],
     "sheet": "img/floral-05.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-07",
@@ -419,7 +626,8 @@
     ],
     "sheet": "img/floral-07.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-08",
@@ -431,7 +639,8 @@
     ],
     "sheet": "img/floral-08.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-09",
@@ -443,7 +652,8 @@
     ],
     "sheet": "img/floral-09.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-10",
@@ -455,7 +665,8 @@
     ],
     "sheet": "img/floral-10.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-11",
@@ -467,7 +678,8 @@
     ],
     "sheet": "img/floral-11.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-12",
@@ -479,7 +691,8 @@
     ],
     "sheet": "img/floral-12.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "floral-13",
@@ -491,7 +704,8 @@
     ],
     "sheet": "img/floral-13.webp",
     "gallery": [],
-    "revision": 0
+    "revision": 0,
+    "includes": []
   },
   {
     "id": "pl01",
@@ -505,7 +719,12 @@
     "gallery": [
       "img/pl01.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Peluche de alta calidad",
+      "Tarjeta personalizada",
+      "Empaque especial"
+    ]
   },
   {
     "id": "pl02",
@@ -519,7 +738,12 @@
     "gallery": [
       "img/pl02.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Peluche de alta calidad",
+      "Tarjeta personalizada",
+      "Empaque especial"
+    ]
   },
   {
     "id": "pl03",
@@ -533,6 +757,11 @@
     "gallery": [
       "img/pl03.webp"
     ],
-    "revision": 0
+    "revision": 0,
+    "includes": [
+      "Peluche de alta calidad",
+      "Tarjeta personalizada",
+      "Empaque especial"
+    ]
   }
 ]
