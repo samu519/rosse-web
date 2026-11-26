@@ -1,0 +1,538 @@
+[
+  {
+    "id": "af01",
+    "name": "Ancheta #01",
+    "category": "anchetas",
+    "price": null,
+    "photos": [
+      "img/af01.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/af01.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "cj01",
+    "name": "Caja #01",
+    "category": "cajas",
+    "price": null,
+    "photos": [
+      "img/cj01.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/cj01.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "cj02",
+    "name": "Caja #02",
+    "category": "cajas",
+    "price": null,
+    "photos": [
+      "img/cj02.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/cj02.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds01",
+    "name": "Desayuno Mini",
+    "category": "desayunos",
+    "price": 56000,
+    "photos": [
+      "img/ds01.webp",
+      "img/ds01-nueva-1.webp",
+      "img/ds01-nueva-2.webp",
+      "img/ds01-nueva-3.webp",
+      "img/ds01-nueva-4.webp"
+    ],
+    "sheet": "img/ds01-catalogo.webp",
+    "gallery": [
+      "img/ds01.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds02",
+    "name": "Desayuno Star",
+    "category": "desayunos",
+    "price": 78000,
+    "photos": [
+      "img/ds02.webp"
+    ],
+    "sheet": "img/ds02-catalogo.webp",
+    "gallery": [
+      "img/ds02.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds03",
+    "name": "Desayuno Mix",
+    "category": "desayunos",
+    "price": 88000,
+    "photos": [
+      "img/ds03.webp"
+    ],
+    "sheet": "img/ds03-catalogo.webp",
+    "gallery": [
+      "img/ds03.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds04",
+    "name": "Desayuno Fiesta",
+    "category": "desayunos",
+    "price": 98000,
+    "photos": [
+      "img/ds04.webp",
+      "img/ds04-nueva-2.webp"
+    ],
+    "sheet": "img/ds04-catalogo.webp",
+    "gallery": [
+      "img/ds04.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds05",
+    "name": "Desayuno Love",
+    "category": "desayunos",
+    "price": 120000,
+    "photos": [
+      "img/ds05.webp",
+      "img/ds05-1.webp",
+      "img/ds05-2.webp",
+      "img/ds05-3.webp"
+    ],
+    "sheet": "img/ds05-catalogo.webp",
+    "gallery": [
+      "img/ds05.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds06",
+    "name": "Desayuno Feliz Día",
+    "category": "desayunos",
+    "price": 154000,
+    "photos": [
+      "img/ds06.webp"
+    ],
+    "sheet": "img/ds06-catalogo.webp",
+    "gallery": [
+      "img/ds06.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds08",
+    "name": "Desayuno Especial",
+    "category": "desayunos",
+    "price": null,
+    "photos": [
+      "img/ds08.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/ds08.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds09",
+    "name": "Desayuno Deluxe",
+    "category": "desayunos",
+    "price": null,
+    "photos": [
+      "img/ds09.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/ds09.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds10",
+    "name": "Desayuno Sweet",
+    "category": "desayunos",
+    "price": 94000,
+    "photos": [
+      "img/ds10.webp"
+    ],
+    "sheet": "img/ds10-catalogo.webp",
+    "gallery": [
+      "img/ds10.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "ds11",
+    "name": "Desayuno Fresh",
+    "category": "desayunos",
+    "price": 95000,
+    "photos": [
+      "img/ds11.webp",
+      "img/ds11-cumple.webp",
+      "img/ds11-original.webp"
+    ],
+    "sheet": "img/ds11-catalogo.webp",
+    "gallery": [
+      "img/ds11.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl01",
+    "name": "Ramo de rosas rosadas y blancas",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl01.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl01.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl02",
+    "name": "Girasoles con globos",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl02.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl02.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl03",
+    "name": "Ramo de rosas rojas con chocolates",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl03.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl03.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl06",
+    "name": "Ramo de snacks con lazo azul",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl06.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl06.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl07",
+    "name": "Ramo de snacks con lazo rojo",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl07.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl07.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl08",
+    "name": "Ramo de tres girasoles",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl08.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl08.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl09",
+    "name": "Ramo de dos girasoles",
+    "category": "flores",
+    "price": 42000,
+    "photos": [
+      "img/fl09-foto.webp",
+      "img/fl09.webp"
+    ],
+    "sheet": "img/floral-06.webp",
+    "gallery": [
+      "img/fl09.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl10",
+    "name": "Rosas rojas con chocolates y bebida",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl10.webp",
+      "img/fl10-1.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl10.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl11",
+    "name": "Rosas rojas con chocolates y mensaje",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl11.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl11.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl12",
+    "name": "Caja floral con girasol y rosas",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl12.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl12.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl13",
+    "name": "Ramo de rosas en tonos pastel",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl13.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl13.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "fl14",
+    "name": "Ramo de girasol con chocolates",
+    "category": "flores",
+    "price": null,
+    "photos": [
+      "img/fl14.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/fl14.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "floral-02",
+    "name": "Girasol con chocolates",
+    "category": "flores",
+    "price": 35000,
+    "photos": [
+      "img/floral-02-foto.webp"
+    ],
+    "sheet": "img/floral-02.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-03",
+    "name": "Ramo de rosas rosadas",
+    "category": "flores",
+    "price": 75000,
+    "photos": [
+      "img/floral-03-foto.webp"
+    ],
+    "sheet": "img/floral-03.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-04",
+    "name": "Caja de girasoles y dulces",
+    "category": "flores",
+    "price": 85000,
+    "photos": [
+      "img/floral-04-foto.webp"
+    ],
+    "sheet": "img/floral-04.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-05",
+    "name": "Ramo de tres girasoles",
+    "category": "flores",
+    "price": 48000,
+    "photos": [
+      "img/floral-05-foto.webp"
+    ],
+    "sheet": "img/floral-05.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-07",
+    "name": "Girasoles con frutas",
+    "category": "flores",
+    "price": 90000,
+    "photos": [
+      "img/floral-07-foto.webp"
+    ],
+    "sheet": "img/floral-07.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-08",
+    "name": "Caja de seis rosas",
+    "category": "flores",
+    "price": 75000,
+    "photos": [
+      "img/floral-08-foto.webp"
+    ],
+    "sheet": "img/floral-08.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-09",
+    "name": "Girasol con frutas",
+    "category": "flores",
+    "price": 65000,
+    "photos": [
+      "img/floral-09-foto.webp"
+    ],
+    "sheet": "img/floral-09.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-10",
+    "name": "Flores surtidas con frutas y globos",
+    "category": "flores",
+    "price": 135000,
+    "photos": [
+      "img/floral-10-foto.webp"
+    ],
+    "sheet": "img/floral-10.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-11",
+    "name": "Ramo de 24 rosas",
+    "category": "flores",
+    "price": 175000,
+    "photos": [
+      "img/floral-11-foto.webp"
+    ],
+    "sheet": "img/floral-11.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-12",
+    "name": "Caja de 12 rosas con globo",
+    "category": "flores",
+    "price": 125000,
+    "photos": [
+      "img/floral-12-foto.webp"
+    ],
+    "sheet": "img/floral-12.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "floral-13",
+    "name": "Caja de 12 rosas con girasol",
+    "category": "flores",
+    "price": 125000,
+    "photos": [
+      "img/floral-13-foto.webp"
+    ],
+    "sheet": "img/floral-13.webp",
+    "gallery": [],
+    "revision": 0
+  },
+  {
+    "id": "pl01",
+    "name": "Peluche #01",
+    "category": "peluches",
+    "price": null,
+    "photos": [
+      "img/pl01.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/pl01.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "pl02",
+    "name": "Peluche #02",
+    "category": "peluches",
+    "price": null,
+    "photos": [
+      "img/pl02.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/pl02.webp"
+    ],
+    "revision": 0
+  },
+  {
+    "id": "pl03",
+    "name": "Peluche #03",
+    "category": "peluches",
+    "price": null,
+    "photos": [
+      "img/pl03.webp"
+    ],
+    "sheet": null,
+    "gallery": [
+      "img/pl03.webp"
+    ],
+    "revision": 0
+  }
+]
