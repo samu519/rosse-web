@@ -1,0 +1,993 @@
+
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Mi Rossé | Mi cuenta</title>
+<style>
+:root {
+  color-scheme: light;
+  --pink: #C23D6B;
+  --berry: #8A1F4B;
+  --blush: #FDE9EF;
+  --petal: #F2B8C6;
+  --paper: #FFFAFC;
+  --surface: #fff;
+  --ink: #482534;
+  --muted: #795564;
+  --line: #EACBD5;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 15px/1.6 system-ui, sans-serif;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+
+h1, h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--berry);
+}
+
+h1 { font-size: clamp(2.5rem, 5vw, 4rem); }
+h2 { font-size: 2rem; }
+
+a { color: var(--berry); }
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button { cursor: pointer; }
+
+button:disabled {
+  cursor: wait;
+  opacity: .55;
+}
+
+.topbar {
+  width: min(92%, 1200px);
+  margin: auto;
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font: italic 38px Georgia, serif;
+  color: var(--berry);
+  text-decoration: none;
+}
+
+.back {
+  text-decoration: none;
+  font-size: .85rem;
+}
+
+main {
+  width: min(92%, 1120px);
+  margin: 25px auto 70px;
+}
+
+.auth {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 620px;
+  border-radius: 32px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+
+.cover {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg, #C23D6B, #8A1F4B
+  );
+  color: white;
+  padding: clamp(30px, 6vw, 70px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cover::before {
+  content: "♡";
+  position: absolute;
+  right: -65px;
+  bottom: -130px;
+  font-size: 440px;
+  color: #ffffff12;
+  pointer-events: none;
+}
+
+.cover h1 { color: white; }
+.cover p { color: #FDE9EF; }
+
+.eyebrow {
+  font-size: .72rem;
+  letter-spacing: .17em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--pink);
+}
+
+.cover .eyebrow { color: #F2B8C6; }
+
+.auth-content {
+  background: var(--surface);
+  padding: clamp(24px, 5vw, 60px);
+}
+
+.tabs {
+  display: flex;
+  background: var(--blush);
+  padding: 5px;
+  border-radius: 50px;
+  margin-bottom: 35px;
+}
+
+.tabs button {
+  flex: 1;
+  border: 0;
+  border-radius: 50px;
+  padding: 12px;
+  background: transparent;
+  color: var(--berry);
+}
+
+.tabs button.active {
+  background: var(--surface);
+  box-shadow: 0 2px 10px #8a1f4b13;
+}
+
+label {
+  display: block;
+  font-size: .85rem;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+input:not([type="checkbox"]),
+select, textarea {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  padding: 13px 15px;
+  margin-bottom: 17px;
+  background: var(--paper);
+  color: var(--ink);
+  outline-color: var(--pink);
+}
+
+textarea { resize: vertical; }
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.primary {
+  display: inline-block;
+  border: 0;
+  border-radius: 50px;
+  padding: 13px 24px;
+  background: var(--berry);
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+form > .primary { width: 100%; }
+
+.secondary {
+  background: var(--blush);
+  color: var(--berry);
+  border: 1px solid var(--line);
+  padding: 10px 18px;
+  border-radius: 50px;
+}
+
+.message {
+  color: var(--berry);
+  overflow-wrap: anywhere;
+  margin: 14px 0;
+}
+
+.muted { color: var(--muted); }
+
+.welcome {
+  background: linear-gradient(
+    120deg, var(--blush), var(--paper)
+  );
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: clamp(25px, 5vw, 55px);
+  margin-bottom: 35px;
+}
+
+.services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.service {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 25px;
+  text-align: left;
+  color: var(--ink);
+  min-height: 170px;
+}
+
+button.service {
+  transition: transform .2s, border-color .2s;
+}
+
+button.service:hover {
+  transform: translateY(-3px);
+  border-color: var(--pink);
+}
+
+.service h3 { margin: 14px 0 6px; }
+
+.service p {
+  font-size: .85rem;
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.service-icon {
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background: var(--blush);
+  color: var(--berry);
+  font-size: 25px;
+}
+
+.future { opacity: .7; }
+
+.coming {
+  font-size: .65rem;
+  color: var(--pink);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.panel {
+  padding: clamp(20px, 4vw, 35px);
+  border: 1px solid var(--line);
+  border-radius: 25px;
+  background: var(--surface);
+  margin-top: 25px;
+}
+
+.panel-heading, .actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.moment {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+
+.moment:last-child { border-bottom: 0; }
+
+.moment-date {
+  background: var(--blush);
+  color: var(--berry);
+  border-radius: 16px;
+  padding: 12px;
+  text-align: center;
+  min-width: 65px;
+}
+
+.moment-date strong {
+  display: block;
+  font: 30px Georgia, serif;
+}
+
+.moment-info {
+  flex: 1;
+  min-width: 140px;
+  overflow-wrap: anywhere;
+}
+
+.moment-info p { margin: 4px 0; }
+
+footer {
+  padding: 30px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+}
+
+@media (max-width: 760px) {
+  .auth { grid-template-columns: 1fr; }
+  .cover { padding: 35px 25px; }
+  .cover h1 { font-size: 2.6rem; }
+  .services {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .service { padding: 17px; }
+}
+
+@media (max-width: 360px) {
+  .services, .field-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --paper: #21151D;
+    --surface: #30202A;
+    --blush: #452536;
+    --ink: #F9E9EF;
+    --muted: #D5B6C3;
+    --berry: #F2B8C6;
+    --pink: #E88CA4;
+    --line: #60394D;
+  }
+
+  .primary {
+    background: #A52E59;
+    color: white;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="topbar">
+  <a class="brand" href="/">Rossé</a>
+  <a class="back" href="/">← Volver a la tienda</a>
+</header>
+
+<main>
+
+<p id="loading">Cargando tu espacio Rossé...</p>
+<p id="message" class="message" role="status"></p>
+
+<!-- LOGIN AND REGISTRATION -->
+
+<section class="auth" id="auth" hidden>
+
+  <div class="cover">
+    <p class="eyebrow">Tu universo Rossé</p>
+
+    <h1>La vida está hecha de pequeños momentos.</h1>
+
+    <p>
+      Recuerda las fechas que importan.
+      Encuentra inspiración y celebra
+      a las personas que más quieres.
+    </p>
+  </div>
+
+  <div class="auth-content">
+
+    <div class="tabs">
+      <button id="loginTab"
+        class="active" type="button">
+        Ingresar
+      </button>
+
+      <button id="registerTab" type="button">
+        Crear cuenta
+      </button>
+    </div>
+
+    <form id="loginForm">
+
+      <h2>Qué bonito volver a verte.</h2>
+      <p class="muted">Bienvenido a tu espacio personal.</p>
+
+      <label for="loginEmail">Correo electrónico</label>
+      <input id="loginEmail" name="correo"
+        type="email" autocomplete="email" required>
+
+      <label for="loginPassword">Contraseña</label>
+      <input id="loginPassword" name="password"
+        type="password"
+        autocomplete="current-password" required>
+
+      <button class="primary" type="submit">
+        Iniciar sesión
+      </button>
+
+      <p class="muted">
+        Recuperación de contraseña próximamente.
+      </p>
+
+    </form>
+
+    <form id="registerForm" hidden>
+
+      <h2>Tu historia comienza aquí.</h2>
+      <p class="muted">
+        Crea tu cuenta y descubre tu universo Rossé.
+      </p>
+
+      <div class="field-row">
+
+        <div>
+          <label for="firstName">Nombre</label>
+          <input id="firstName" name="nombre"
+            maxlength="80"
+            autocomplete="given-name" required>
+        </div>
+
+        <div>
+          <label for="lastName">Apellido</label>
+          <input id="lastName" name="apellido"
+            maxlength="80"
+            autocomplete="family-name" required>
+        </div>
+
+      </div>
+
+      <label for="registerEmail">Correo electrónico</label>
+      <input id="registerEmail" name="correo"
+        type="email" autocomplete="email" required>
+
+      <label for="phone">Teléfono (opcional)</label>
+      <input id="phone" name="telefono"
+        type="tel" maxlength="30" autocomplete="tel">
+
+      <label for="registerPassword">
+        Contraseña (mínimo 15 caracteres)
+      </label>
+
+      <input id="registerPassword" name="password"
+        type="password" minlength="15"
+        autocomplete="new-password" required>
+
+      <button class="primary" type="submit">
+        Crear mi cuenta
+      </button>
+
+      <p class="muted">
+        Registro disponible únicamente en beta privada.
+      </p>
+
+    </form>
+
+  </div>
+</section>
+
+<!-- CUSTOMER DASHBOARD -->
+
+<section id="dashboard" hidden>
+
+  <div class="welcome">
+    <p class="eyebrow">Mi Rossé · Tu espacio personal</p>
+
+    <h1 id="greeting"></h1>
+
+    <p>
+      Siempre hay una buena razón para
+      hacer sonreír a alguien.
+    </p>
+
+    <button class="secondary" id="logout">
+      Cerrar sesión
+    </button>
+  </div>
+
+  <h2>Tu universo Rossé</h2>
+
+  <div class="services">
+
+    <button class="service" id="openMoments">
+      <span class="service-icon">♡</span>
+      <h3>Mis momentos</h3>
+      <p>Guarda tus fechas especiales.</p>
+    </button>
+
+    <button class="service" id="openProfile">
+      <span class="service-icon">☺</span>
+      <h3>Mi perfil</h3>
+      <p>Consulta tu información personal.</p>
+    </button>
+
+    <div class="service future">
+      <span class="coming">Próximamente</span>
+      <h3>Mis pedidos</h3>
+      <p>Consulta tu historial de compras.</p>
+    </div>
+
+    <div class="service future">
+      <span class="coming">Próximamente</span>
+      <h3>Mis favoritos</h3>
+      <p>Guarda los regalos que te encantan.</p>
+    </div>
+
+    <div class="service future">
+      <span class="coming">Próximamente</span>
+      <h3>Rossé Club</h3>
+      <p>Beneficios y sorpresas exclusivas.</p>
+    </div>
+
+    <div class="service future">
+      <span class="coming">Próximamente</span>
+      <h3>Rossé Studio</h3>
+      <p>Descubre nuestras experiencias digitales.</p>
+    </div>
+
+  </div>
+
+  <!-- PROFILE -->
+
+  <section id="profilePanel" class="panel" hidden>
+    <div class="panel-heading">
+      <h2>Mi perfil</h2>
+      <button class="secondary" id="closeProfile">
+        Cerrar
+      </button>
+    </div>
+
+    <p id="profileName"></p>
+    <p id="profileEmail"></p>
+    <p id="profilePhone"></p>
+  </section>
+
+  <!-- SPECIAL DATES -->
+
+  <section id="momentsPanel" class="panel" hidden>
+
+    <div class="panel-heading">
+      <h2>Mis momentos</h2>
+
+      <button class="primary" id="newMoment">
+        + Agregar momento
+      </button>
+    </div>
+
+    <p class="muted">
+      Los momentos que importan, en un solo lugar.
+      Los avisos automáticos aún no están disponibles.
+    </p>
+
+    <form id="momentForm" hidden>
+
+      <input type="hidden" name="id">
+
+      <h3 id="momentFormTitle">Una fecha especial</h3>
+
+      <label for="momentTitle">Título</label>
+      <input id="momentTitle" name="titulo"
+        maxlength="100"
+        placeholder="Cumpleaños de mamá" required>
+
+      <label for="momentType">Ocasión</label>
+
+      <select id="momentType" name="tipo">
+        <option>Cumpleaños</option>
+        <option>Aniversario</option>
+        <option>Graduación</option>
+        <option>Otra celebración</option>
+      </select>
+
+      <label for="momentDate">Fecha</label>
+      <input id="momentDate"
+        name="fecha" type="date" required>
+
+      <label>
+        <input type="checkbox" name="es_anual" checked>
+        Repetir todos los años
+      </label>
+
+      <label for="notice">Avisarme con anticipación</label>
+
+      <select id="notice" name="dias_aviso">
+        <option value="0">El mismo día</option>
+        <option value="3">3 días antes</option>
+        <option value="7" selected>7 días antes</option>
+        <option value="15">15 días antes</option>
+        <option value="30">30 días antes</option>
+      </select>
+
+      <label for="notes">Nota personal</label>
+
+      <textarea id="notes" name="nota"
+        maxlength="500"
+        placeholder="Ideas de regalos..."
+        rows="3"></textarea>
+
+      <button class="primary" type="submit">
+        Guardar momento
+      </button>
+
+      <button class="secondary"
+        type="button" id="cancelMoment">
+        Cancelar
+      </button>
+
+    </form>
+
+    <div id="momentsList"></div>
+
+  </section>
+
+</section>
+
+</main>
+
+<footer>
+  Rossé · Los pequeños detalles hacen grandes recuerdos.
+</footer>
+
+<script src="/rosse-api.js"></script>
+
+<script>
+const $ = id => document.getElementById(id);
+
+let currentUser = null;
+
+function message(text = "") {
+  $("message").textContent = text;
+}
+
+function showAuth(mode = "login") {
+  currentUser = null;
+
+  $("loading").hidden = true;
+  $("auth").hidden = false;
+  $("dashboard").hidden = true;
+  $("profilePanel").hidden = true;
+  $("momentsPanel").hidden = true;
+  $("momentForm").hidden = true;
+  $("momentForm").reset();
+  $("momentsList").replaceChildren();
+
+  $("loginForm").hidden = mode !== "login";
+  $("registerForm").hidden = mode !== "register";
+
+  $("loginTab").classList.toggle(
+    "active", mode === "login"
+  );
+
+  $("registerTab").classList.toggle(
+    "active", mode === "register"
+  );
+}
+
+function showDashboard(user) {
+  currentUser = user;
+
+  $("loading").hidden = true;
+  $("auth").hidden = true;
+  $("dashboard").hidden = false;
+
+  $("greeting").textContent =
+    `¡Hola, ${user.nombre}!`;
+
+  $("profileName").textContent =
+    `Nombre: ${user.nombre} ${user.apellido}`;
+
+  $("profileEmail").textContent =
+    `Correo: ${user.correo}`;
+
+  $("profilePhone").textContent =
+    `Teléfono: ${user.telefono || "No registrado"}`;
+
+  message();
+}
+
+async function busy(form, action) {
+  const button = form.querySelector(
+    'button[type="submit"]'
+  );
+
+  button.disabled = true;
+  message();
+
+  try {
+    await action();
+  } catch (error) {
+    message(error.message);
+  } finally {
+    button.disabled = false;
+  }
+}
+
+$("loginTab").onclick = () => {
+  message();
+  showAuth("login");
+};
+
+$("registerTab").onclick = () => {
+  message();
+  showAuth("register");
+};
+
+$("loginForm").onsubmit = event => {
+  event.preventDefault();
+
+  busy(event.target, async () => {
+    const f = event.target.elements;
+
+    const result = await Rossé.login(
+      f.correo.value,
+      f.password.value
+    );
+
+    event.target.reset();
+    showDashboard(result.usuario);
+  });
+};
+
+$("registerForm").onsubmit = event => {
+  event.preventDefault();
+
+  busy(event.target, async () => {
+    const data = Object.fromEntries(
+      new FormData(event.target)
+    );
+
+    const result = await Rossé.register(data);
+
+    event.target.reset();
+    showDashboard(result.usuario);
+  });
+};
+
+$("logout").onclick = async () => {
+  $("logout").disabled = true;
+
+  try {
+    await Rossé.logout();
+    showAuth();
+    message("Has cerrado sesión.");
+  } catch (error) {
+    message(error.message);
+  } finally {
+    $("logout").disabled = false;
+  }
+};
+
+$("openProfile").onclick = () => {
+  $("momentsPanel").hidden = true;
+  $("profilePanel").hidden = false;
+  $("profilePanel").scrollIntoView({
+    block: "start"
+  });
+};
+
+$("closeProfile").onclick = () => {
+  $("profilePanel").hidden = true;
+};
+
+$("openMoments").onclick = async () => {
+  $("profilePanel").hidden = true;
+  $("momentsPanel").hidden = false;
+
+  $("momentsPanel").scrollIntoView({
+    block: "start"
+  });
+
+  await loadMoments();
+};
+
+function editMoment(moment = null) {
+  const form = $("momentForm");
+  const f = form.elements;
+
+  form.reset();
+  form.hidden = false;
+
+  f.id.value = moment?.id || "";
+  f.titulo.value = moment?.titulo || "";
+  f.tipo.value = moment?.tipo || "Cumpleaños";
+  f.fecha.value = moment?.fecha || "";
+  f.es_anual.checked = moment
+    ? Number(moment.es_anual) === 1
+    : true;
+  f.dias_aviso.value = moment?.dias_aviso ?? 7;
+  f.nota.value = moment?.nota || "";
+
+  $("momentFormTitle").textContent = moment
+    ? "Editar momento"
+    : "Una fecha especial";
+
+  form.scrollIntoView({ block: "start" });
+}
+
+$("newMoment").onclick = () => editMoment();
+
+$("cancelMoment").onclick = () => {
+  $("momentForm").hidden = true;
+};
+
+$("momentForm").onsubmit = event => {
+  event.preventDefault();
+
+  busy(event.target, async () => {
+    const f = event.target.elements;
+
+    const data = {
+      titulo: f.titulo.value,
+      tipo: f.tipo.value,
+      fecha: f.fecha.value,
+      es_anual: f.es_anual.checked ? 1 : 0,
+      dias_aviso: Number(f.dias_aviso.value),
+      nota: f.nota.value
+    };
+
+    if (f.id.value) {
+      await Rossé.updateMoment(f.id.value, data);
+    } else {
+      await Rossé.addMoment(data);
+    }
+
+    event.target.hidden = true;
+    message("Tu momento se ha guardado.");
+    await loadMoments();
+  });
+};
+
+function element(tag, className, text) {
+  const node = document.createElement(tag);
+  node.className = className || "";
+
+  if (text !== undefined) {
+    node.textContent = text;
+  }
+
+  return node;
+}
+
+async function loadMoments() {
+  const list = $("momentsList");
+  const user = currentUser;
+
+  list.textContent = "Cargando tus momentos...";
+
+  try {
+    const result = await Rossé.getMoments();
+
+    if (currentUser !== user) return;
+
+    const moments = result.momentos;
+
+    list.replaceChildren();
+
+    if (!moments.length) {
+      list.textContent =
+        "Todavía no tienes fechas especiales. " +
+        "Agrega tu primer momento.";
+      return;
+    }
+
+    for (const m of moments) {
+
+      const card = element("article", "moment");
+      const date = new Date(m.fecha + "T00:00:00Z");
+
+      const day = element("div", "moment-date");
+
+      day.append(
+        element("strong", "", m.fecha.slice(8, 10)),
+        element("span", "", date.toLocaleDateString(
+          "es-CO",
+          {
+            month: "short",
+            year: "numeric",
+            timeZone: "UTC"
+          }
+        ))
+      );
+
+      const info = element("div", "moment-info");
+
+      info.append(
+        element("strong", "", m.titulo),
+        element("p", "muted", m.tipo),
+        element(
+          "small",
+          "muted",
+          (m.es_anual ? "Anual · " : "") +
+          "Aviso: " + m.dias_aviso + " días"
+        )
+      );
+
+      if (m.nota) {
+        info.append(element("p", "", m.nota));
+      }
+
+      const actions = element("div", "actions");
+
+      const edit = element(
+        "button", "secondary", "Editar"
+      );
+
+      edit.onclick = () => editMoment(m);
+
+      const remove = element(
+        "button", "secondary", "Eliminar"
+      );
+
+      remove.onclick = async () => {
+        if (!confirm("¿Eliminar esta fecha especial?")) {
+          return;
+        }
+
+        remove.disabled = true;
+
+        try {
+          await Rossé.deleteMoment(m.id);
+          message("Momento eliminado.");
+          await loadMoments();
+        } catch (error) {
+          message(error.message);
+          remove.disabled = false;
+        }
+      };
+
+      actions.append(edit, remove);
+      card.append(day, info, actions);
+      list.append(card);
+    }
+
+  } catch (error) {
+    if (currentUser === user) {
+      list.textContent = error.message;
+    }
+  }
+}
+
+async function init() {
+  try {
+    const result = await Rossé.session();
+
+    showDashboard(result.usuario);
+
+    if (location.hash === "#momentos") {
+      $("openMoments").click();
+    }
+
+  } catch (error) {
+    showAuth();
+
+    if (error.message !== "Inicia sesión") {
+      message(error.message);
+    }
+  }
+}
+
+init();
+</script>
+
+</body>
+</html>
