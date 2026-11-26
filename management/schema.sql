@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS product_edits (
+ id TEXT PRIMARY KEY,
+ revision INTEGER NOT NULL,
+ content TEXT NOT NULL
+);

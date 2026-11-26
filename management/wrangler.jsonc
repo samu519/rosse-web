@@ -1,0 +1,8 @@
+{
+ "name":"rosse-catalog-admin","main":"src/worker.js","compatibility_date":"2026-06-01",
+ "workers_dev":false,"preview_urls":false,
+ "routes":[{"pattern":"admin.rossetienda.online","custom_domain":true},{"pattern":"rossetienda.online/*","zone_name":"rossetienda.online"}],
+ "d1_databases":[{"binding":"DB","database_name":"rosse-catalog","database_id":"REPLACE_WITH_D1_ID"}],
+ "r2_buckets":[{"binding":"PHOTOS","bucket_name":"rosse-catalog-photos"}],
+ "ratelimits":[{"name":"LOGIN_LIMIT","namespace_id":"7031","simple":{"limit":10,"period":60}}]
+}
