@@ -77,6 +77,21 @@ if (document.readyState !== 'complete' && !mobileHome) {
   window.addEventListener('pagehide', finishLoading, {once: true});
 }
 
+const footerMap = document.querySelector('iframe[data-map-src]');
+if (footerMap) {
+  const loadMap = () => { footerMap.src = footerMap.dataset.mapSrc; };
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      loadMap();
+    }, { rootMargin: '160px' });
+    observer.observe(footerMap);
+  } else {
+    loadMap();
+  }
+}
+
 const productGrid = document.querySelector('.shop-category .catalog > .grid:not(.floral-sheets)');
 if (productGrid) {
   const cards = Array.from(productGrid.children);
