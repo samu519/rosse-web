@@ -1,5 +1,8 @@
 import products from "./catalog.json";
 import panel from "./panel.html";
+import adminHome from "./admin.html";
+import blogPanel from "./blog-panel.html";
+import {blogAdministration, blogArticle, blogIndex} from "./blog.js";
 const admin = "admin.rossetienda.online";
 const store = "https://rossetienda.online";
 const categories = {desayunos:"Desayunos",anchetas:"Anchetas",flores:"Flores",cajas:"Cajas",peluches:"Peluches"};
@@ -25,7 +28,12 @@ async function administration(req,env,path){
   const limit=await env.LOGIN_LIMIT.limit({key:req.headers.get("CF-Connecting-IP")||"local"});
   return limit.success ? new Response("Inicia sesión con tu correo y contraseña",{status:401,headers:{"WWW-Authenticate":'Basic realm="Rossé", charset="UTF-8"',"Cache-Control":"no-store"}}) : reply("Intenta de nuevo en un minuto",429);
  }
- if(req.method==="GET" && path==="/") return new Response(panel,{headers:{"Content-Type":"text/html;charset=utf-8","Cache-Control":"no-store","X-Frame-Options":"DENY","Referrer-Policy":"no-referrer","X-Robots-Tag":"noindex"}});
+ const page = new Map([["/",adminHome],["/catalogo",panel],["/blog",blogPanel]]).get(path);
+ if(req.method==="GET" && page) return new Response(page,{headers:{"Content-Type":"text/html;charset=utf-8","Cache-Control":"no-store","X-Frame-Options":"DENY","Referrer-Policy":"no-referrer","X-Robots-Tag":"noindex"}});
+ if(path==="/blog/posts" || path.startsWith("/blog/posts/")){
+  try{return await blogAdministration(req,env,path)}
+  catch(error){console.error("Blog administration failed",error.message);return reply("La revista no está disponible en este momento",503)}
+ }
  if(req.method==="GET" && path==="/products"){const changes=await edits(env);return reply([...new Map([...originals,...changes]).values()].filter(p=>!p.deleted));}
  if(req.headers.get("Origin")!==new URL(req.url).origin)return reply("Origen inválido",403);
  if(req.method==="POST" && path==="/photos"){
@@ -154,6 +162,18 @@ export default {async fetch(req,env){
  if(u.hostname!==new URL(store).hostname)return reply("Dominio desconocido",404);
  if(asset.test(u.pathname)){
   const obj=await env.PHOTOS.get(u.pathname.slice(7));return obj?new Response(obj.body,{headers:{"Content-Type":"image/webp","Cache-Control":"public,max-age=31536000,immutable","X-Content-Type-Options":"nosniff"}}):reply("Foto desconocida",404);
+ }
+ if(u.pathname.startsWith("/revista-")){
+  try{
+   const article=await blogArticle(req,env,u,esc);
+   if(article)return article;
+  }catch(error){console.error("Blog read failed",error.message);return reply("La revista no está disponible en este momento",503)}
+ }
+ if(req.method==="GET" && ["/el-arte-de-regalar","/el-arte-de-regalar.html","/sitemap.xml"].includes(u.pathname)){
+  const origin=await fetch(req);
+  if(!origin.ok)return origin;
+  try{return await blogIndex(origin,u.pathname,env,esc)}
+  catch(error){console.error("Blog index failed",error.message);return origin}
  }
  const page=u.pathname.split("/").pop().replace(/\.html$/,"");
  const dynamic=newId.test(page) && /^\/[^/]+$/.test(u.pathname);

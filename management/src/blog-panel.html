@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rossé · Administrar blog</title>
+  <style>
+    * { box-sizing: border-box }
+    [hidden] { display: none !important }
+    body { max-width: 790px; margin: auto; padding: 24px; background: #fff8fa; color: #462237; font: 1rem/1.55 system-ui, sans-serif }
+    a { color: #8a1f4b }
+    h1 { font: normal clamp(2.5rem, 6vw, 4rem)/1 Georgia, serif; margin-bottom: .35em }
+    label { display: grid; gap: 5px; margin: 14px 0; font-weight: 600 }
+    input, textarea, select, button { font: inherit; color: inherit; border: 1px solid #cda8b7; border-radius: 12px; padding: 10px; background: white; min-width: 0 }
+    textarea { resize: vertical }
+    button { cursor: pointer }
+    button:disabled { opacity: .6; cursor: wait }
+    .primary { background: #8a1f4b; color: white; border-color: #8a1f4b }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+    #posts { list-style: none; padding: 0 }
+    #posts li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid #ebcad8 }
+    small { font-weight: 400 }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">‹ Inicio del panel</a>
+    <h1>Administrar blog</h1>
+    <p><a href="https://rossetienda.online/el-arte-de-regalar">Ver El arte de regalar</a></p>
+  </header>
+  <p id="status" role="status"></p>
+  <section id="library">
+    <button class="primary" id="new" type="button" disabled>Nuevo artículo</button>
+    <ul id="posts"></ul>
+  </section>
+  <form id="editor" hidden>
+    <fieldset>
+      <legend id="editor-title">Nuevo artículo</legend>
+      <label>Título<input name="title" required maxlength="120"></label>
+      <label>Categoría<select name="category" required>
+        <option>Celebraciones</option><option>Amor</option><option>Familia</option>
+        <option>Flores</option><option>Guías de regalo</option><option>Historias Rossé</option>
+      </select></label>
+      <label>Entradilla<textarea name="summary" rows="3" required maxlength="300"></textarea></label>
+      <label>Texto del artículo
+        <small>Separa los párrafos con una línea en blanco. Puedes empezar una línea con ## y un espacio para crear un subtítulo.</small>
+        <textarea name="body" rows="13" required maxlength="20000"></textarea>
+      </label>
+      <label>Foto de portada<select name="cover" required>
+        <option value="taller">En el taller de Rossé</option>
+        <option value="desayuno">Desayuno Fresh</option>
+        <option value="flores">Rosas rosadas</option>
+        <option value="ancheta">Ancheta de dulces</option>
+      </select></label>
+      <div class="actions">
+        <button type="button" id="cancel">Volver a artículos</button>
+        <button type="submit" value="draft">Guardar borrador</button>
+        <button type="submit" value="published" class="primary">Publicar artículo</button>
+      </div>
+    </fieldset>
+  </form>
+  <script>
+    const store = 'https://rossetienda.online';
+    const form = document.querySelector('#editor');
+    const fieldset = form.querySelector('fieldset');
+    const library = document.querySelector('#library');
+    const list = document.querySelector('#posts');
+    const status = document.querySelector('#status');
+    const newButton = document.querySelector('#new');
+    let current = null;
+    let posts = [];
+
+    async function api(path, options) {
+      const response = await fetch(path, options);
+      const data = await response.json();
+      if (!response.ok) throw Error(typeof data === 'string' ? data : 'No pudimos completar el cambio.');
+      return data;
+    }
+
+    function openEditor(post) {
+      current = post;
+      form.reset();
+      document.querySelector('#editor-title').textContent = post?.title || 'Nuevo artículo';
+      if (post) for (const name of ['title', 'category', 'summary', 'body', 'cover']) form.elements[name].value = post[name];
+      form.querySelector('button[value="draft"]').textContent = post?.published_at ? 'Retirar y guardar borrador' : 'Guardar borrador';
+      library.hidden = true;
+      form.hidden = false;
+      form.elements.title.focus();
+    }
+
+    function showList() {
+      form.hidden = true;
+      library.hidden = false;
+      list.replaceChildren();
+      for (const post of posts) {
+        const item = document.createElement('li');
+        const edit = document.createElement('button');
+        edit.textContent = post.title;
+        edit.onclick = () => openEditor(post);
+        const state = document.createElement('span');
+        state.textContent = post.published_at ? 'Publicado' : 'Borrador';
+        item.append(edit, state);
+        if (post.published_at) {
+          const link = document.createElement('a');
+          link.href = store + '/revista-' + post.slug;
+          link.textContent = 'Abrir artículo';
+          item.append(link);
+        }
+        list.append(item);
+      }
+      newButton.disabled = false;
+    }
+
+    newButton.onclick = () => { status.textContent = ''; openEditor(null); };
+    document.querySelector('#cancel').onclick = showList;
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      const publish = event.submitter?.value === 'published';
+      if (!publish && current?.published_at && !confirm('¿Retirar este artículo de la revista?')) return;
+      const payload = { ...Object.fromEntries(new FormData(form)), publish, revision: current?.revision ?? 0 };
+      fieldset.disabled = true;
+      status.textContent = publish ? 'Publicando…' : 'Guardando…';
+      try {
+        const entry = await api(current ? '/blog/posts/' + current.slug : '/blog/posts', {
+          method: current ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        posts = [entry, ...posts.filter(post => post.slug !== entry.slug)];
+        status.textContent = publish ? 'Artículo publicado en El arte de regalar.' : 'Borrador guardado.';
+        showList();
+      } catch (error) {
+        status.textContent = error.message;
+      } finally {
+        fieldset.disabled = false;
+      }
+    });
+
+    api('/blog/posts').then(entries => {
+      posts = entries;
+      showList();
+      if (!entries.length) status.textContent = 'Todavía no hay artículos creados desde el panel.';
+    }).catch(error => { status.textContent = error.message; });
+  </script>
+</body>
+</html>
