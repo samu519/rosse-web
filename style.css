@@ -157,7 +157,7 @@ img[src^="img/ds"], img[src$="mini-dorado.webp"] {object-position:center bottom}
 .listing summary::after {content:'';width:8px;height:8px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg);margin-right:5px}
 .listing details[open] summary::after {transform:rotate(225deg)}
 .listing ul {padding-left:1.2rem;margin:0 0 12px}
-@media(max-width:680px){
+@media(width < 1024px){
   .site-header {flex-wrap:nowrap;width:max-content;max-width:calc(100% - 12px);gap:5px;padding:4px 7px 4px 12px;border-radius:999px}
   .site-header .brand {font-size:25px}
   .site-header .brand small,.site-header>.pill {display:none}
@@ -166,7 +166,7 @@ img[src^="img/ds"], img[src$="mini-dorado.webp"] {object-position:center bottom}
 }
 
 .menu-toggle {display:none}
-@media(max-width:680px){
+@media(width < 1024px){
   .site-header.menu-ready {width:80%;justify-content:space-between;padding:2px 5px 2px 18px}
   .menu-ready .menu-toggle {display:grid;align-content:center;justify-items:center;gap:4px;width:44px;height:44px;padding:0;border:none;border-radius:50%;background:transparent;color:#784154;cursor:pointer}
   .menu-toggle i {display:block;width:19px;height:2px;background:currentColor;border-radius:2px}
@@ -177,14 +177,14 @@ img[src^="img/ds"], img[src$="mini-dorado.webp"] {object-position:center bottom}
   .site-header.menu-ready nav a {padding:11px 16px}
   .site-header .menu-toggle[aria-expanded=true]+nav {visibility:visible;opacity:1;transform:none}
 }
-@media(max-width:680px) and (prefers-reduced-motion:no-preference){
+@media(width < 1024px) and (prefers-reduced-motion:no-preference){
   .menu-ready .menu-toggle i {transition:transform .2s,opacity .2s}
   .site-header.menu-ready nav {transition:opacity .2s,transform .2s,visibility 0s .2s}
   .site-header .menu-toggle[aria-expanded=true]+nav {transition-delay:0s}
 }
 
 .site-header nav .mobile-contact {display:none}
-@media(max-width:680px){
+@media(width < 1024px){
   .site-header.menu-ready nav .mobile-contact {
     display:block;
     background:#784154;
@@ -371,7 +371,7 @@ footer .brand {color:white}
   scroll-margin-top: 100px;
 }
 .catalog-search button {font: inherit; cursor: pointer}
-@media (max-width:680px) {
+@media (width < 1024px) {
   .site-header.home-header {
     width: 80%;
     justify-content: space-between;
@@ -500,7 +500,7 @@ footer .brand {color:white}
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
     }
-    @media (max-width: 680px) {
+    @media (width < 1024px) {
       .site-header.home-header.menu-ready nav {
         background: rgb(255 239 245 / 93%);
         -webkit-backdrop-filter: blur(18px);
@@ -862,7 +862,7 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
 @media (max-width: 850px) {
   .products-menu > summary {padding: 7px 8px; font-size: .88rem}
 }
-@media (max-width: 680px) {
+@media (width < 1024px) {
   .site-header.menu-ready nav {max-height: calc(100dvh - 90px); overflow-y: auto}
   .products-menu > summary {padding: 11px 16px}
   .products-menu-links {
@@ -875,3 +875,9 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
 
 /* The navigation disclosure does not use the catalog accordion spacing. */
 .site-header .products-menu {margin: 0; padding: 0; border: 0}
+
+@media (width < 1024px) and (scripting: none) {
+  .site-header.home-header {width: max-content; flex-wrap: wrap}
+  .site-header.home-header .menu-toggle {display: none}
+  .site-header.home-header nav {display: flex; flex-wrap: wrap}
+}

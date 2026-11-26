@@ -9,7 +9,7 @@
     magazineLink.textContent = 'Revista';
     galleryLink.before(magazineLink);
   }
-  const mobile = matchMedia('(max-width:680px)');
+  const compactNavigation = matchMedia('(width < 1024px)');
   const productsLink = nav.querySelector('a[href="productos.html"]');
   const productsMenu = document.createElement('details');
   productsMenu.className = 'products-menu';
@@ -41,7 +41,7 @@
   function setOpen(open) {
     button.setAttribute('aria-expanded', String(open));
     button.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-    nav.inert = mobile.matches && !open;
+    nav.inert = compactNavigation.matches && !open;
     if (!open) productsMenu.open = false;
   }
   header.classList.add('menu-ready');
@@ -64,7 +64,7 @@
   header.addEventListener('focusout', event => {
     if (!header.contains(event.relatedTarget)) setOpen(false);
   });
-  mobile.addEventListener('change', () => setOpen(false));
+  compactNavigation.addEventListener('change', () => setOpen(false));
   window.addEventListener('pageshow', () => setOpen(false));
 })();
 
