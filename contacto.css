@@ -57,3 +57,12 @@
 @media (max-width: 420px) {
   .contact-fields {grid-template-columns: 1fr}
 }
+
+@media (prefers-color-scheme: dark) {
+  .contact-photo figcaption, .contact-form input, .contact-form textarea,
+  .contact-cards > div:last-child {
+    background: var(--night-surface);
+    border-color: var(--petal);
+  }
+  .contact-cards > div:first-child {background: var(--night-brand)}
+}

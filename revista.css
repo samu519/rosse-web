@@ -58,3 +58,15 @@
 @media (max-width: 370px) {
   .editorial-cards {grid-template-columns: 1fr}
 }
+
+@media (prefers-color-scheme: dark) {
+  .revista {
+    --ink: var(--night-ink);
+    --wine: var(--berry);
+    --paper: var(--night-surface);
+    --line: var(--petal);
+  }
+  .editorial-categories a:hover, .editorial-categories a:focus-visible,
+  .editorial-feature, .editorial-note {background: var(--blush)}
+  footer.editorial-footer {color: var(--berry)}
+}

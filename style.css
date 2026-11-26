@@ -879,3 +879,67 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
   .site-header.home-header .menu-toggle {display: none}
   .site-header.home-header nav {display: flex; flex-wrap: wrap}
 }
+
+/* Follow the device appearance, including changes while the page is open. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --night: #20151c;
+    --night-surface: #32212c;
+    --night-ink: #f8e9ef;
+    --night-brand: #672043;
+    --blush: #3d2635;
+    --petal: #694456;
+    --pink: #89596e;
+    --raspberry: #a92e60;
+    --berry: #ffb4d0;
+  }
+
+  body {background: var(--night); color: var(--night-ink)}
+  body:is(.shop-category, .shop-product) {
+    --category-tint: #422636;
+    --category-ink: var(--berry);
+    background: linear-gradient(var(--category-tint) 300px, var(--night) 540px);
+  }
+  body.shop-product {background: linear-gradient(var(--category-tint) 120px, var(--night) 370px)}
+  body[data-category="desayunos"] {--category-tint: #493024}
+  body[data-category="anchetas"] {--category-tint: #54283b}
+  body[data-category="flores"] {--category-tint: #233a31; --category-ink: #b7dec9}
+  body[data-category="cajas"] {--category-tint: #482741}
+  body[data-category="peluches"] {--category-tint: #392b49}
+
+  .home-editorial {--ink: var(--night-ink); --paper: var(--night-surface)}
+  .home-editorial em, .story-hero h1 em {color: var(--berry)}
+  .home-cover > span, .home-collection > span,
+  .listing, #colecciones .collections a, .story-collections a,
+  .catalog-search input, .order-form, .order-form input, .order-form textarea, .order-form select,
+  .photo-viewer, .photo-viewer button, .thumbs button,
+  .products-menu-links, .quick-filters select {
+    background: var(--night-surface);
+    border-color: var(--petal);
+    color: var(--night-ink);
+  }
+
+  .site-header.home-header, .values, footer,
+  .btn:hover, .site-header .pill:hover, .filters a:hover,
+  .home-header .nav-search:hover, .footer-social a:hover {
+    background: var(--night-brand);
+    color: white;
+  }
+  .site-header.home-header, footer {border-color: var(--petal)}
+  .site-header.home-header > .pill {
+    background: var(--night-surface);
+    color: var(--berry);
+    border-color: var(--petal);
+  }
+  @media (width < 1024px) {
+    .site-header.home-header.menu-ready nav {
+      background: rgb(42 27 36 / 97%);
+      border-color: var(--petal);
+      color: var(--night-ink);
+    }
+  }
+  a:focus-visible, summary:focus-visible, button:focus-visible,
+  .photo-grid a:focus-visible {outline-color: var(--berry)}
+  .page-loader::backdrop {background: rgb(74 26 52 / 97%)}
+}
