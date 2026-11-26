@@ -1,3 +1,4 @@
+import celebrations from "./celebraciones.html";
 import products from "./catalog.json";
 import panel from "./panel.html";
 import adminHome from "./admin.html";
@@ -28,7 +29,7 @@ async function administration(req,env,path){
   const limit=await env.LOGIN_LIMIT.limit({key:req.headers.get("CF-Connecting-IP")||"local"});
   return limit.success ? new Response("Inicia sesión con tu correo y contraseña",{status:401,headers:{"WWW-Authenticate":'Basic realm="Rossé", charset="UTF-8"',"Cache-Control":"no-store"}}) : reply("Intenta de nuevo en un minuto",429);
  }
- const page = new Map([["/",adminHome],["/catalogo",panel],["/blog",blogPanel]]).get(path);
+ const page = new Map([["/",adminHome],["/catalogo",panel],["/blog",blogPanel],["/celebraciones",celebrations]]).get(path);
  if(req.method==="GET" && page) return new Response(page,{headers:{"Content-Type":"text/html;charset=utf-8","Cache-Control":"no-store","X-Frame-Options":"DENY","Referrer-Policy":"no-referrer","X-Robots-Tag":"noindex"}});
  if(path==="/blog/posts" || path.startsWith("/blog/posts/")){
   try{return await blogAdministration(req,env,path)}
