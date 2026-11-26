@@ -858,3 +858,6 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
     box-shadow: none;
   }
 }
+
+/* The navigation disclosure does not use the catalog accordion spacing. */
+.site-header .products-menu {margin: 0; padding: 0; border: 0}
