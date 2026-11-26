@@ -15,3 +15,14 @@ Abre el producto, selecciona fotos, ajusta precio y orden, elige las fotos que a
 ## Verificación
 
 node verify.mjs ejecuta pruebas de integración con un entorno local de Cloudflare. Requiere que la carpeta esté dentro del repositorio de la tienda. npm run deploy -- --dry-run comprueba el empaquetado.
+
+## Revista
+
+El panel de administración abre en una pantalla con acceso al catálogo y a la revista. Para activar la revista en una instalación existente, usa la configuración local del Worker que ya apunta a la base de datos de Rossé y ejecuta:
+
+```sh
+npx wrangler d1 execute rosse-catalog --remote --file blog.sql
+npx wrangler deploy --keep-vars
+```
+
+En Administrar blog puedes guardar borradores, publicar artículos y retirar artículos del sitio público. Los artículos creados en el panel aparecen en El arte de regalar y en el sitemap. Las cinco guías de lanzamiento siguen como páginas estáticas.
