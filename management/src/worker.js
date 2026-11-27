@@ -1,3 +1,4 @@
+import storefrontRoutes from "./storefront-routes.json";
 import {customerRegistry} from "./customers.js";
 import celebrations from "./celebraciones.html";
 import products from "./catalog.json";
@@ -96,16 +97,18 @@ function contents(p,label){
 }
 function photos(p){
  const all=[...p.photos,...(p.sheet?[p.sheet]:[])];
- return '<div class="thumbs">'+all.map((src,i)=>`<button type="button" aria-label="${src===p.sheet?"Ficha del catálogo":"Foto "+(i+1)}" aria-pressed="${i===0}" ${src===p.sheet?"data-catalog":""}><img src="${esc(src)}" alt=""></button>`).join("")+'</div>';
+ return '<div class="thumbs">'+all.map((src,i)=>`<button type="button" aria-label="${src===p.sheet?"Ficha del catálogo":"Foto "+(i+1)}" aria-pressed="${i===0}" ${src===p.sheet?"data-catalog":""}><img src="${esc(imagePath(src))}" alt=""></button>`).join("")+'</div>';
 }
 function whatsapp(p){
  return "https://wa.me/573009798063?text="+encodeURIComponent(`Hola, Rossé. Me interesa ${p.name}${salePrice(p)===null?"":" ("+money(salePrice(p))+" COP)"}. ¿Me confirman disponibilidad y el total con entrega?`);
 }
+const productPath = id => storefrontRoutes["/" + id] ?? "/" + id;
+const imagePath = src => src.startsWith("img/") ? "/" + src : src;
 function listing(p){
- return `<article class="listing" data-occasion="" data-price="${salePrice(p)??""}"><a class="card" id="${p.id}" href="${p.id}.html"><img loading="lazy" src="${esc(p.photos[0])}" alt="${esc(p.name)}"><small>${categories[p.category]}</small><h3>${esc(p.name)}</h3>${p.price===null?"":`<p class="card-price">${priceMarkup(p)}</p>`}</a>${contents(p,"Qué incluye")}</article>`;
+ return `<article class="listing" data-occasion="" data-price="${salePrice(p)??""}"><a class="card" id="${p.id}" href="${productPath(p.id)}"><img loading="lazy" src="${esc(imagePath(p.photos[0]))}" alt="${esc(p.name)}"><small>${categories[p.category]}</small><h3>${esc(p.name)}</h3>${p.price===null?"":`<p class="card-price">${priceMarkup(p)}</p>`}</a>${contents(p,"Qué incluye")}</article>`;
 }
 function newDetail(p){
- return `<main class="catalog"><a href="${p.category}.html">‹ ${categories[p.category]}</a><section class="product"><div><img class="portrait" src="${esc(p.photos[0])}" alt="${esc(p.name)}">${photos(p)}</div><div><small>${categories[p.category]}</small><h1>${esc(p.name)}</h1>${p.price===null?"":`<p class="product-price">${priceMarkup(p)} <span>COP</span></p>`}<a class="btn order-link" href="${esc(whatsapp(p))}">Consultar por WhatsApp</a><details class="order-form" hidden><summary>Preparar consulta por WhatsApp</summary><form><label for="order-date">Fecha de entrega</label><input id="order-date" name="fecha" type="date"><label for="order-preferences">Preferencias o mensaje para la tarjeta</label><textarea id="order-preferences" name="preferencias" maxlength="500"></textarea><button class="btn" type="submit">Abrir WhatsApp</button></form></details>${contents(p,"Qué incluye")}</div></section><script src="order-form.js" defer></script><script src="gallery.js"></script></main>`;
+ return `<main class="catalog"><a href="/productos/${p.category}">‹ ${categories[p.category]}</a><section class="product"><div><img class="portrait" src="${esc(imagePath(p.photos[0]))}" alt="${esc(p.name)}">${photos(p)}</div><div><small>${categories[p.category]}</small><h1>${esc(p.name)}</h1>${p.price===null?"":`<p class="product-price">${priceMarkup(p)} <span>COP</span></p>`}<a class="btn order-link" href="${esc(whatsapp(p))}">Consultar por WhatsApp</a><details class="order-form" hidden><summary>Preparar consulta por WhatsApp</summary><form><label for="order-date">Fecha de entrega</label><input id="order-date" name="fecha" type="date"><label for="order-preferences">Preferencias o mensaje para la tarjeta</label><textarea id="order-preferences" name="preferencias" maxlength="500"></textarea><button class="btn" type="submit">Abrir WhatsApp</button></form></details>${contents(p,"Qué incluye")}</div></section><script src="/js/order-form.js" defer></script><script src="/js/gallery.js"></script></main>`;
 }
 function render(origin,path,changes){
  const rw=new HTMLRewriter();
@@ -121,11 +124,11 @@ function render(origin,path,changes){
   rw.on(".listing > details",{element:e=>{if(editedListing)e.remove()}});
  }
  for(const p of changes.values()){
-  const link='a[href="'+p.id+'.html"]';
-  const card='a.card[href="'+p.id+'.html"]';
+  const link='a[href="'+productPath(p.id)+'"]';
+  const card='a.card[href="'+productPath(p.id)+'"]';
   if(p.deleted){rw.on(link,{element:e=>{editedListing=true;e.remove()}});continue;}
-  rw.on('a.home-cover[href="'+p.id+'.html"] img',{element:e=>e.setAttribute("src",p.photos[0]).setAttribute("alt",p.name)});
-  rw.on(card+" img",{element:e=>e.setAttribute("src",p.photos[0]).setAttribute("alt",p.name)});
+  rw.on('a.home-cover[href="'+productPath(p.id)+'"] img',{element:e=>e.setAttribute("src",imagePath(p.photos[0])).setAttribute("alt",p.name)});
+  rw.on(card+" img",{element:e=>e.setAttribute("src",imagePath(p.photos[0])).setAttribute("alt",p.name)});
   rw.on(card+" h3",{element:e=>e.setInnerContent(p.name)});
   rw.on(card+" .card-price",{element:e=>e.remove()});
   rw.on(card,{element:e=>{
@@ -136,16 +139,22 @@ function render(origin,path,changes){
  // The inline script runs ahead of the existing search code and uses the payable price.
  const sync='<script>document.querySelectorAll(".listing").forEach(e=>{if(!e.querySelector(".card")){e.remove();return}const p=e.querySelector("[data-current-price], .card-price");e.dataset.price=(p?.querySelector("[data-current-price]")??p)?.textContent.replace(/[^0-9]/g,"")??""})</script>';
  if(listingPage){
-  rw.on('script[src="catalog-search.js"]',{element:e=>e.before(sync,{html:true})});
+  rw.on('script[src="/js/catalog-search.js"]',{element:e=>e.before(sync,{html:true})});
   rw.on("body",{element:e=>e.append(sync,{html:true})});
  }
  if(current){
   const p=current;
   rw.on("title",{element:e=>e.setInnerContent(p.name+" · Rossé")});
-  if(newId.test(p.id))rw.on("main",{element:e=>e.replace(newDetail(p),{html:true})});
+  if(newId.test(p.id)){
+   const url = store + productPath(p.id);
+   rw.on("link[rel=canonical]", {element:e=>e.setAttribute("href",url)});
+   rw.on("meta[property='og:url']", {element:e=>e.setAttribute("content",url)});
+   rw.on('script[type="application/ld+json"]', {element:e=>e.remove()});
+   rw.on("main",{element:e=>e.replace(newDetail(p),{html:true})});
+  }
   else{
    rw.on('.product .thumbs',{element:e=>e.remove()});
-   rw.on('.product .portrait',{element(e){e.setAttribute("src",p.photos[0]).setAttribute("alt",p.name);e.after(photos(p),{html:true})}});
+   rw.on('.product .portrait',{element(e){e.setAttribute("src",imagePath(p.photos[0])).setAttribute("alt",p.name);e.after(photos(p),{html:true})}});
    rw.on('.product-price',{element:e=>e.remove()});
    rw.on('.product h1',{element:e=>{e.setInnerContent(p.name);if(p.price!==null)e.after('<p class="product-price">'+priceMarkup(p)+' <span>COP</span></p>',{html:true})}});
    rw.on('.product .order-link',{element:e=>e.setAttribute("href",whatsapp(p))});
@@ -156,8 +165,8 @@ function render(origin,path,changes){
  if(id==="galeria"){
   for(const p of changes.values()){
    if(p.deleted)continue;
-   rw.on('.photo-grid a[href="'+p.id+'.html"]',{element:e=>e.remove()});
-   rw.on('.photo-grid',{element:e=>e.prepend(p.gallery.map(src=>`<a href="${p.id}.html" data-category="${categories[p.category]}"><img src="${esc(src)}" alt="${esc(p.name)}" loading="lazy"></a>`).join(""),{html:true})});
+   rw.on('.photo-grid a[href="'+productPath(p.id)+'"]',{element:e=>e.remove()});
+   rw.on('.photo-grid',{element:e=>e.prepend(p.gallery.map(src=>`<a href="${productPath(p.id)}" data-category="${categories[p.category]}"><img src="${esc(imagePath(src))}" alt="${esc(p.name)}" loading="lazy"></a>`).join(""),{html:true})});
   }
  }
  const response=rw.transform(origin);response.headers.set("Cache-Control","no-cache");response.headers.delete("ETag");return response;
@@ -166,6 +175,11 @@ export default {async fetch(req,env){
  const u=new URL(req.url);
  if(u.hostname===admin)return administration(req,env,u.pathname);
  if(u.hostname!==new URL(store).hostname)return reply("Dominio desconocido",404);
+ const legacyPath = storefrontRoutes[u.pathname.replace(/\.html$/, "").replace(/\/$/, "")];
+ if (legacyPath && ["GET", "HEAD"].includes(req.method)) {
+  u.pathname = legacyPath;
+  return Response.redirect(u.href, 301);
+ }
  if(asset.test(u.pathname)){
   const obj=await env.PHOTOS.get(u.pathname.slice(7));return obj?new Response(obj.body,{headers:{"Content-Type":"image/webp","Cache-Control":"public,max-age=31536000,immutable","X-Content-Type-Options":"nosniff"}}):reply("Foto desconocida",404);
  }
@@ -175,7 +189,7 @@ export default {async fetch(req,env){
    if(article)return article;
   }catch(error){console.error("Blog read failed",error.message);return reply("La revista no está disponible en este momento",503)}
  }
- if(req.method==="GET" && ["/el-arte-de-regalar","/el-arte-de-regalar.html","/sitemap.xml"].includes(u.pathname)){
+ if(req.method==="GET" && ["/blog/el-arte-de-regalar","/blog/el-arte-de-regalar.html","/sitemap.xml"].includes(u.pathname)){
   const origin=await fetch(req);
   if(!origin.ok)return origin;
   try{return await blogIndex(origin,u.pathname,env,esc)}
@@ -183,7 +197,7 @@ export default {async fetch(req,env){
  }
  const page=u.pathname.split("/").pop().replace(/\.html$/,"");
  const dynamic=newId.test(page) && /^\/[^/]+$/.test(u.pathname);
- const origin=await fetch(dynamic?new Request(new URL("/ds01.html",u),req):req);
+ const origin=await fetch(dynamic?new Request(new URL("/productos/desayunos/ds01",u),req):req);
  if(!origin.ok || req.method!=="GET" || !origin.headers.get("Content-Type")?.includes("text/html"))return origin;
  try{
   const changes=await edits(env), current=changes.get(page);

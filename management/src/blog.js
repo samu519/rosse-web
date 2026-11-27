@@ -1,4 +1,4 @@
-import articleTemplate from "../../que-regalar-en-navidad.html";
+import articleTemplate from "../../blog/blogs/que-regalar-en-navidad.html";
 
 const blogCategories = new Set(["Celebraciones", "Amor", "Familia", "Flores", "Guías de regalo", "Historias Rossé"]);
 const covers = {
@@ -93,7 +93,7 @@ function renderArticle(post, esc) {
       '<article class="editorial-article"><p class="editorial-label">' + esc(post.category) + ' · Por Rossé</p><h1>' + esc(post.title) +
       '</h1><p class="editorial-standfirst">' + esc(post.summary) + '</p><figure><img src="/img/' + image + '" alt="' + esc(alt) +
       '" fetchpriority="high"></figure><div class="editorial-prose">' + articleBody(post.body, esc) +
-      '<p><a href="/productos">Explorar el catálogo de Rossé</a></p></div></article>', {html: true}
+      '<p><a href="/productos/productos">Explorar el catálogo de Rossé</a></p></div></article>', {html: true}
     )}).transform(response);
 }
 
