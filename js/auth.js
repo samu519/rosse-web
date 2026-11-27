@@ -1,9 +1,9 @@
 // Shared navigation and session helpers. API remains authoritative.
 const $ = id => document.getElementById(id);
-const accountRoutes = new Set(['/mi-cuenta.html','/mis-momentos.html','/mi-perfil.html']);
-function safeNext(value) { return accountRoutes.has(value) ? value : '/mi-cuenta.html'; }
-function currentRoute() { return safeNext(location.pathname.endsWith('.html') ? location.pathname : location.pathname + '.html'); }
-function goLogin() { location.replace('/login.html?next=' + encodeURIComponent(currentRoute())); }
+const accountRoutes = new Set(['/login/mi-cuenta','/login/mis-momentos','/login/mi-perfil']);
+function safeNext(value) { return accountRoutes.has(value) ? value : '/login/mi-cuenta'; }
+function currentRoute() { return safeNext(location.pathname.replace(/\.html$/, '')); }
+function goLogin() { location.replace('/login/login?next=' + encodeURIComponent(currentRoute())); }
 function setStatus(text='') { $('status').textContent = text; }
 function isUnauth(error) { return error.message === 'Inicia sesión'; }
 async function protect() {
