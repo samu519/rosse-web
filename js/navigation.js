@@ -85,6 +85,9 @@ if (document.readyState !== 'complete' && !mobileHome) {
     veil.remove();
   }
   window.addEventListener('load', finishLoading, {once: true});
+  window.addEventListener('pagereveal', event => {
+    if (event.viewTransition && veil.open) finishLoading();
+  }, {once: true});
   window.addEventListener('pagehide', finishLoading, {once: true});
 }
 
@@ -185,8 +188,4 @@ if (productGrid) {
   metadata.type = 'application/ld+json';
   metadata.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
   document.head.append(metadata);
-    window.addEventListener('load', finishLoading, {once: true});
-    window.addEventListener('pagereveal', event => {
-    if (event.viewTransition && veil.open) finishLoading();
-  }, {once: true});
 })();
