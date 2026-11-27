@@ -186,4 +186,7 @@ if (productGrid) {
   metadata.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
   document.head.append(metadata);
     window.addEventListener('load', finishLoading, {once: true});
+    window.addEventListener('pagereveal', event => {
+    if (event.viewTransition && veil.open) finishLoading();
+  }, {once: true});
 })();
