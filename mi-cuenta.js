@@ -1,0 +1,1 @@
+(async()=>{const user=await protect();if(!user)return;$('greeting').textContent=`¡Hola, ${user.nombre}!`;try{const {momentos}=await Rossé.getMoments();$('momentsCount').textContent=`${momentos.length} ${momentos.length===1?'fecha guardada':'fechas guardadas'}`;}catch(e){if(isUnauth(e))goLogin();else setStatus(e.message);}})();

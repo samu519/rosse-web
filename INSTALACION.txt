@@ -1,0 +1,9 @@
+MI ROSSÉ — INSTALACIÓN
+1. Conserva rosse-api.js, style.css, navigation.js y el Worker existentes.
+2. Sube los diez archivos de este paquete a la RAÍZ del repositorio samu519/rosse-web. Reemplaza mi-cuenta.html y mis-momentos.html; los demás son nuevos.
+3. En navigation.js, cambia únicamente estas líneas:
+   momentsLink.href = '/mi-cuenta.html';
+   momentsLink.textContent = 'Mi Rossé';
+4. Tras desplegar, visita https://rossetienda.online/mi-cuenta.html desde el dominio original (sin www). Inicia sesión con la cuenta de pruebas existente. Mis momentos conserva su propia URL.
+5. Prueba crear, editar, eliminar fechas, recargar y cerrar sesión. Prueba acceder directamente a Mis momentos después de cerrar sesión: debe pedir inicio de sesión y volver al servicio.
+IMPORTANTE: El backend continúa en beta privada. No se envían recordatorios ni se puede recuperar la contraseña todavía. Perfil de solo lectura. No se requieren cambios en D1 ni en el Worker. Los cumpleaños del 29 de febrero se muestran el 28 en años no bisiestos; es una regla de presentación, no de envío de avisos.

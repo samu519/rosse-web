@@ -1,0 +1,1 @@
+(async()=>{const u=await protect();if(!u)return;$('initials').textContent=(Array.from(u.nombre)[0]||'')+(Array.from(u.apellido)[0]||'');$('fullName').textContent=u.nombre+' '+u.apellido;$('name').textContent=u.nombre;$('surname').textContent=u.apellido;$('email').textContent=u.correo;$('phone').textContent=u.telefono||'No registrado';})();
