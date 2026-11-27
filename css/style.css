@@ -980,3 +980,19 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
     to   { opacity: 1; transform: translateY(0); }
   }
 }
+
+.home-order + #como-pedir {
+  margin-block-start: clamp(4rem, 10vw, 9rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  .product .order-form {
+    background: var(--night-surface);
+    border-color: var(--petal);
+    color: var(--night-ink);
+  }
+  .about-page .story-hero {
+    background: linear-gradient(120deg, #402332, #54283e);
+    color: var(--night-ink);
+  }
+}
