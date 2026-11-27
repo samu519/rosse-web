@@ -33,6 +33,18 @@ async function administration(req,env,path){
  }
  const page = new Map([["/",adminHome],["/catalogo",panel],["/blog",blogPanel],["/celebraciones",celebrations]]).get(path);
  if(req.method==="GET" && page) return new Response(page,{headers:{"Content-Type":"text/html;charset=utf-8","Cache-Control":"no-store","X-Frame-Options":"DENY","Referrer-Policy":"no-referrer","X-Robots-Tag":"noindex"}});
+ if(path==="/celebraciones/agenda" && req.method==="GET"){
+  if(!env.REGISTRO) return reply("Falta conectar registro-usuarios al panel.",503);
+  try {
+   const [customers, moments] = await env.REGISTRO.batch([
+    env.REGISTRO.prepare("SELECT count(*) AS total FROM usuarios"),
+    env.REGISTRO.prepare(`SELECT u.nombre, u.apellido, f.titulo, f.tipo, f.fecha, f.es_anual
+      FROM fechas_especiales f JOIN usuarios u ON u.id = f.usuario_id
+      ORDER BY f.fecha, f.id`)
+   ]);
+   return reply({clientes:customers.results[0].total, momentos:moments.results});
+  } catch(error) {console.error("Agenda unavailable",error.name);return reply("No se pudo leer la agenda.",503);}
+ }
  if(path==="/celebraciones/clientes"){
   try{return await customerRegistry(req,env.DB)}
   catch(error){console.error("Customer registry unavailable",error.name);return reply("Registro temporalmente no disponible",503)}
