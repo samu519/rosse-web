@@ -2,6 +2,15 @@
   const header = document.querySelector('.site-header');
   const button = header.querySelector('.menu-toggle');
   const nav = header.querySelector('nav');
+  const contactLink = nav.querySelector('a[href="/contacto"]');
+  if (contactLink) {
+    for (const button of header.querySelectorAll('.mobile-contact, .pill')) {
+      button.href = contactLink.href;
+      button.textContent = contactLink.textContent;
+      if (contactLink.hasAttribute('aria-current')) button.setAttribute('aria-current', 'page');
+    }
+    contactLink.remove();
+  }
   const galleryLink = nav.querySelector('a[href="/galeria"]');
   if (galleryLink && !nav.querySelector('a[href="/blog/el-arte-de-regalar"]')) {
     const magazineLink = document.createElement('a');
