@@ -148,7 +148,7 @@ a:focus-visible, summary:focus-visible, button:focus-visible {outline:2px solid 
 .dots {align-items:center}
 .dots .play-toggle {color:#71334b;font-size:16px}
 .dots .play-toggle::after {display:none}
-img[src^="img/ds"], img[src$="mini-dorado.webp"] {object-position:center bottom}
+img[src^="/img/ds"], img[src$="mini-dorado.webp"] {object-position:center bottom}
 .listing {min-width:0}
 .listing .card {display:block}
 .listing details {margin-top:10px;padding:0;border-color:#ead6df}
@@ -394,7 +394,7 @@ footer .brand {color:white}
   display:block;
   width:108px;
   aspect-ratio:1196 / 636;
-  background:url('img/rosse-mark.png') center / contain no-repeat;
+  background:url('/img/rosse-mark.png') center / contain no-repeat;
 }
 .floral-sheets {margin-top:24px}
 .floral-sheets img {aspect-ratio:4/5;object-fit:contain}
@@ -519,7 +519,7 @@ html:has(.page-loader[open]) {overflow: hidden}
   width: 100px;
   height: 100px;
   margin: auto;
-  background: transparent url('img/rosse-butterfly.png') center / 58% auto no-repeat;
+  background: transparent url('/img/rosse-butterfly.png') center / 58% auto no-repeat;
   outline: none;
 }
 .page-loader::backdrop {
