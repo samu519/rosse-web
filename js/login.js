@@ -36,5 +36,44 @@ for(const [form,mode,path] of [[login,'login','/auth/login'],[registration,'regi
   form.onsubmit=e=>{e.preventDefault();run(form,async()=>{const d=Object.fromEntries(new FormData(form));if(mode==='register'&&d.password!==d.confirmacion)throw Error('Las contraseñas no coinciden.');delete d.confirmacion;d.turnstile=antiBot();const result=await rosseRequest(path,'POST',d);if(result.verificacion_requerida&&result.reto){const correo=d.correo;form.reset();begin(result,mode,correo);}else if(result.usuario){form.reset();location.replace(next);}else throw Error('Respuesta inesperada del servidor.');});};
 }
 verification.onsubmit=e=>{e.preventDefault();run(verification,async()=>{if(!challenge)throw Error('Solicita un nuevo código.');const d=Object.fromEntries(new FormData(verification));const reset=kind==='reset';if(reset&&d.password!==d.confirmacion)throw Error('Las contraseñas no coinciden.');const result=await rosseRequest(reset?'/auth/restablecer':'/auth/verificar','POST',{reto:challenge.reto,codigo:d.codigo,...(reset?{password:d.password}:{})});challenge=null;verification.reset();if(reset){login.elements.correo.value='';show('login','Contraseña actualizada. Inicia sesión con tu nueva contraseña.');}else if(result.usuario)location.replace(next);else throw Error('Respuesta inesperada del servidor.');});};
-async function loadCaptcha(){if(!config.publico)return;if(!config.sitekey)throw Error('Registro temporalmente no disponible.');await new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';s.onload=resolve;s.onerror=()=>reject(Error('No se pudo cargar la comprobación de seguridad.'));document.head.append(s);});await new Promise(resolve=>window.turnstile.ready(resolve));captchaBox.hidden=false;widget=window.turnstile.render(captchaBox,{sitekey:config.sitekey,theme:'auto'});}
+
+async function loadCaptcha() {
+  if (!config.publico) return;
+
+  if (!config.sitekey) {
+    throw Error('Registro temporalmente no disponible.');
+  }
+
+  await new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+
+    const timer = setTimeout(() => {
+      reject(Error('La comprobación de seguridad tardó demasiado.'));
+    }, 20000);
+
+    window.onRosseTurnstileLoad = () => {
+      clearTimeout(timer);
+      resolve();
+    };
+
+    s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onRosseTurnstileLoad';
+
+    s.async = true;
+
+    s.onerror = () => {
+      clearTimeout(timer);
+      reject(Error('No se pudo cargar la comprobación de seguridad.'));
+    };
+
+    document.head.append(s);
+  });
+
+  captchaBox.hidden = false;
+
+  widget = window.turnstile.render(captchaBox, {
+    sitekey: config.sitekey,
+    theme: 'auto'
+  });
+}
+
 (async()=>{try{await Rossé.session();location.replace(next);return;}catch(e){if(!isUnauth(e)){setStatus(e.message);return;}}try{config=await rosseRequest('/auth/config');if(regNote)regNote.textContent=config.publico?'Usa al menos 15 caracteres para tu contraseña.':'Mínimo 15 caracteres. Registro limitado a beta privada.';await loadCaptcha();$('content').hidden=false;show('login');}catch(e){setStatus(e.message+' · Recarga para reintentar.');}})();
