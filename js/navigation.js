@@ -35,7 +35,9 @@
     ['productos', 'Todos los productos'],
     ['desayunos', 'Desayunos sorpresa'],
     ['anchetas', 'Anchetas'],
-    ['flores', 'Flores']
+    ['flores', 'Flores'],
+    ['rosas-eternas', 'Rosas eternas'],
+    ['ramos-de-maquillaje', 'Ramos de maquillaje']
   ];
   const currentPage = location.pathname.split('/').filter(Boolean).pop()?.replace(/\.html$/, '');
   for (const [page, label] of categories) {

@@ -11,7 +11,7 @@ import blogPanel from "./blog-panel.html";
 import {blogAdministration, blogArticle, blogIndex} from "./blog.js";
 const admin = "admin.rossetienda.online";
 const store = "https://rossetienda.online";
-const categories = {desayunos:"Desayunos",anchetas:"Anchetas",flores:"Flores",cajas:"Cajas",peluches:"Peluches"};
+const categories = {desayunos:"Desayunos",anchetas:"Anchetas",flores:"Flores",cajas:"Cajas",peluches:"Peluches","rosas-eternas":"Rosas eternas","ramos-de-maquillaje":"Ramos de maquillaje"};
 const newId = /^regalo-[a-f0-9-]{36}$/;
 const originals = new Map(products.map(p => [p.id,p]));
 const asset = /^\/media\/[a-f0-9-]{36}\.webp$/;
@@ -84,6 +84,9 @@ async function administration(req,env,path){
   const includes=d.includes??current?.includes??[];
   const offer=d.offer??null;
   const price=d.price;
+  const secondary=d.secondaryCategories??current?.secondaryCategories??[];
+  const priceMode=d.priceMode??(price===null?"consult":"fixed");
+  if(!Array.isArray(secondary)||secondary.length>6||new Set(secondary).size!==secondary.length||!secondary.every(c=>typeof c==="string"&&Object.hasOwn(categories,c)&&c!==category)||!['fixed','base','consult'].includes(priceMode)||(priceMode==='consult')!==(price===null)||(priceMode!=='fixed'&&offer!==null))return reply("Revisa las categorías y el tipo de precio",400);
   const validPrice=price===null || Number.isSafeInteger(price)&&price>0&&price<=999999999;
   if(!name || name.length>120 || !Object.hasOwn(categories,category) || !validPrice ||
      (offer!==null && (!Number.isSafeInteger(offer)||offer<1||offer>=price)) ||
@@ -94,7 +97,7 @@ async function administration(req,env,path){
    if(original?.photos.includes(src))continue;
    if(typeof src!=="string"||!asset.test(src)||!await env.PHOTOS.head(src.slice(7)))return reply("Foto desconocida",400);
   }
-  next={...next,name,category,price,offer,includes:includes.map(x=>x.trim()),photos:d.photos,gallery:[...new Set(d.gallery)]};
+  next={...next,name,category,secondaryCategories:secondary,priceMode,price,offer,includes:includes.map(x=>x.trim()),photos:d.photos,gallery:[...new Set(d.gallery)]};
  }
  const sql=revision===0?"INSERT OR IGNORE INTO product_edits(id,content,revision) VALUES(?,?,1)":"UPDATE product_edits SET content=?,revision=revision+1 WHERE id=? AND revision=?";
  const args=revision===0?[id,JSON.stringify(next)]:[JSON.stringify(next),id,revision];
@@ -103,7 +106,9 @@ async function administration(req,env,path){
 }
 const salePrice = p => p.offer ?? p.price;
 function priceMarkup(p){
- if(!p.offer)return p.price===null?"":money(p.price);
+ if(p.price===null)return "Consultar precio";
+ if(p.priceMode==="base")return "Desde "+money(p.price);
+ if(!p.offer)return money(p.price);
  const percent=Math.floor((p.price-p.offer)*100/p.price);
  return `<strong data-current-price>${money(p.offer)}</strong> <del>${money(p.price)}</del> <span class="rosse-offer" style="display:inline-block;background:#8a1f4b;color:white;border-radius:999px;padding:.2em .55em;font-size:.8em">${percent>0?"−"+percent+"%":"Oferta"}</span>`;
 }
@@ -116,7 +121,7 @@ function photos(p){
  return '<div class="thumbs">'+all.map((src,i)=>`<button type="button" aria-label="${src===p.sheet?"Ficha del catálogo":"Foto "+(i+1)}" aria-pressed="${i===0}" ${src===p.sheet?"data-catalog":""}><img src="${esc(imagePath(src))}" alt=""></button>`).join("")+'</div>';
 }
 function whatsapp(p){
- return "https://wa.me/573009798063?text="+encodeURIComponent(`Hola, Rossé. Me interesa ${p.name}${salePrice(p)===null?"":" ("+money(salePrice(p))+" COP)"}. ¿Me confirman disponibilidad y el total con entrega?`);
+ return "https://wa.me/573009798063?text="+encodeURIComponent(`Hola, Rossé. Me interesa ${p.name}${salePrice(p)===null?"":" ("+(p.priceMode==="base"?"desde ":"")+money(salePrice(p))+" COP)"}. ¿Me confirman disponibilidad y el total con entrega?`);
 }
 const productPath = id => storefrontRoutes["/" + id] ?? "/" + id;
 const idsByProductPath = new Map(products.map(p => [productPath(p.id), p.id]));
@@ -126,18 +131,19 @@ const pageId = path => {
 };
 const imagePath = src => src.startsWith("img/") ? "/" + src : src;
 function listing(p){
- return `<article class="listing" data-occasion="" data-price="${salePrice(p)??""}"><a class="card" id="${p.id}" href="${productPath(p.id)}"><img loading="lazy" src="${esc(imagePath(p.photos[0]))}" alt="${esc(p.name)}"><small>${categories[p.category]}</small><h3>${esc(p.name)}</h3>${p.price===null?"":`<p class="card-price">${priceMarkup(p)}</p>`}</a>${contents(p,"Qué incluye")}</article>`;
+ return `<article class="listing" data-occasion="" data-price="${salePrice(p)??""}"><a class="card" id="${p.id}" href="${productPath(p.id)}"><img loading="lazy" src="${esc(imagePath(p.photos[0]))}" alt="${esc(p.name)}"><small>${categories[p.category]}</small><h3>${esc(p.name)}</h3><p class="card-price">${priceMarkup(p)}</p></a>${contents(p,"Qué incluye")}</article>`;
 }
 function newDetail(p){
- return `<main class="catalog"><a href="/productos/${p.category}">‹ ${categories[p.category]}</a><section class="product"><div><img class="portrait" src="${esc(imagePath(p.photos[0]))}" alt="${esc(p.name)}">${photos(p)}</div><div><small>${categories[p.category]}</small><h1>${esc(p.name)}</h1>${p.price===null?"":`<p class="product-price">${priceMarkup(p)} <span>COP</span></p>`}<a class="btn order-link" href="${esc(whatsapp(p))}">Consultar por WhatsApp</a><details class="order-form" hidden><summary>Preparar consulta por WhatsApp</summary><form><label for="order-date">Fecha de entrega</label><input id="order-date" name="fecha" type="date"><label for="order-preferences">Preferencias o mensaje para la tarjeta</label><textarea id="order-preferences" name="preferencias" maxlength="500"></textarea><button class="btn" type="submit">Abrir WhatsApp</button></form></details>${contents(p,"Qué incluye")}</div></section><script src="/js/order-form.js" defer></script><script src="/js/gallery.js"></script></main>`;
+ return `<main class="catalog"><a href="/productos/${p.category}">‹ ${categories[p.category]}</a><section class="product"><div><img class="portrait" src="${esc(imagePath(p.photos[0]))}" alt="${esc(p.name)}">${photos(p)}</div><div><small>${categories[p.category]}</small><h1>${esc(p.name)}</h1><p class="product-price">${priceMarkup(p)}${p.price===null?"":" <span>COP</span>"}</p><a class="btn order-link" href="${esc(whatsapp(p))}">Consultar por WhatsApp</a><details class="order-form" hidden><summary>Preparar consulta por WhatsApp</summary><form><label for="order-date">Fecha de entrega</label><input id="order-date" name="fecha" type="date"><label for="order-preferences">Preferencias o mensaje para la tarjeta</label><textarea id="order-preferences" name="preferencias" maxlength="500"></textarea><button class="btn" type="submit">Abrir WhatsApp</button></form></details>${contents(p,"Qué incluye")}</div></section><script src="/js/order-form.js" defer></script><script src="/js/gallery.js"></script></main>`;
 }
 function render(origin,path,changes){
  const rw=new HTMLRewriter();
  const id=pageId(path), current=changes.get(id);
  const listingPage=id==="productos"||Object.hasOwn(categories,id);
  if(listingPage){
-  const additions=[...changes.values()].filter(p=>newId.test(p.id)&&!p.deleted&&(id==="productos"||p.category===id));
-  rw.on("main .grid",{element:e=>e.prepend(additions.map(listing).join(""),{html:true})});
+  const additions=[...changes.values()].filter(p=>!p.deleted&&((newId.test(p.id)&&(id==="productos"||p.category===id))||(id!=="productos"&&p.category!==id&&p.secondaryCategories?.includes(id))));
+  rw.on("main .grid",{element:e=>{e.prepend(additions.map(listing).join(""),{html:true});if(["rosas-eternas","ramos-de-maquillaje"].includes(id)&&additions.length)e.before("",{html:true});}});
+  if(additions.length)rw.on(".collection-empty",{element:e=>e.remove()});
  }
  let editedListing=false;
  if(listingPage){
@@ -153,7 +159,7 @@ function render(origin,path,changes){
   rw.on(card+" h3",{element:e=>e.setInnerContent(p.name)});
   rw.on(card+" .card-price",{element:e=>e.remove()});
   rw.on(card,{element:e=>{
-   if(p.price!==null)e.append('<p class="card-price">'+priceMarkup(p)+'</p>',{html:true});
+   e.append('<p class="card-price">'+priceMarkup(p)+'</p>',{html:true});
    if(listingPage){editedListing=true;e.after(contents(p,"Qué incluye"),{html:true});}
   }});
  }
@@ -177,7 +183,7 @@ function render(origin,path,changes){
    rw.on('.product .thumbs',{element:e=>e.remove()});
    rw.on('.product .portrait',{element(e){e.setAttribute("src",imagePath(p.photos[0])).setAttribute("alt",p.name);e.after(photos(p),{html:true})}});
    rw.on('.product-price',{element:e=>e.remove()});
-   rw.on('.product h1',{element:e=>{e.setInnerContent(p.name);if(p.price!==null)e.after('<p class="product-price">'+priceMarkup(p)+' <span>COP</span></p>',{html:true})}});
+   rw.on('.product h1',{element:e=>{e.setInnerContent(p.name);e.after('<p class="product-price">'+priceMarkup(p)+(p.price===null?"":" <span>COP</span>")+'</p>',{html:true})}});
    rw.on('.product .order-link',{element:e=>e.setAttribute("href",whatsapp(p))});
    rw.on('.product details',{element:e=>{if(!e.hasAttribute("class"))e.remove()}});
    rw.on('.product .order-note',{element:e=>e.after(contents(p,"Qué incluye"),{html:true})});
