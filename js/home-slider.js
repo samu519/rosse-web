@@ -1,0 +1,15 @@
+(()=>{
+ const root=document.querySelector('.home-slider');if(!root)return;
+ const link=root.querySelector('.home-cover'),img=link.querySelector('img'),caption=link.querySelector(':scope > span');
+ const controls=root.querySelector('.slider-controls'),dots=root.querySelector('.slider-dots'),toggle=root.querySelector('.slider-toggle');
+ let config, index=0,timer,paused=false,hover=false,focus=false,stamp=0;
+ const motion=matchMedia('(prefers-reduced-motion: reduce)');
+ function schedule(){clearTimeout(timer);if(config?.autoplay&&!paused&&!hover&&!focus&&!document.hidden&&!motion.matches&&config.products.length>1)timer=setTimeout(()=>show(index+1),config.seconds*1000)}
+ function updateToggle(){toggle.textContent=paused?'▶':'Ⅱ';toggle.setAttribute('aria-label',paused?'Reanudar carrusel':'Pausar carrusel');toggle.hidden=!config.autoplay||motion.matches}
+ function show(n){const list=config.products;index=(n+list.length)%list.length;const p=list[index];const token=++stamp;link.href=p.url;img.alt=p.name;img.src=p.image;img.removeAttribute('srcset');caption.replaceChildren(document.createTextNode(p.name+' '));const arrow=document.createElement('span');arrow.setAttribute('aria-hidden','true');arrow.textContent='↗';caption.append(arrow);if(!motion.matches&&img.animate)img.animate([{opacity:.55},{opacity:1}],{duration:320});[...dots.children].forEach((d,i)=>{d.setAttribute('aria-current',String(i===index))});const next=new Image();next.src=list[(index+1)%list.length].image;schedule()}
+ function init(d){if(!Array.isArray(d.products)||!d.products.length)return;config=d;controls.hidden=d.products.length<2;dots.replaceChildren();d.products.forEach((p,i)=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label','Mostrar '+p.name);b.onclick=()=>show(i);dots.append(b)});updateToggle();show(0)}
+ root.querySelector('.slider-prev').onclick=()=>show(index-1);root.querySelector('.slider-next').onclick=()=>show(index+1);toggle.onclick=()=>{paused=!paused;updateToggle();schedule()};
+ root.addEventListener('mouseenter',()=>{hover=true;schedule()});root.addEventListener('mouseleave',()=>{hover=false;schedule()});root.addEventListener('focusin',()=>{focus=true;schedule()});root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget)){focus=false;schedule()}});document.addEventListener('visibilitychange',schedule);motion.addEventListener('change',()=>{if(config)updateToggle();schedule()});
+ let start;link.addEventListener('touchstart',e=>{start=e.touches[0].clientX},{passive:true});link.addEventListener('touchend',e=>{if(start===undefined||!config)return;const delta=e.changedTouches[0].clientX-start;start=undefined;if(Math.abs(delta)>50){show(index+(delta<0?1:-1));link.addEventListener('click',e=>e.preventDefault(),{once:true,capture:true})}},{passive:true});
+ fetch('/api/home-slider',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('Slider unavailable');return r.json()}).then(init).catch(()=>{try{init(JSON.parse(root.querySelector('.slider-defaults').textContent))}catch{}});
+})();

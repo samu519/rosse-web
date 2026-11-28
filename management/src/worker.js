@@ -1,4 +1,6 @@
 import storefrontRoutes from "./storefront-routes.json";
+import {sliderPublic,sliderAdmin} from "./slider.js";
+import sliderPanel from "./slider-panel.html";
 import {customerRegistry} from "./customers.js";
 import celebrations from "./celebraciones.html";
 import products from "./catalog.json";
@@ -31,7 +33,7 @@ async function administration(req,env,path){
   const limit=await env.LOGIN_LIMIT.limit({key:req.headers.get("CF-Connecting-IP")||"local"});
   return limit.success ? new Response("Inicia sesión con tu correo y contraseña",{status:401,headers:{"WWW-Authenticate":'Basic realm="Rossé", charset="UTF-8"',"Cache-Control":"no-store"}}) : reply("Intenta de nuevo en un minuto",429);
  }
- const page = new Map([["/",adminHome],["/catalogo",panel],["/blog",blogPanel],["/celebraciones",celebrations]]).get(path);
+ const page = new Map([["/",adminHome],["/catalogo",panel],["/blog",blogPanel],["/celebraciones",celebrations],["/portada",sliderPanel]]).get(path);
  if(req.method==="GET" && page) return new Response(page,{headers:{"Content-Type":"text/html;charset=utf-8","Cache-Control":"no-store","X-Frame-Options":"DENY","Referrer-Policy":"no-referrer","X-Robots-Tag":"noindex"}});
  if(path==="/celebraciones/agenda" && req.method==="GET"){
   if(!env.REGISTRO) return reply("Falta conectar registro-usuarios al panel.",503);
@@ -53,6 +55,7 @@ async function administration(req,env,path){
   try{return await blogAdministration(req,env,path)}
   catch(error){console.error("Blog administration failed",error.message);return reply("La revista no está disponible en este momento",503)}
  }
+ if(path==="/slider/settings"){const changes=await edits(env);return sliderAdmin(req,env,[...new Map([...originals,...changes]).values()],productPath);}
  if(req.method==="GET" && path==="/products"){const changes=await edits(env);return reply([...new Map([...originals,...changes]).values()].filter(p=>!p.deleted));}
  if(req.headers.get("Origin")!==new URL(req.url).origin)return reply("Origen inválido",403);
  if(req.method==="POST" && path==="/photos"){
@@ -192,6 +195,7 @@ export default {async fetch(req,env){
  const u=new URL(req.url);
  if(u.hostname===admin)return administration(req,env,u.pathname);
  if(u.hostname!==new URL(store).hostname)return reply("Dominio desconocido",404);
+ if(u.pathname==="/api/home-slider" && req.method==="GET"){let catalog=products;try{catalog=[...new Map([...originals,...await edits(env)]).values()]}catch(e){console.error("Slider catalogue unavailable",e.message)}return sliderPublic(env,catalog,productPath);}
  const legacyPath = storefrontRoutes[u.pathname.replace(/\.html$/, "").replace(/\/$/, "")];
  if (legacyPath && ["GET", "HEAD"].includes(req.method)) {
   u.pathname = legacyPath;
