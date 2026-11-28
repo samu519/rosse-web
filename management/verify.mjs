@@ -65,6 +65,18 @@ try{
  assert.equal((await runtime.dispatchFetch('https://rossetienda.online'+articleRoute+'.html',{redirect:'manual'})).headers.get('Location'),'https://rossetienda.online'+articleRoute);
  assert.equal((await call('PUT',editRoute,{...article,revision:2})).status,200);
  assert.equal((await publicPage(articleRoute)).status,404);
+ // Slider integration: local database only, never production.
+ for(const statement of (await readFile('slider.sql','utf8')).split(';').map(s=>s.trim()).filter(Boolean))await db.prepare(statement).run();
+ const sliderResponse=await publicPage('/api/home-slider');assert.equal(sliderResponse.status,200);
+ const sliderData=await sliderResponse.json();assert.equal(sliderData.products.length,8);assert.ok(sliderData.products[0].srcset);
+ assert.equal((await runtime.dispatchFetch(host+'/slider/settings')).status,401);
+ const sliderSettings=await (await runtime.dispatchFetch(host+'/slider/settings',{headers})).json();
+ const ids=[...sliderSettings.ids].reverse();
+ const savedSlider=await call('PUT','/slider/settings',{ids,seconds:7,autoplay:false,revision:sliderSettings.revision});assert.equal(savedSlider.status,200);
+ assert.equal((await call('PUT','/slider/settings',{ids,seconds:7,autoplay:false,revision:sliderSettings.revision})).status,409);
+ const updatedSlider=await (await publicPage('/api/home-slider')).json();assert.equal(updatedSlider.products[0].id,ids[0]);assert.equal(updatedSlider.seconds,7);assert.equal(updatedSlider.autoplay,false);
+ const home=await (await publicPage('/')).text();assert.match(home,/data-slider-server/);assert.ok(home.includes(updatedSlider.products[0].url));assert.ok(home.includes('srcset='));assert.ok(home.includes('faq-title'));
+ console.log('Passed slider authorization, configuration, stale edit, responsive images and server-rendered homepage.');
  console.log('Passed admin navigation, blog drafts, publishing, sitemap, and unpublishing.');
  console.log('Passed product creation, discounts, storefront listings, and removal.');
  console.log('Passed authentication, import, publication, stale edit and product rendering checks.');

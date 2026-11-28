@@ -1,3 +1,4 @@
+import responsiveImages from "./responsive-images.json";
 const defaults = ['ds11','ds04','fl01','af01','ds09','floral-03','cj01','pl01'];
 const query = 'SELECT * FROM "rosse-slider-products" WHERE id=1';
 async function settings(db) {
@@ -17,7 +18,7 @@ export async function sliderPublic(env,catalog,productPath) {
  const items=available(catalog,productPath);
  let config;
  try {config=await settings(env.DB)} catch(e){console.error('Slider settings unavailable',e.message);config={ids:defaults,seconds:5,autoplay:true};}
- return json({products:selected(config,items),seconds:config.seconds,autoplay:config.autoplay});
+ return json({products:selected(config,items).map(p=>({...p, ...(responsiveImages[p.image]?{srcset:responsiveImages[p.image]}:{})})),seconds:config.seconds,autoplay:config.autoplay});
 }
 export async function sliderAdmin(req,env,catalog,productPath) {
  const items=available(catalog,productPath);

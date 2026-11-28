@@ -1,5 +1,6 @@
 import storefrontRoutes from "./storefront-routes.json";
 import {sliderPublic,sliderAdmin} from "./slider.js";
+import {renderSlider} from "./slider-render.js";
 import sliderPanel from "./slider-panel.html";
 import {customerRegistry} from "./customers.js";
 import celebrations from "./celebraciones.html";
@@ -223,6 +224,13 @@ export default {async fetch(req,env){
  try{
   const changes=await edits(env), current=changes.get(page);
   if(current?.deleted || (dynamic&&!current))return new Response("Producto no disponible",{status:404,headers:{"Cache-Control":"no-store","Content-Type":"text/plain; charset=utf-8"}});
+  // Render the configured hero in the first HTML response, without a client API round trip.
+  if(u.pathname==="/" || u.pathname==="/index.html"){
+   const catalog=[...new Map([...originals,...changes]).values()];
+   const config=await (await sliderPublic(env,catalog,productPath)).json();
+   const base=changes.size?render(origin,u.pathname,changes):origin;
+   return renderSlider(base,config);
+  }
   return changes.size?render(origin,u.pathname,changes):origin;
  }catch(error){
   console.error("Catalog read failed",error.message);
