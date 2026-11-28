@@ -109,7 +109,7 @@ function priceMarkup(p){
 }
 function contents(p,label){
  if(!p.includes?.length)return "";
- return `<details><summary>${label}</summary><ul>${p.includes.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`;
+ return `<details${label==="Qué incluye"?" open":""}><summary>${label}</summary><ul>${p.includes.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></details>`;
 }
 function photos(p){
  const all=[...p.photos,...(p.sheet?[p.sheet]:[])];

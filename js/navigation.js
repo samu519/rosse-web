@@ -198,3 +198,14 @@ if (productGrid) {
   metadata.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
   document.head.append(metadata);
 })();
+
+// Rossé floating WhatsApp
+(()=>{
+ if(document.querySelector('.rosse-whatsapp-float'))return;
+ const a=document.createElement('a');a.className='rosse-whatsapp-float';
+ a.href=document.querySelector('.order-link')?.href || 'https://wa.me/573009798063?text=Hola%2C%20Ross%C3%A9.%20Quisiera%20consultar%20sobre%20un%20regalo.';
+ a.setAttribute('aria-label','Consultar por WhatsApp');a.title='Consultar por WhatsApp';
+ a.innerHTML='<svg viewBox="0 0 24 24" width="27" height="27" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.7 7.4L3 20l1.1-4.7A8.5 8.5 0 1 1 20.5 11.5Z"/><path d="M8 7.5c-.9.5-.7 2.1.3 3.8 1.2 2 3.3 3.8 5.5 4.1 1.1.2 2-.4 2.2-1.4l-2.6-1.5-1 1c-1.3-.6-2.5-1.7-3-3l.8-.9-1.3-2.3Z"/></svg>';
+ document.body.append(a);
+ a.addEventListener('click',()=>{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'whatsapp_click',link_url:a.href,page_path:location.pathname,placement:'floating_button'})});
+})();
