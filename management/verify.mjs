@@ -8,6 +8,7 @@ const headers={Authorization:'Basic '+btoa('test@example.invalid:'+password),Ori
 const runtime=new Miniflare({modules:true,script:outputFiles[0].text,compatibilityDate:'2025-09-01',bindings:{ADMIN_EMAIL:'test@example.invalid',ADMIN_PASSWORD:password},d1Databases:['DB'],r2Buckets:['PHOTOS'],ratelimits:{LOGIN_LIMIT:{simple:{limit:10,period:60}}},outboundService:async req=>new Response(await readFile('..'+new URL(req.url).pathname.replace(/\/$/, '/index').replace(/(?:\.html)?$/, '.html').replace(/\.xml\.html$/, '.xml')),{headers:{'Content-Type':'text/html'}})});
 try{
  const db=await runtime.getD1Database('DB');await db.prepare(await readFile('schema.sql','utf8')).run();
+ await db.exec((await readFile("favorites.sql","utf8")).trim());
  assert.equal((await runtime.dispatchFetch(host+'/')).status,401);
  const list=await (await runtime.dispatchFetch(host+'/products',{headers})).json();assert.equal(list.length,39);
  const p=list.find(x=>x.id==='ds01');p.price=125000;p.offer=100000;p.name='Mini renovado';p.includes=['Jugo & fruta'];

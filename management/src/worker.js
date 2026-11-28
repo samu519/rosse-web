@@ -1,6 +1,7 @@
 import storefrontRoutes from "./storefront-routes.json";
 import {sliderPublic,sliderAdmin} from "./slider.js";
 import {renderSlider} from "./slider-render.js";
+import {favoritesAdmin,renderFavorites} from "./favorites.js";
 import sliderPanel from "./slider-panel.html";
 import {customerRegistry} from "./customers.js";
 import celebrations from "./celebraciones.html";
@@ -56,6 +57,7 @@ async function administration(req,env,path){
   try{return await blogAdministration(req,env,path)}
   catch(error){console.error("Blog administration failed",error.message);return reply("La revista no está disponible en este momento",503)}
  }
+ if(path==="/favorites/settings"){const changes=await edits(env);return favoritesAdmin(req,env,[...new Map([...originals,...changes]).values()]);}
  if(path==="/slider/settings"){const changes=await edits(env);return sliderAdmin(req,env,[...new Map([...originals,...changes]).values()],productPath);}
  if(req.method==="GET" && path==="/products"){const changes=await edits(env);return reply([...new Map([...originals,...changes]).values()].filter(p=>!p.deleted));}
  if(req.headers.get("Origin")!==new URL(req.url).origin)return reply("Origen inválido",403);
@@ -235,7 +237,7 @@ export default {async fetch(req,env){
    const catalog=[...new Map([...originals,...changes]).values()];
    const config=await (await sliderPublic(env,catalog,productPath)).json();
    const base=changes.size?render(origin,u.pathname,changes):origin;
-   return renderSlider(base,config);
+   return renderFavorites(renderSlider(base,config),env,catalog,productPath);
   }
   return changes.size?render(origin,u.pathname,changes):origin;
  }catch(error){
