@@ -5,7 +5,7 @@ import {readFile} from 'node:fs/promises';
 const {outputFiles}=await build({entryPoints:['src/worker.js'],bundle:true,format:'esm',loader:{'.html':'text'},write:false});
 const password=crypto.randomUUID(), host='https://admin.rossetienda.online';
 const headers={Authorization:'Basic '+btoa('test@example.invalid:'+password),Origin:host};
-const runtime=new Miniflare({modules:true,script:outputFiles[0].text,compatibilityDate:'2025-09-01',bindings:{ADMIN_EMAIL:'test@example.invalid',ADMIN_PASSWORD:password},d1Databases:['DB'],r2Buckets:['PHOTOS'],ratelimits:{LOGIN_LIMIT:{simple:{limit:10,period:60}}},outboundService:async req=>new Response(await readFile('..'+new URL(req.url).pathname.replace(/(?:\.html)?$/, '.html').replace(/\.xml\.html$/, '.xml')),{headers:{'Content-Type':'text/html'}})});
+const runtime=new Miniflare({modules:true,script:outputFiles[0].text,compatibilityDate:'2025-09-01',bindings:{ADMIN_EMAIL:'test@example.invalid',ADMIN_PASSWORD:password},d1Databases:['DB'],r2Buckets:['PHOTOS'],ratelimits:{LOGIN_LIMIT:{simple:{limit:10,period:60}}},outboundService:async req=>new Response(await readFile('..'+new URL(req.url).pathname.replace(/\/$/, '/index').replace(/(?:\.html)?$/, '.html').replace(/\.xml\.html$/, '.xml')),{headers:{'Content-Type':'text/html'}})});
 try{
  const db=await runtime.getD1Database('DB');await db.prepare(await readFile('schema.sql','utf8')).run();
  assert.equal((await runtime.dispatchFetch(host+'/')).status,401);
@@ -18,7 +18,9 @@ try{
  assert.deepEqual(Buffer.from(await (await runtime.dispatchFetch('https://rossetienda.online'+path)).arrayBuffer()),webp);
  const put=()=>runtime.dispatchFetch(host+'/products/ds01',{method:'PUT',headers,body:JSON.stringify(p)});
  assert.equal((await put()).status,200);assert.equal((await put()).status,409);
- const live=await (await runtime.dispatchFetch('https://rossetienda.online/productos/desayunos/ds01')).text();assert.ok(live.includes('$100.000'));assert.ok(live.includes('−20%'));assert.ok(live.includes('Mini renovado'));assert.ok(live.includes('Jugo &amp; fruta'));assert.ok(live.includes('data-catalog'));assert.ok(live.includes(path));
+ const legacy=await runtime.dispatchFetch('https://rossetienda.online/productos/desayunos/ds01',{redirect:'manual'});
+ assert.equal(legacy.status,301);assert.equal(legacy.headers.get('Location'),'https://rossetienda.online/productos/desayunos/desayuno-mini');
+ const live=await (await runtime.dispatchFetch('https://rossetienda.online/productos/desayunos/desayuno-mini')).text();assert.ok(live.includes('$100.000'));assert.ok(live.includes('−20%'));assert.ok(live.includes('Mini renovado'));assert.ok(live.includes('Jugo &amp; fruta'));assert.ok(live.includes('data-catalog'));assert.ok(live.includes(path));
  const call=(method,path,body)=>runtime.dispatchFetch(host+path,{method,headers,body:JSON.stringify(body)});
  const publicPage=path=>runtime.dispatchFetch('https://rossetienda.online'+path);
  const created=await call('POST','/products',{...p,name:'Un detalle nuevo',photos:[path],gallery:[path],revision:0});
@@ -32,8 +34,8 @@ try{
  assert.equal((await publicPage(address)).status,404);
  assert.ok(!(await (await publicPage('/productos/')).text()).includes('Un detalle nuevo'));
  assert.equal((await call('DELETE','/products/ds01',{revision:1})).status,200);
- assert.equal((await publicPage('/productos/desayunos/ds01')).status,404);
- assert.ok(!(await (await publicPage('/productos/')).text()).includes('href="/productos/desayunos/ds01"'));
+ assert.equal((await publicPage('/productos/desayunos/desayuno-mini')).status,404);
+ assert.ok(!(await (await publicPage('/productos/')).text()).includes('href="/productos/desayunos/desayuno-mini"'));
  await db.prepare(await readFile('blog.sql','utf8')).run();
  const adminHome=await (await runtime.dispatchFetch(host+'/',{headers})).text();
  assert.match(adminHome,/¿Qué quieres hacer hoy/);

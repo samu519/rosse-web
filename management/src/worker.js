@@ -115,6 +115,11 @@ function whatsapp(p){
  return "https://wa.me/573009798063?text="+encodeURIComponent(`Hola, Rossé. Me interesa ${p.name}${salePrice(p)===null?"":" ("+money(salePrice(p))+" COP)"}. ¿Me confirman disponibilidad y el total con entrega?`);
 }
 const productPath = id => storefrontRoutes["/" + id] ?? "/" + id;
+const idsByProductPath = new Map(products.map(p => [productPath(p.id), p.id]));
+const pageId = path => {
+ const clean = path.replace(/\/index\.html$/, "/").replace(/\.html$/, "").replace(/\/$/, "");
+ return idsByProductPath.get(clean) ?? clean.split("/").filter(Boolean).pop();
+};
 const imagePath = src => src.startsWith("img/") ? "/" + src : src;
 function listing(p){
  return `<article class="listing" data-occasion="" data-price="${salePrice(p)??""}"><a class="card" id="${p.id}" href="${productPath(p.id)}"><img loading="lazy" src="${esc(imagePath(p.photos[0]))}" alt="${esc(p.name)}"><small>${categories[p.category]}</small><h3>${esc(p.name)}</h3>${p.price===null?"":`<p class="card-price">${priceMarkup(p)}</p>`}</a>${contents(p,"Qué incluye")}</article>`;
@@ -124,7 +129,7 @@ function newDetail(p){
 }
 function render(origin,path,changes){
  const rw=new HTMLRewriter();
- const id=path.replace(/\/index\.html$/, "/").split("/").filter(Boolean).pop()?.replace(/\.html$/,""), current=changes.get(id);
+ const id=pageId(path), current=changes.get(id);
  const listingPage=id==="productos"||Object.hasOwn(categories,id);
  if(listingPage){
   const additions=[...changes.values()].filter(p=>newId.test(p.id)&&!p.deleted&&(id==="productos"||p.category===id));
@@ -207,9 +212,9 @@ export default {async fetch(req,env){
   try{return await blogIndex(origin,u.pathname,env,esc)}
   catch(error){console.error("Blog index failed",error.message);return origin}
  }
- const page=u.pathname.replace(/\/index\.html$/, "/").split("/").filter(Boolean).pop()?.replace(/\.html$/,"");
+ const page=pageId(u.pathname);
  const dynamic=newId.test(page) && /^\/[^/]+$/.test(u.pathname);
- const origin=await fetch(dynamic?new Request(new URL("/productos/desayunos/ds01",u),req):req);
+ const origin=await fetch(dynamic?new Request(new URL("/productos/desayunos/desayuno-mini",u),req):req);
  if(!origin.ok || req.method!=="GET" || !origin.headers.get("Content-Type")?.includes("text/html"))return origin;
  try{
   const changes=await edits(env), current=changes.get(page);
