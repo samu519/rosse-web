@@ -24,16 +24,16 @@ try{
  const created=await call('POST','/products',{...p,name:'Un detalle nuevo',photos:[path],gallery:[path],revision:0});
  assert.equal(created.status,200);
  const added=await created.json(), address='/'+added.id+'.html';
- const catalog=await (await publicPage('/productos/productos')).text();
+ const catalog=await (await publicPage('/productos/')).text();
  assert.ok(catalog.includes('Un detalle nuevo'));assert.ok(catalog.includes('−20%'));
  assert.ok((await (await publicPage('/productos/desayunos')).text()).includes('Un detalle nuevo'));
  assert.ok((await (await publicPage(address)).text()).includes('<h1>Un detalle nuevo</h1>'));
  assert.equal((await call('DELETE','/products/'+added.id,{revision:1})).status,200);
  assert.equal((await publicPage(address)).status,404);
- assert.ok(!(await (await publicPage('/productos/productos')).text()).includes('Un detalle nuevo'));
+ assert.ok(!(await (await publicPage('/productos/')).text()).includes('Un detalle nuevo'));
  assert.equal((await call('DELETE','/products/ds01',{revision:1})).status,200);
  assert.equal((await publicPage('/productos/desayunos/ds01')).status,404);
- assert.ok(!(await (await publicPage('/productos/productos')).text()).includes('href="/productos/desayunos/ds01"'));
+ assert.ok(!(await (await publicPage('/productos/')).text()).includes('href="/productos/desayunos/ds01"'));
  await db.prepare(await readFile('blog.sql','utf8')).run();
  const adminHome=await (await runtime.dispatchFetch(host+'/',{headers})).text();
  assert.match(adminHome,/¿Qué quieres hacer hoy/);
@@ -50,7 +50,7 @@ try{
  const draft=await saved.json();
  const editRoute='/blog/posts/'+draft.slug, articleRoute='/revista-'+draft.slug;
  assert.equal((await publicPage(articleRoute)).status,404);
- assert.ok(!(await (await publicPage('/blog/el-arte-de-regalar')).text()).includes(articleRoute));
+ assert.ok(!(await (await publicPage('/blog/')).text()).includes(articleRoute));
  assert.ok(!(await (await publicPage('/sitemap.xml')).text()).includes(articleRoute));
  assert.equal((await call('PUT',editRoute,{...article,revision:1,publish:true})).status,200);
  assert.equal((await call('PUT',editRoute,{...article,revision:1,publish:true})).status,409);
@@ -58,7 +58,7 @@ try{
  assert.ok(articleHTML.includes('<h1>Un regalo &amp; una historia</h1>'));
  assert.ok(articleHTML.includes('<h2>Un detalle</h2><p>Texto &lt; especial</p>'));
  assert.ok(articleHTML.includes('https://rossetienda.online'+articleRoute));
- assert.ok((await (await publicPage('/blog/el-arte-de-regalar')).text()).includes(articleRoute));
+ assert.ok((await (await publicPage('/blog/')).text()).includes(articleRoute));
  assert.ok((await (await publicPage('/sitemap.xml')).text()).includes(articleRoute));
  assert.equal((await runtime.dispatchFetch('https://rossetienda.online'+articleRoute+'.html',{redirect:'manual'})).headers.get('Location'),'https://rossetienda.online'+articleRoute);
  assert.equal((await call('PUT',editRoute,{...article,revision:2})).status,200);

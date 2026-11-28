@@ -12,9 +12,9 @@
     contactLink.remove();
   }
   const galleryLink = nav.querySelector('a[href="/galeria"]');
-  if (galleryLink && !nav.querySelector('a[href="/blog/el-arte-de-regalar"]')) {
+  if (galleryLink && !nav.querySelector('a[href="/blog/"]')) {
     const magazineLink = document.createElement('a');
-    magazineLink.href = '/blog/el-arte-de-regalar';
+    magazineLink.href = '/blog/';
     magazineLink.textContent = 'Revista';
     galleryLink.before(magazineLink);
   }
@@ -23,7 +23,7 @@
   momentsLink.textContent = 'Mi Rossé';
   nav.append(momentsLink);
   const compactNavigation = matchMedia('(width < 1024px)');
-  const productsLink = nav.querySelector('a[href="/productos/productos"]');
+  const productsLink = nav.querySelector('a[href="/productos/"]');
   const productsMenu = document.createElement('details');
   productsMenu.className = 'products-menu';
   const productsSummary = document.createElement('summary');
@@ -37,10 +37,10 @@
     ['anchetas', 'Anchetas'],
     ['flores', 'Flores']
   ];
-  const currentPage = location.pathname.split('/').pop().replace(/\.html$/, '');
+  const currentPage = location.pathname.split('/').filter(Boolean).pop()?.replace(/\.html$/, '');
   for (const [page, label] of categories) {
     const link = document.createElement('a');
-    link.href = '/productos/' + page;
+    link.href = page === 'productos' ? '/productos/' : '/productos/' + page;
     link.textContent = label;
     if (page === currentPage) link.setAttribute('aria-current', 'page');
     categoryLinks.append(link);
@@ -140,9 +140,9 @@ if (productGrid) {
   const page = location.pathname.split('/').filter(Boolean).pop()?.replace(/\.html$/, '');
   if (!page) return;
 
-  const url = store + location.pathname.replace(/\.html$/, '');
+  const url = store + location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '');
   const trail = [['Inicio', store + '/']];
-  if (page !== 'productos') trail.push(['Productos', store + '/productos/productos']);
+  if (page !== 'productos') trail.push(['Productos', store + '/productos/']);
 
   const parent = catalog.querySelector(':scope > a');
   if ((isProduct || page === 'catalogo-floral') && parent) {

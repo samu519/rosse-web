@@ -124,7 +124,7 @@ function newDetail(p){
 }
 function render(origin,path,changes){
  const rw=new HTMLRewriter();
- const id=path.split("/").pop().replace(/\.html$/,""), current=changes.get(id);
+ const id=path.replace(/\/index\.html$/, "/").split("/").filter(Boolean).pop()?.replace(/\.html$/,""), current=changes.get(id);
  const listingPage=id==="productos"||Object.hasOwn(categories,id);
  if(listingPage){
   const additions=[...changes.values()].filter(p=>newId.test(p.id)&&!p.deleted&&(id==="productos"||p.category===id));
@@ -201,13 +201,13 @@ export default {async fetch(req,env){
    if(article)return article;
   }catch(error){console.error("Blog read failed",error.message);return reply("La revista no está disponible en este momento",503)}
  }
- if(req.method==="GET" && ["/blog/el-arte-de-regalar","/blog/el-arte-de-regalar.html","/sitemap.xml"].includes(u.pathname)){
+ if(req.method==="GET" && ["/blog", "/blog/", "/blog/index.html", "/sitemap.xml"].includes(u.pathname)){
   const origin=await fetch(req);
   if(!origin.ok)return origin;
   try{return await blogIndex(origin,u.pathname,env,esc)}
   catch(error){console.error("Blog index failed",error.message);return origin}
  }
- const page=u.pathname.split("/").pop().replace(/\.html$/,"");
+ const page=u.pathname.replace(/\/index\.html$/, "/").split("/").filter(Boolean).pop()?.replace(/\.html$/,"");
  const dynamic=newId.test(page) && /^\/[^/]+$/.test(u.pathname);
  const origin=await fetch(dynamic?new Request(new URL("/productos/desayunos/ds01",u),req):req);
  if(!origin.ok || req.method!=="GET" || !origin.headers.get("Content-Type")?.includes("text/html"))return origin;
