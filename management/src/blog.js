@@ -76,7 +76,7 @@ function renderArticle(post, esc) {
       author: {"@type": "Organization", name: "Rossé", url: store + "/"},
       publisher: {"@id": store + "/#business"}, mainEntityOfPage: {"@id": url}},
     {"@type": "BreadcrumbList", itemListElement: [
-      ["Inicio", store + "/"], ["El arte de regalar", store + "/el-arte-de-regalar"], [post.title, url]
+      ["Inicio", store + "/"], ["El arte de regalar", store + "/blog/"], [post.title, url]
     ].map(([name, item], i) => ({"@type": "ListItem", position: i + 1, name, item}))}
   ]}).replace(/</g, "\\u003c");
   const response = new Response(articleTemplate, {headers: {"Content-Type": "text/html; charset=utf-8", "Cache-Control": "no-cache"}});
@@ -89,7 +89,7 @@ function renderArticle(post, esc) {
     .on('meta[property="og:image"]', {element: e => e.setAttribute("content", store + "/img/" + image)})
     .on('script[type="application/ld+json"]', {element: e => e.setInnerContent(json, {html: true})})
     .on("main", {element: e => e.setInnerContent(
-      '<nav class="editorial-trail" aria-label="Ubicación"><a href="/">Inicio</a><span aria-hidden="true">/</span><a href="/el-arte-de-regalar">El arte de regalar</a></nav>' +
+      '<nav class="editorial-trail" aria-label="Ubicación"><a href="/">Inicio</a><span aria-hidden="true">/</span><a href="/blog/">El arte de regalar</a></nav>' +
       '<article class="editorial-article"><p class="editorial-label">' + esc(post.category) + ' · Por Rossé</p><h1>' + esc(post.title) +
       '</h1><p class="editorial-standfirst">' + esc(post.summary) + '</p><figure><img src="/img/' + image + '" alt="' + esc(alt) +
       '" fetchpriority="high"></figure><div class="editorial-prose">' + articleBody(post.body, esc) +
@@ -108,7 +108,7 @@ export async function blogArticle(req, env, url, esc) {
 }
 
 export async function blogIndex(origin, path, env, esc) {
-  const {results} = await env.DB.prepare("SELECT slug, title, category, summary, cover FROM blog_posts WHERE published_at IS NOT NULL ORDER BY published_at DESC").all();
+  const {results} = await env.DB.prepare("SELECT slug, title, category, summary, cover, published_at FROM blog_posts WHERE published_at IS NOT NULL ORDER BY published_at DESC").all();
   if (!results.length) return origin;
   const headers = new Headers(origin.headers);
   for (const name of ["Content-Length", "Content-Encoding", "ETag", "Last-Modified"]) headers.delete(name);
@@ -124,7 +124,7 @@ export async function blogIndex(origin, path, env, esc) {
     const [image, alt] = covers[post.cover];
     return '<article class="editorial-card"><a href="' + articlePath(post.slug) + '"><img src="/img/' + image + '" alt="' + esc(alt) +
       '" loading="lazy"><span class="editorial-label">' + esc(post.category) + '</span><h3>' +
-      esc(post.title) + '</h3></a><p>' + esc(post.summary) + '</p></article>';
+      esc(post.title) + '</h3></a><p>' + esc(post.summary) + '</p><time class="magazine-v6-date" datetime="' + esc(post.published_at) + '">' + esc(post.published_at.slice(0,10)) + '</time></article>';
   }).join("");
   const section = '<section class="editorial-picks" aria-labelledby="nuevos-articulos"><h2 id="nuevos-articulos">Nuevos artículos</h2><div class="editorial-cards">' +
     cards + '</div></section>';

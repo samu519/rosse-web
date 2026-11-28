@@ -173,7 +173,13 @@ function render(origin,path,changes){
  }
  if(current){
   const p=current;
-  rw.on("title",{element:e=>e.setInnerContent(p.name+" · Rossé")});
+  // Rossé product SEO v6
+  const seoTitle=p.name+" en Florida, Valle | Rossé";
+  const seoDescription=`Descubre ${p.name}, un detalle de Rossé para sorprender en Florida, Valle del Cauca. Consulta personalización, precio y disponibilidad.`;
+  rw.on("title",{element:e=>e.setInnerContent(seoTitle)});
+  rw.on('meta[name="description"], meta[property="og:description"]',{element:e=>e.setAttribute("content",seoDescription)});
+  rw.on('meta[property="og:title"]',{element:e=>e.setAttribute("content",seoTitle)});
+  rw.on('meta[property="og:image"]',{element:e=>e.setAttribute("content",store+imagePath(p.photos[0]))});
   if(newId.test(p.id)){
    const url = store + productPath(p.id);
    rw.on("link[rel=canonical]", {element:e=>e.setAttribute("href",url)});

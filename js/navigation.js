@@ -209,7 +209,6 @@ if (productGrid) {
  a.setAttribute('aria-label','Consultar por WhatsApp');a.title='Consultar por WhatsApp';
  a.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.88 9.88 0 0 0-8.5 14.9L2 22l5.27-1.38A9.95 9.95 0 1 0 12.04 2Zm0 18.2a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.13.82.84-3.05-.2-.32a8.22 8.22 0 1 1 6.98 3.88Zm4.51-6.16c-.25-.12-1.46-.72-1.69-.8-.22-.08-.39-.12-.55.12-.16.25-.64.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.05-.38-1.99-1.23-.74-.65-1.23-1.46-1.38-1.7-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.24.25-.41.08-.16.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.88 2.39 1.01 2.56.12.16 1.74 2.66 4.22 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.08.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg><span>Hablemos</span>';
  document.body.append(a);
- a.addEventListener('click',()=>{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'whatsapp_click',link_url:a.href,page_path:location.pathname,placement:'floating_button'})});
 })();
 
 // Rossé theme selector v2
@@ -244,4 +243,19 @@ if (productGrid) {
   window.addEventListener('storage',e=>{if(e.key===key||e.key===null){preference=stored();apply(true)}});
   window.addEventListener('pageshow',e=>{if(e.persisted){preference=stored();apply()}});
   apply();
+})();
+
+// Rossé conversion tracking v6
+(()=>{
+ if(window.rosseTrackWhatsApp)return;
+ window.rosseTrackWhatsApp=placement=>{
+  window.dataLayer=window.dataLayer||[];
+  window.dataLayer.push({event:'whatsapp_click',placement,page_path:location.pathname,product_name:document.querySelector('.product h1')?.textContent.trim()||''});
+ };
+ document.addEventListener('click',e=>{
+  const a=e.target.closest?.('a[href]');if(!a)return;
+  let u;try{u=new URL(a.href)}catch{return}
+  if(!['wa.me','api.whatsapp.com','web.whatsapp.com'].includes(u.hostname))return;
+  window.rosseTrackWhatsApp(a.closest('.rosse-whatsapp-float')?'floating_button':a.closest('#medios-de-pago')?'payment_confirmation':a.closest('.product')?'product_link':a.closest('footer')?'footer':a.closest('header')?'navigation':'content');
+ },true);
 })();

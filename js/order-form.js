@@ -13,6 +13,7 @@ orderForm.addEventListener('submit', event => {
   if (date) message.push('Fecha de entrega: ' + date);
   if (preferences) message.push('Preferencias o mensaje para la tarjeta: ' + preferences);
   url.searchParams.set('text', message.join('\n'));
+  window.rosseTrackWhatsApp?.("product_form");
   window.location.assign(url.href);
 });
 
