@@ -100,5 +100,6 @@
   "/productos/peluches/pl01": "/productos/peluches/peluche-de-regalo-1",
   "/productos/peluches/pl02": "/productos/peluches/peluche-de-regalo-2",
   "/productos/peluches/pl03": "/productos/peluches/peluche-de-regalo-3",
-  "/productos/desayunos/ds07": "/productos/desayunos/desayuno-sweet"
+  "/productos/desayunos/ds07": "/productos/desayunos/desayuno-sweet",
+  "/catalogo-floral": "/productos/flores"
 }
