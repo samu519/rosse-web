@@ -207,43 +207,41 @@ if (productGrid) {
  const a=document.createElement('a');a.className='rosse-whatsapp-float';
  a.href=document.querySelector('.order-link')?.href || 'https://wa.me/573009798063?text=Hola%2C%20Ross%C3%A9.%20Quisiera%20consultar%20sobre%20un%20regalo.';
  a.setAttribute('aria-label','Consultar por WhatsApp');a.title='Consultar por WhatsApp';
- a.innerHTML='<svg viewBox="0 0 24 24" width="27" height="27" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.7 7.4L3 20l1.1-4.7A8.5 8.5 0 1 1 20.5 11.5Z"/><path d="M8 7.5c-.9.5-.7 2.1.3 3.8 1.2 2 3.3 3.8 5.5 4.1 1.1.2 2-.4 2.2-1.4l-2.6-1.5-1 1c-1.3-.6-2.5-1.7-3-3l.8-.9-1.3-2.3Z"/></svg>';
+ a.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.88 9.88 0 0 0-8.5 14.9L2 22l5.27-1.38A9.95 9.95 0 1 0 12.04 2Zm0 18.2a8.22 8.22 0 0 1-4.19-1.15l-.3-.18-3.13.82.84-3.05-.2-.32a8.22 8.22 0 1 1 6.98 3.88Zm4.51-6.16c-.25-.12-1.46-.72-1.69-.8-.22-.08-.39-.12-.55.12-.16.25-.64.8-.78.97-.14.16-.29.18-.53.06-.25-.12-1.05-.38-1.99-1.23-.74-.65-1.23-1.46-1.38-1.7-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.14.16-.24.25-.41.08-.16.04-.31-.02-.43-.06-.12-.55-1.34-.76-1.83-.2-.48-.4-.41-.55-.42h-.47c-.16 0-.43.06-.66.31-.22.25-.86.85-.86 2.07 0 1.22.88 2.39 1.01 2.56.12.16 1.74 2.66 4.22 3.73.59.25 1.05.41 1.41.52.59.19 1.13.16 1.55.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.08.14-1.18-.06-.1-.22-.16-.47-.29Z"/></svg><span>Hablemos</span>';
  document.body.append(a);
  a.addEventListener('click',()=>{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'whatsapp_click',link_url:a.href,page_path:location.pathname,placement:'floating_button'})});
 })();
 
-// Rossé theme selector v1
+// Rossé theme selector v2
 (() => {
-  const key = 'rosse-theme';
-  const system = matchMedia('(prefers-color-scheme: dark)');
-  const root = document.documentElement;
-  const allowed = ['system','light','dark'];
-  const normalize = value => allowed.includes(value) ? value : 'system';
-  function stored() { try { return normalize(localStorage.getItem(key)); } catch { return 'system'; } }
-  let preference = stored();
-  const nav = document.querySelector('.site-header nav');
-  const label = document.createElement('label');
-  label.className = 'rosse-theme-control';
-  const select = document.createElement('select');
-  select.setAttribute('aria-label','Apariencia de Rossé');
-  for (const [value,text] of [['system','Sistema'],['light','Claro'],['dark','Oscuro']]) {
-    const option = document.createElement('option'); option.value = value; option.textContent = text; select.append(option);
+  const key='rosse-theme', root=document.documentElement;
+  const system=matchMedia('(prefers-color-scheme: dark)');
+  const choices=[['light','Claro','<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M19 5l-1.5 1.5m-11 11L5 19"/>'],['dark','Oscuro','<path d="M20.5 14.2A8.8 8.8 0 0 1 9.8 3.5 8.8 8.8 0 1 0 20.5 14.2Z"/>'],['system','Sistema','<rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8m-4-4v4"/>']];
+  const normalize=v=>choices.some(c=>c[0]===v)?v:'system';
+  function stored(){try{return normalize(localStorage.getItem(key))}catch{return 'system'}}
+  let preference=stored(), timer;
+  const nav=document.querySelector('.site-header nav');
+  const control=document.createElement('div');control.className='rosse-theme-control';
+  const title=document.createElement('span');title.className='rosse-theme-label';title.textContent='Apariencia';
+  const group=document.createElement('div');group.className='rosse-theme-segments';group.setAttribute('role','group');group.setAttribute('aria-label','Apariencia de Rossé');
+  for(const [value,label,path] of choices){
+    const b=document.createElement('button');b.type='button';b.dataset.themeChoice=value;b.title=label;b.setAttribute('aria-label',label);
+    b.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+path+'</svg>';
+    b.addEventListener('click',()=>{preference=value;try{localStorage.setItem(key,value)}catch{}apply(true)});group.append(b);
   }
-  const title = document.createElement('span'); title.textContent = 'Apariencia'; title.className = 'rosse-theme-label';
-  label.append(title,select);
-  if (nav && !nav.querySelector('.rosse-theme-control')) nav.append(label);
-  function apply() {
-    const theme = preference === 'system' ? (system.matches ? 'dark' : 'light') : preference;
-    root.dataset.rosseTheme = theme;
-    select.value = preference;
+  control.append(title,group);if(nav&&!nav.querySelector('.rosse-theme-control'))nav.append(control);
+  function apply(animate=false){
+    const theme=preference==='system'?(system.matches?'dark':'light'):preference;
+    if(animate&&root.dataset.rosseTheme!==theme&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+      clearTimeout(timer);root.classList.add('rosse-theme-changing');
+      // Commit the previous computed colors before switching themes.
+      void root.offsetWidth;timer=setTimeout(()=>root.classList.remove('rosse-theme-changing'),260);
+    }
+    root.dataset.rosseTheme=theme;
+    for(const b of group.children)b.setAttribute('aria-pressed',String(b.dataset.themeChoice===preference));
   }
-  select.addEventListener('change',() => {
-    preference = normalize(select.value);
-    try { localStorage.setItem(key,preference); } catch {}
-    apply();
-  });
-  system.addEventListener('change',() => { if (preference === 'system') apply(); });
-  window.addEventListener('storage',event => { if(event.key === key || event.key === null){ preference = stored(); apply(); } });
-  window.addEventListener('pageshow',event => { if(event.persisted){ preference = stored(); apply(); } });
+  system.addEventListener('change',()=>{if(preference==='system')apply(true)});
+  window.addEventListener('storage',e=>{if(e.key===key||e.key===null){preference=stored();apply(true)}});
+  window.addEventListener('pageshow',e=>{if(e.persisted){preference=stored();apply()}});
   apply();
 })();

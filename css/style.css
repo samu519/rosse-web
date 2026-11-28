@@ -1096,3 +1096,22 @@ html[data-rosse-theme="dark"] .story-hero h1 { color:var(--night-ink); }
 html[data-rosse-theme="dark"] .product .order-form { background:var(--night-surface); border-color:var(--petal); color:var(--night-ink); }
 html[data-rosse-theme="dark"] .welcome-gift span { background:var(--night-surface); color:var(--night-ink); }
 html[data-rosse-theme="dark"] .rosse-order-guide { color:var(--night-ink); }
+
+/* Rossé UI polish v2 */
+.site-header nav .rosse-theme-control{display:flex;align-items:center;gap:8px;margin:0;min-width:0}
+.rosse-theme-segments{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid #ffffff55;border-radius:999px;background:#00000012;flex-shrink:0}
+.rosse-theme-segments button{display:grid;place-items:center;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer;transition:background-color .18s,color .18s,transform .18s;box-shadow:none}
+.rosse-theme-segments button svg{width:19px;height:19px;display:block}
+.rosse-theme-segments button[aria-pressed=true]{background:#fff4f8;color:#8a1f4b;box-shadow:0 2px 6px #0002}
+html[data-rosse-theme="dark"] .rosse-theme-segments button[aria-pressed=true]{background:#f2b8d0;color:#422034}
+.rosse-theme-segments button:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+@media(hover:hover){.rosse-theme-segments button:hover{transform:translateY(-1px);background:#ffffff30}.rosse-theme-segments button[aria-pressed=true]:hover{background:#fff4f8;color:#8a1f4b}}
+@media(width < 1024px){.site-header nav .rosse-theme-control{flex-wrap:wrap;justify-content:space-between;padding:8px}.rosse-theme-segments{border-color:var(--petal);background:var(--blush)}.rosse-theme-segments button{width:40px;height:40px}}
+@media(min-width:1024px){.site-header.home-header nav{gap:0}.site-header.home-header nav a,.site-header.home-header .products-menu>summary{padding-inline:6px}.rosse-theme-segments button{width:30px;height:30px}}
+@media(prefers-reduced-motion:no-preference){html.rosse-theme-changing,html.rosse-theme-changing :is(body,.site-header,.site-header nav,.home-opening,.home-order,.home-collection>span,.home-cover>span,.listing,.card,.favorite-card,.payment-card,.home-faq details,.personal-options li,.product .order-form,.order-form input,.order-form textarea,.story-hero,.contact-hero,.contact-cards>div,.auth-body,.panel,.service,.editorial-masthead,.editorial-feature,.editorial-department,footer,h1,h2,h3,p,a,button){transition:background-color 200ms ease,color 200ms ease,border-color 200ms ease,box-shadow 200ms ease}}
+.rosse-whatsapp-float{width:auto;min-width:56px;height:56px;padding:0 18px;display:flex;align-items:center;justify-content:center;gap:9px;background:#12834e;color:#fff;border:1px solid #ffffff38;border-radius:999px;box-shadow:0 5px 20px #003d2538;font:650 .9rem/1 system-ui,sans-serif;transition:background-color .18s,transform .18s,box-shadow .18s}
+.rosse-whatsapp-float svg{width:27px;height:27px;flex:none;display:block}
+.rosse-whatsapp-float:hover{background:#096b3e;color:white;text-decoration:none}
+@media(hover:hover){.rosse-whatsapp-float:hover{transform:translateY(-3px);box-shadow:0 8px 24px #003d2548}}
+@media(max-width:680px){.rosse-whatsapp-float{width:56px;padding:0}.rosse-whatsapp-float span{display:none}}
+@media(prefers-reduced-motion:reduce){.rosse-theme-segments button,.rosse-whatsapp-float{transition:none!important;transform:none!important}}
