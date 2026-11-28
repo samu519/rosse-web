@@ -133,12 +133,23 @@
 }
 /* Dark mode — retains Rossé's pink identity without pale panels. */
 @media (prefers-color-scheme: dark) {
-  .revista { --blush: #3B202E; --petal: #593044; --rose: #AA5977; --raspberry: #F09BB5; --wine: #F2B8C6; --ink: #F9E9EF; --muted: #D5B6C3; --paper: #281922; --surface: #30202A; --line: #60394D; }
-  .revista .btn { background: #8A1F4B; color: #fff; }
-  .revista .btn:hover { background: #A52E59; color: #fff; }
-  .editorial-footer { color: #F2B8C6; border-color: #60394D; }
+
+  :where(html:not([data-rosse-theme])) .revista{ --blush: #3B202E; --petal: #593044; --rose: #AA5977; --raspberry: #F09BB5; --wine: #F2B8C6; --ink: #F9E9EF; --muted: #D5B6C3; --paper: #281922; --surface: #30202A; --line: #60394D; }
+  :where(html:not([data-rosse-theme])) .revista .btn{ background: #8A1F4B; color: #fff; }
+  :where(html:not([data-rosse-theme])) .revista .btn:hover{ background: #A52E59; color: #fff; }
+  :where(html:not([data-rosse-theme])) .editorial-footer{ color: #F2B8C6; border-color: #60394D; }
+
 }
+
+  :where(html[data-rosse-theme="dark"]) .revista{ --blush: #3B202E; --petal: #593044; --rose: #AA5977; --raspberry: #F09BB5; --wine: #F2B8C6; --ink: #F9E9EF; --muted: #D5B6C3; --paper: #281922; --surface: #30202A; --line: #60394D; }
+  :where(html[data-rosse-theme="dark"]) .revista .btn{ background: #8A1F4B; color: #fff; }
+  :where(html[data-rosse-theme="dark"]) .revista .btn:hover{ background: #A52E59; color: #fff; }
+  :where(html[data-rosse-theme="dark"]) .editorial-footer{ color: #F2B8C6; border-color: #60394D; }
+
+
 @media (prefers-reduced-motion: reduce) {
   .revista *, .revista *::before, .revista *::after { transition: none !important; animation: none !important; }
   .revista .btn:hover, .editorial-feature-media:hover img { transform: none; }
 }
+
+/* Rossé manual theme v1 */

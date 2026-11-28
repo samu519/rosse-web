@@ -882,7 +882,8 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
 
 /* Follow the device appearance, including changes while the page is open. */
 @media (prefers-color-scheme: dark) {
-  :root {
+
+  :where(html:not([data-rosse-theme])):root{
     color-scheme: dark;
     --night: #20151c;
     --night-surface: #32212c;
@@ -895,54 +896,104 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
     --berry: #ffb4d0;
   }
 
-  body {background: var(--night); color: var(--night-ink)}
-  body:is(.shop-category, .shop-product) {
+  :where(html:not([data-rosse-theme])) body{background: var(--night); color: var(--night-ink)}
+  :where(html:not([data-rosse-theme])) body:is(.shop-category, .shop-product){
     --category-tint: #422636;
     --category-ink: var(--berry);
     background: linear-gradient(var(--category-tint) 300px, var(--night) 540px);
   }
-  body.shop-product {background: linear-gradient(var(--category-tint) 120px, var(--night) 370px)}
-  body[data-category="desayunos"] {--category-tint: #493024}
-  body[data-category="anchetas"] {--category-tint: #54283b}
-  body[data-category="flores"] {--category-tint: #233a31; --category-ink: #b7dec9}
-  body[data-category="cajas"] {--category-tint: #482741}
-  body[data-category="peluches"] {--category-tint: #392b49}
+  :where(html:not([data-rosse-theme])) body.shop-product{background: linear-gradient(var(--category-tint) 120px, var(--night) 370px)}
+  :where(html:not([data-rosse-theme])) body[data-category="desayunos"]{--category-tint: #493024}
+  :where(html:not([data-rosse-theme])) body[data-category="anchetas"]{--category-tint: #54283b}
+  :where(html:not([data-rosse-theme])) body[data-category="flores"]{--category-tint: #233a31; --category-ink: #b7dec9}
+  :where(html:not([data-rosse-theme])) body[data-category="cajas"]{--category-tint: #482741}
+  :where(html:not([data-rosse-theme])) body[data-category="peluches"]{--category-tint: #392b49}
 
-  .home-editorial {--ink: var(--night-ink); --paper: var(--night-surface)}
-  .home-editorial em, .story-hero h1 em {color: var(--berry)}
-  .home-cover > span, .home-collection > span,
-  .listing, #colecciones .collections a, .story-collections a,
-  .catalog-search input, .order-form, .order-form input, .order-form textarea, .order-form select,
-  .photo-viewer, .photo-viewer button, .thumbs button,
-  .products-menu-links, .quick-filters select {
+  :where(html:not([data-rosse-theme])) .home-editorial{--ink: var(--night-ink); --paper: var(--night-surface)}
+  :where(html:not([data-rosse-theme])) .home-editorial em, :where(html:not([data-rosse-theme])) .story-hero h1 em{color: var(--berry)}
+  :where(html:not([data-rosse-theme])) .home-cover > span, :where(html:not([data-rosse-theme])) .home-collection > span, :where(html:not([data-rosse-theme])) .listing, :where(html:not([data-rosse-theme])) #colecciones .collections a, :where(html:not([data-rosse-theme])) .story-collections a, :where(html:not([data-rosse-theme])) .catalog-search input, :where(html:not([data-rosse-theme])) .order-form, :where(html:not([data-rosse-theme])) .order-form input, :where(html:not([data-rosse-theme])) .order-form textarea, :where(html:not([data-rosse-theme])) .order-form select, :where(html:not([data-rosse-theme])) .photo-viewer, :where(html:not([data-rosse-theme])) .photo-viewer button, :where(html:not([data-rosse-theme])) .thumbs button, :where(html:not([data-rosse-theme])) .products-menu-links, :where(html:not([data-rosse-theme])) .quick-filters select{
     background: var(--night-surface);
     border-color: var(--petal);
     color: var(--night-ink);
   }
 
-  .site-header.home-header, .values, footer,
-  .btn:hover, .site-header .pill:hover, .filters a:hover,
-  .home-header .nav-search:hover, .footer-social a:hover {
+  :where(html:not([data-rosse-theme])) .site-header.home-header, :where(html:not([data-rosse-theme])) .values, :where(html:not([data-rosse-theme])) footer, :where(html:not([data-rosse-theme])) .btn:hover, :where(html:not([data-rosse-theme])) .site-header .pill:hover, :where(html:not([data-rosse-theme])) .filters a:hover, :where(html:not([data-rosse-theme])) .home-header .nav-search:hover, :where(html:not([data-rosse-theme])) .footer-social a:hover{
     background: var(--night-brand);
     color: white;
   }
-  .site-header.home-header, footer {border-color: var(--petal)}
-  .site-header.home-header > .pill {
+  :where(html:not([data-rosse-theme])) .site-header.home-header, :where(html:not([data-rosse-theme])) footer{border-color: var(--petal)}
+  :where(html:not([data-rosse-theme])) .site-header.home-header > .pill{
     background: var(--night-surface);
     color: var(--berry);
     border-color: var(--petal);
   }
-  @media (width < 1024px) {
-    .site-header.home-header.menu-ready nav {
+  @media (width < 1024px){
+    :where(html:not([data-rosse-theme])) .site-header.home-header.menu-ready nav{
       background: rgb(42 27 36 / 97%);
       border-color: var(--petal);
       color: var(--night-ink);
     }
   }
-  a:focus-visible, summary:focus-visible, button:focus-visible,
-  .photo-grid a:focus-visible {outline-color: var(--berry)}
-  .page-loader::backdrop {background: rgb(74 26 52 / 97%)}
+  :where(html:not([data-rosse-theme])) a:focus-visible, :where(html:not([data-rosse-theme])) summary:focus-visible, :where(html:not([data-rosse-theme])) button:focus-visible, :where(html:not([data-rosse-theme])) .photo-grid a:focus-visible{outline-color: var(--berry)}
+  :where(html:not([data-rosse-theme])) .page-loader::backdrop{background: rgb(74 26 52 / 97%)}
+
 }
+
+  :where(html[data-rosse-theme="dark"]):root{
+    color-scheme: dark;
+    --night: #20151c;
+    --night-surface: #32212c;
+    --night-ink: #f8e9ef;
+    --night-brand: #672043;
+    --blush: #3d2635;
+    --petal: #694456;
+    --pink: #89596e;
+    --raspberry: #a92e60;
+    --berry: #ffb4d0;
+  }
+
+  :where(html[data-rosse-theme="dark"]) body{background: var(--night); color: var(--night-ink)}
+  :where(html[data-rosse-theme="dark"]) body:is(.shop-category, .shop-product){
+    --category-tint: #422636;
+    --category-ink: var(--berry);
+    background: linear-gradient(var(--category-tint) 300px, var(--night) 540px);
+  }
+  :where(html[data-rosse-theme="dark"]) body.shop-product{background: linear-gradient(var(--category-tint) 120px, var(--night) 370px)}
+  :where(html[data-rosse-theme="dark"]) body[data-category="desayunos"]{--category-tint: #493024}
+  :where(html[data-rosse-theme="dark"]) body[data-category="anchetas"]{--category-tint: #54283b}
+  :where(html[data-rosse-theme="dark"]) body[data-category="flores"]{--category-tint: #233a31; --category-ink: #b7dec9}
+  :where(html[data-rosse-theme="dark"]) body[data-category="cajas"]{--category-tint: #482741}
+  :where(html[data-rosse-theme="dark"]) body[data-category="peluches"]{--category-tint: #392b49}
+
+  :where(html[data-rosse-theme="dark"]) .home-editorial{--ink: var(--night-ink); --paper: var(--night-surface)}
+  :where(html[data-rosse-theme="dark"]) .home-editorial em, :where(html[data-rosse-theme="dark"]) .story-hero h1 em{color: var(--berry)}
+  :where(html[data-rosse-theme="dark"]) .home-cover > span, :where(html[data-rosse-theme="dark"]) .home-collection > span, :where(html[data-rosse-theme="dark"]) .listing, :where(html[data-rosse-theme="dark"]) #colecciones .collections a, :where(html[data-rosse-theme="dark"]) .story-collections a, :where(html[data-rosse-theme="dark"]) .catalog-search input, :where(html[data-rosse-theme="dark"]) .order-form, :where(html[data-rosse-theme="dark"]) .order-form input, :where(html[data-rosse-theme="dark"]) .order-form textarea, :where(html[data-rosse-theme="dark"]) .order-form select, :where(html[data-rosse-theme="dark"]) .photo-viewer, :where(html[data-rosse-theme="dark"]) .photo-viewer button, :where(html[data-rosse-theme="dark"]) .thumbs button, :where(html[data-rosse-theme="dark"]) .products-menu-links, :where(html[data-rosse-theme="dark"]) .quick-filters select{
+    background: var(--night-surface);
+    border-color: var(--petal);
+    color: var(--night-ink);
+  }
+
+  :where(html[data-rosse-theme="dark"]) .site-header.home-header, :where(html[data-rosse-theme="dark"]) .values, :where(html[data-rosse-theme="dark"]) footer, :where(html[data-rosse-theme="dark"]) .btn:hover, :where(html[data-rosse-theme="dark"]) .site-header .pill:hover, :where(html[data-rosse-theme="dark"]) .filters a:hover, :where(html[data-rosse-theme="dark"]) .home-header .nav-search:hover, :where(html[data-rosse-theme="dark"]) .footer-social a:hover{
+    background: var(--night-brand);
+    color: white;
+  }
+  :where(html[data-rosse-theme="dark"]) .site-header.home-header, :where(html[data-rosse-theme="dark"]) footer{border-color: var(--petal)}
+  :where(html[data-rosse-theme="dark"]) .site-header.home-header > .pill{
+    background: var(--night-surface);
+    color: var(--berry);
+    border-color: var(--petal);
+  }
+  @media (width < 1024px){
+    :where(html[data-rosse-theme="dark"]) .site-header.home-header.menu-ready nav{
+      background: rgb(42 27 36 / 97%);
+      border-color: var(--petal);
+      color: var(--night-ink);
+    }
+  }
+  :where(html[data-rosse-theme="dark"]) a:focus-visible, :where(html[data-rosse-theme="dark"]) summary:focus-visible, :where(html[data-rosse-theme="dark"]) button:focus-visible, :where(html[data-rosse-theme="dark"]) .photo-grid a:focus-visible{outline-color: var(--berry)}
+  :where(html[data-rosse-theme="dark"]) .page-loader::backdrop{background: rgb(74 26 52 / 97%)}
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .site-header .brand {
@@ -986,16 +1037,62 @@ body[data-category="peluches"] {--category-tint: #e9dcf3}
 }
 
 @media (prefers-color-scheme: dark) {
-  .product .order-form {
+
+  :where(html:not([data-rosse-theme])) .product .order-form{
     background: var(--night-surface);
     border-color: var(--petal);
     color: var(--night-ink);
   }
-  .about-page .story-hero {
+  :where(html:not([data-rosse-theme])) .about-page .story-hero{
     background: linear-gradient(120deg, #402332, #54283e);
     color: var(--night-ink);
   }
+
 }
+
+  :where(html[data-rosse-theme="dark"]) .product .order-form{
+    background: var(--night-surface);
+    border-color: var(--petal);
+    color: var(--night-ink);
+  }
+  :where(html[data-rosse-theme="dark"]) .about-page .story-hero{
+    background: linear-gradient(120deg, #402332, #54283e);
+    color: var(--night-ink);
+  }
+
+
 
 /* Rossé growth 5 */
 .rosse-whatsapp-float{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:90;width:54px;height:54px;display:grid;place-items:center;background:#087b56;color:#fff;border-radius:50%;box-shadow:0 4px 16px #0003;text-decoration:none}.rosse-whatsapp-float:hover{background:#056746;color:#fff}.rosse-whatsapp-float:focus-visible{outline:3px solid currentColor;outline-offset:4px}body:has(dialog[open]) .rosse-whatsapp-float{visibility:hidden}.rosse-product-info{margin:1.5rem 0}.rosse-product-info h2{font-size:1.25rem}.rosse-order-guide{max-width:780px;margin:auto;padding:clamp(24px,6vw,72px) 20px}.rosse-order-guide section{margin:2rem 0}.rosse-order-guide li{margin:.6rem 0}.rosse-order-guide p{max-width:68ch}
+
+/* Rossé manual theme v1 */
+/* Shared appearance control — native select, no dependencies. */
+html[data-rosse-theme="light"] { color-scheme: light; }
+html[data-rosse-theme="dark"] { color-scheme: dark; }
+.site-header nav .rosse-theme-control { display:flex; align-items:center; gap:6px; margin:0; min-width:0; font:600 .8rem/1.25 system-ui,sans-serif; }
+.rosse-theme-control select { font:inherit; width:auto; min-height:36px; max-width:100%; color:inherit; background:transparent; border:1px solid currentColor; border-radius:999px; padding:5px 8px; cursor:pointer; margin:0; }
+.rosse-theme-control select option { color:#51182e; background:#fff8fa; }
+html[data-rosse-theme="dark"] .rosse-theme-control select option { color:#f8e9ef; background:#32212c; }
+.rosse-theme-control select:focus-visible { outline:2px solid currentColor; outline-offset:3px; }
+@media (min-width:1024px) {
+ .rosse-theme-label { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+ .site-header.home-header nav { gap:2px; }
+ .site-header.home-header nav a { padding-inline:8px; }
+ .site-header.home-header .products-menu > summary { padding-inline:8px; }
+}
+@media (width < 1024px) {
+ .site-header nav .rosse-theme-control { justify-content:space-between; padding:8px 12px; }
+ .rosse-theme-control select { flex:0 1 auto; }
+}
+/* Explicit contrast corrections for surfaces with fixed light colors. */
+html[data-rosse-theme="dark"] :is(.home-faq, .payment-card, .home-payment-methods span, .personal-options li, .rosse-order-guide section) { color:var(--night-ink); border-color:var(--petal); }
+html[data-rosse-theme="dark"] :is(.home-faq details, .payment-card, .home-payment-methods span, .personal-options li) { background:var(--night-surface); border-color:var(--petal); }
+html[data-rosse-theme="dark"] .home-faq summary { color:var(--night-ink); }
+html[data-rosse-theme="dark"] :is(.favorite-card h3,.home-faq h2) { color:var(--night-ink); }
+html[data-rosse-theme="dark"] :is(.payment-card button,.home-payments a,.rosse-order-guide a:not(.btn)) { color:var(--berry); }
+html[data-rosse-theme="dark"] .home-prints a { border-color:var(--night-surface); }
+html[data-rosse-theme="dark"] :is(.story-hero,.about-page .story-hero) { background:linear-gradient(120deg,#402332,#54283e); color:var(--night-ink); }
+html[data-rosse-theme="dark"] .story-hero h1 { color:var(--night-ink); }
+html[data-rosse-theme="dark"] .product .order-form { background:var(--night-surface); border-color:var(--petal); color:var(--night-ink); }
+html[data-rosse-theme="dark"] .welcome-gift span { background:var(--night-surface); color:var(--night-ink); }
+html[data-rosse-theme="dark"] .rosse-order-guide { color:var(--night-ink); }

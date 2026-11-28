@@ -59,10 +59,21 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .contact-photo figcaption, .contact-form input, .contact-form textarea,
-  .contact-cards > div:last-child {
+
+  :where(html:not([data-rosse-theme])) .contact-photo figcaption, :where(html:not([data-rosse-theme])) .contact-form input, :where(html:not([data-rosse-theme])) .contact-form textarea, :where(html:not([data-rosse-theme])) .contact-cards > div:last-child{
     background: var(--night-surface);
     border-color: var(--petal);
   }
-  .contact-cards > div:first-child {background: var(--night-brand)}
+  :where(html:not([data-rosse-theme])) .contact-cards > div:first-child{background: var(--night-brand)}
+
 }
+
+  :where(html[data-rosse-theme="dark"]) .contact-photo figcaption, :where(html[data-rosse-theme="dark"]) .contact-form input, :where(html[data-rosse-theme="dark"]) .contact-form textarea, :where(html[data-rosse-theme="dark"]) .contact-cards > div:last-child{
+    background: var(--night-surface);
+    border-color: var(--petal);
+  }
+  :where(html[data-rosse-theme="dark"]) .contact-cards > div:first-child{background: var(--night-brand)}
+
+
+
+/* Rossé manual theme v1 */

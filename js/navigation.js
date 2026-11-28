@@ -211,3 +211,39 @@ if (productGrid) {
  document.body.append(a);
  a.addEventListener('click',()=>{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'whatsapp_click',link_url:a.href,page_path:location.pathname,placement:'floating_button'})});
 })();
+
+// Rossé theme selector v1
+(() => {
+  const key = 'rosse-theme';
+  const system = matchMedia('(prefers-color-scheme: dark)');
+  const root = document.documentElement;
+  const allowed = ['system','light','dark'];
+  const normalize = value => allowed.includes(value) ? value : 'system';
+  function stored() { try { return normalize(localStorage.getItem(key)); } catch { return 'system'; } }
+  let preference = stored();
+  const nav = document.querySelector('.site-header nav');
+  const label = document.createElement('label');
+  label.className = 'rosse-theme-control';
+  const select = document.createElement('select');
+  select.setAttribute('aria-label','Apariencia de Rossé');
+  for (const [value,text] of [['system','Sistema'],['light','Claro'],['dark','Oscuro']]) {
+    const option = document.createElement('option'); option.value = value; option.textContent = text; select.append(option);
+  }
+  const title = document.createElement('span'); title.textContent = 'Apariencia'; title.className = 'rosse-theme-label';
+  label.append(title,select);
+  if (nav && !nav.querySelector('.rosse-theme-control')) nav.append(label);
+  function apply() {
+    const theme = preference === 'system' ? (system.matches ? 'dark' : 'light') : preference;
+    root.dataset.rosseTheme = theme;
+    select.value = preference;
+  }
+  select.addEventListener('change',() => {
+    preference = normalize(select.value);
+    try { localStorage.setItem(key,preference); } catch {}
+    apply();
+  });
+  system.addEventListener('change',() => { if (preference === 'system') apply(); });
+  window.addEventListener('storage',event => { if(event.key === key || event.key === null){ preference = stored(); apply(); } });
+  window.addEventListener('pageshow',event => { if(event.persisted){ preference = stored(); apply(); } });
+  apply();
+})();
